@@ -1,0 +1,2 @@
+set names gbk;
+C

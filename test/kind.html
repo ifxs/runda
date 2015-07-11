@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>随风倒十分</title>
+<link href="/Content/style/layout_reset.css" rel="stylesheet">
+<link href="/Content/style/layout_basic.css" rel="stylesheet">
+	<!--[if lt IE 9]>
+       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="body">
+	<form class="form-horizontal" id="uploadBarrelWaterForm" method="post">
+		<!-- 上传桶装水图片 -->
+		<!-- 桶装水描述 -->
+	    <div class="form-group">
+		    <label class="col-sm-2 control-label">桶装水描述:</label>
+		    <div class="col-sm-4">
+		    	<!-- <textarea class="form-control" rows="4" id="waterGoodsDescriptID" name="waterGoodsDescript"></textarea> -->
+		    	<!-- <textarea class="form-control" rows="4" id="waterGoodsDescriptID" name="waterGoodsDescript"></textarea> -->
+		    	<textarea id="waterGoodsDescriptID" name="waterGoodsDescript" style="width:700px;height:300px;"></textarea>
+		    </div>
+	  	</div>
+		<!-- 上传整个表单 -->
+		<div class="form-group">
+		    <div class="col-sm-offset-4 col-sm-10">
+      			<button type="submit" id="up_stat" class="btn btn-default">点击确定上传桶装水</button>
+		    </div>
+		</div>
+	</form>
+</div>
+<!-- 主体结束 -->
+<!-- 底部 -->
+<!-- 编辑框 -->
+</body>
+</html>
+<script src="/Content/javascript/jquery/jquery.min.js"></script>
+<script charset="utf-8" src="/Content/javascript/kindeditor4/kindeditor.js"></script>
+<script charset="utf-8" src="/Content/javascript/kindeditor4/lang/zh_CN.js"></script>
+<script>
+    KindEditor.ready(function(K) {
+            window.editor = K.create('#waterGoodsDescriptID');
+    });
+</script>

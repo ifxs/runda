@@ -1,0 +1,24 @@
+共12步。
+
+
+全局---
+1 < 换为空
+2 > 换为空
+
+保修的超链接---
+3 a href=http  换为  <a href=http
+4 target=_blank  换为  target=_blank>
+5 /a  换为  </a>
+
+配件的html标签处理---
+6 
+
+----换word--要选择使用通配符-----------									 换为空，将配件那一块靠弄
+7 'span id="newPmVal_*"  换为'
+8 br /  换为 <br />
+9 &nbsp;x1/  换为 &nbsp;x1
+
+
+10 'a href='/laser_printers/*/' 换为'
+11 <a>  换为空
+12 进入官网 换为 进入官网</a>

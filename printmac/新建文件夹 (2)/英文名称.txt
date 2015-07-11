@@ -1,0 +1,14 @@
+﻿productType,productPositioning,maximumPrintFormat,highestResolution,blackWhitePrintSpeed,processor,memory,networkPrint,doubleSidedPrinting
+
+
+preheatingTime,firstPrintTime,monthlyPrintLoad,interfaceType
+
+
+mediaType,mediumSize,mediumWeight,inputTrayCapacity,outputCapacity
+
+suppliestype,tonerCartridges,cartridgeLife
+
+
+productSize,productWeight,systemPlatform,powerVoltage,environmentalParameters,listingDate
+
+packingList
