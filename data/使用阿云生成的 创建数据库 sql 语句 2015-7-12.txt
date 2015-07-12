@@ -1,0 +1,338 @@
+CREATE TABLE `barrelwaterbrand` (
+  `id` int(11) NOT NULL,
+  `barrelWaterBrandName` varchar(24) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `barrelwatercategory` (
+  `id` int(11) NOT NULL,
+  `barrelWaterCateName` varchar(24) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `imagecarousel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `imagePath` varchar(400) NOT NULL,
+  `imageURL` varchar(400) DEFAULT NULL,
+  `imageDescript` varchar(100) DEFAULT NULL,
+  `imageUploadTime` int(11) NOT NULL,
+  `isShow` tinyint(4) NOT NULL,
+  `imageWeight` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `ordercategory` (
+  `id` int(11) NOT NULL,
+  `orderCategoryName` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `orderstatue` (
+  `id` int(11) NOT NULL,
+  `orderStatueName` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `role` (
+  `id` tinyint(4) NOT NULL,
+  `roleName` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userName` varchar(40) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `nickName` varchar(40) DEFAULT NULL,
+  `sex` char(6) NOT NULL,
+  `realName` varchar(20) DEFAULT NULL,
+  `photo` varchar(600) DEFAULT '/Content/image/userphotograph/photo.png',
+  `phoneNumber` char(11) NOT NULL,
+  `email` varchar(60) DEFAULT NULL,
+  `idCardGraphFront` varchar(600) DEFAULT NULL,
+  `idCardGraphBack` varchar(600) DEFAULT NULL,
+  `idCardNumber` char(18) DEFAULT NULL,
+  `isRealNameAuthen` tinyint(4) NOT NULL DEFAULT '0',
+  `role` tinyint(4) NOT NULL DEFAULT '0',
+  `isLock` tinyint(4) NOT NULL DEFAULT '0',
+  `province` varchar(20) NOT NULL,
+  `city` varchar(20) NOT NULL,
+  `country` varchar(20) NOT NULL,
+  `detailAddress` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `userName` (`userName`),
+  UNIQUE KEY `phoneNumber` (`phoneNumber`),
+  KEY `role` (`role`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role`) REFERENCES `role` (`id`) ON DELETE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `userrecieveraddress` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `province` varchar(20) NOT NULL,
+  `city` varchar(20) NOT NULL,
+  `country` varchar(20) NOT NULL,
+  `detailAddress` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `userrecieveraddress_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `waterbearercomments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `waterBearerID` int(11) NOT NULL,
+  `CommentContent` text,
+  `reply` text,
+  `CommentTime` int(11) NOT NULL,
+  `agreeCount` int(11) DEFAULT '0',
+  `againstCount` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `userID` (`userID`),
+  KEY `waterBearerID` (`waterBearerID`),
+  CONSTRAINT `waterbearercomments_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `waterbearercomments_ibfk_2` FOREIGN KEY (`waterBearerID`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `waterbearerdriverroute` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `waterBearerId` int(11) NOT NULL,
+  `waterBearerPositionLongitude` varchar(20) NOT NULL,
+  `waterBearerPositionLatitude` varchar(20) NOT NULL,
+  `date` char(6) NOT NULL,
+  `time` int(11) NOT NULL,
+  `remainCapacity` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `waterBearerId` (`waterBearerId`),
+  CONSTRAINT `waterbearerdriverroute_ibfk_1` FOREIGN KEY (`waterBearerId`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `waterbearerstatue` (
+  `id` tinyint(4) NOT NULL,
+  `waterBearerStat` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `waterstoreauditstatus` (
+  `id` tinyint(4) NOT NULL,
+  `auditStat` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `waterstorestatue` (
+  `id` tinyint(4) NOT NULL,
+  `waterStoreStat` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `waterstore` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `owner` int(11) NOT NULL,
+  `waterStoreName` varchar(100) NOT NULL,
+  `waterStoreTellPhone` char(11) NOT NULL,
+  `waterStoreFixedLinePhone` char(11) DEFAULT NULL,
+  `waterStoreEmail` varchar(60) DEFAULT NULL,
+  `waterStoreImage` varchar(600) DEFAULT '/Content/image/waterstoreimage/photo.png',
+  `isLock` tinyint(4) NOT NULL DEFAULT '0',
+  `waterStoreStatus` tinyint(4) NOT NULL DEFAULT '0',
+  `auditStatus` tinyint(4) NOT NULL DEFAULT '0',
+  `auditDetail` varchar(100) DEFAULT NULL,
+  `province` varchar(20) NOT NULL,
+  `city` varchar(20) NOT NULL,
+  `country` varchar(20) NOT NULL,
+  `detailAddress` varchar(200) NOT NULL,
+  `waterStoreLongitude` varchar(20) DEFAULT NULL,
+  `waterStoreLatitude` varchar(20) DEFAULT NULL,
+  `businessLicense` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `owner` (`owner`),
+  KEY `waterStoreStatus` (`waterStoreStatus`),
+  KEY `auditStatus` (`auditStatus`),
+  CONSTRAINT `waterstore_ibfk_1` FOREIGN KEY (`owner`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `waterstore_ibfk_2` FOREIGN KEY (`waterStoreStatus`) REFERENCES `waterstorestatue` (`id`) ON DELETE NO ACTION,
+  CONSTRAINT `waterstore_ibfk_3` FOREIGN KEY (`auditStatus`) REFERENCES `waterstoreauditstatus` (`id`) ON DELETE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `barrelwatergoods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `waterStoreID` int(11) NOT NULL,
+  `waterCate` int(11) NOT NULL,
+  `waterBrand` int(11) NOT NULL,
+  `waterGoodsName` varchar(140) NOT NULL,
+  `waterGoodsDescript` text NOT NULL,
+  `waterGoodsPrice` decimal(6,2) NOT NULL,
+  `waterGoodsDefaultImage` varchar(400) DEFAULT '/Content/image/goodspicture/goods.jpg',
+  `waterGoodsInventory` int(11) NOT NULL DEFAULT '0',
+  `isGrounding` tinyint(4) NOT NULL DEFAULT '0',
+  `groundingDate` int(11) NOT NULL,
+  `salesVolume` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `waterStoreID` (`waterStoreID`),
+  KEY `waterCate` (`waterCate`),
+  KEY `waterBrand` (`waterBrand`),
+  CONSTRAINT `barrelwatergoods_ibfk_1` FOREIGN KEY (`waterStoreID`) REFERENCES `waterstore` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `barrelwatergoods_ibfk_2` FOREIGN KEY (`waterCate`) REFERENCES `barrelwatercategory` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `barrelwatergoods_ibfk_3` FOREIGN KEY (`waterBrand`) REFERENCES `barrelwaterbrand` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `barrelwatergoodscomments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `waterGoodsID` int(11) NOT NULL,
+  `CommentContent` text,
+  `reply` text,
+  `CommentTime` int(11) NOT NULL,
+  `agreeCount` int(11) DEFAULT '0',
+  `againstCount` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `userID` (`userID`),
+  KEY `waterGoodsID` (`waterGoodsID`),
+  CONSTRAINT `barrelwatergoodscomments_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `barrelwatergoodscomments_ibfk_2` FOREIGN KEY (`waterGoodsID`) REFERENCES `barrelwatergoods` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `barrelwatergoodsphotos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `waterGoodsID` int(11) NOT NULL,
+  `waterGoodsPhotoPath` varchar(400) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `waterGoodsID` (`waterGoodsID`),
+  CONSTRAINT `barrelwatergoodsphotos_ibfk_1` FOREIGN KEY (`waterGoodsID`) REFERENCES `barrelwatergoods` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `orderdetail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderOwnerID` int(11) NOT NULL,
+  `waterBearerID` int(11) DEFAULT NULL,
+  `waterStoreID` int(11) NOT NULL,
+  `recieverPersonName` varchar(20) DEFAULT NULL,
+  `recieverPersonPhone` char(11) DEFAULT NULL,
+  `recieverAddress` varchar(400) DEFAULT NULL,
+  `recieverTime` varchar(30) DEFAULT NULL,
+  `remark` varchar(100) DEFAULT NULL,
+  `totalPrice` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `settleMethod` varchar(20) DEFAULT NULL,
+  `orderCategory` int(11) NOT NULL DEFAULT '0',
+  `orderStatue` int(11) NOT NULL DEFAULT '0',
+  `logisticeInformation` text,
+  `orderCancelReason` varchar(300) DEFAULT NULL,
+  `orderFailReason` varchar(300) DEFAULT NULL,
+  `orderSubmitTime` int(11) NOT NULL,
+  `orderDoneTime` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `orderOwnerID` (`orderOwnerID`),
+  KEY `waterBearerID` (`waterBearerID`),
+  KEY `waterStoreID` (`waterStoreID`),
+  KEY `orderStatue` (`orderStatue`),
+  KEY `orderCategory` (`orderCategory`),
+  CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`orderOwnerID`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`waterBearerID`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `orderdetail_ibfk_3` FOREIGN KEY (`waterStoreID`) REFERENCES `waterstore` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `orderdetail_ibfk_4` FOREIGN KEY (`orderStatue`) REFERENCES `orderstatue` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `orderdetail_ibfk_5` FOREIGN KEY (`orderCategory`) REFERENCES `ordercategory` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `ordercomments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `CommentContent` text,
+  `reply` text,
+  `CommentTime` int(11) NOT NULL,
+  `agreeCount` int(11) DEFAULT '0',
+  `againstCount` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `orderID` (`orderID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `ordercomments_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `orderdetail` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `ordercomments_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `ordercommentsphotos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderID` int(11) NOT NULL,
+  `photoPath` varchar(400) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `orderID` (`orderID`),
+  CONSTRAINT `ordercommentsphotos_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `orderdetail` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `ordercontaingoods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderID` int(11) NOT NULL,
+  `waterGoodsID` int(11) NOT NULL,
+  `waterGoodsCount` tinyint(4) NOT NULL DEFAULT '1',
+  `waterGoodsPrice` decimal(6,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `orderID` (`orderID`),
+  KEY `waterGoodsID` (`waterGoodsID`),
+  CONSTRAINT `ordercontaingoods_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `orderdetail` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `ordercontaingoods_ibfk_2` FOREIGN KEY (`waterGoodsID`) REFERENCES `barrelwatergoods` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `shoppingcart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cartOwnerID` int(11) NOT NULL,
+  `waterGoodsID` int(11) NOT NULL,
+  `waterGoodsCount` tinyint(4) NOT NULL DEFAULT '1',
+  `addCartTime` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cartOwnerID` (`cartOwnerID`),
+  KEY `waterGoodsID` (`waterGoodsID`),
+  CONSTRAINT `shoppingcart_ibfk_1` FOREIGN KEY (`cartOwnerID`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `shoppingcart_ibfk_2` FOREIGN KEY (`waterGoodsID`) REFERENCES `barrelwatergoods` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `waterbearer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `waterStoreId` int(11) NOT NULL,
+  `maxLoadCapacity` tinyint(4) NOT NULL,
+  `statue` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `userId` (`userId`),
+  KEY `waterStoreId` (`waterStoreId`),
+  KEY `statue` (`statue`),
+  CONSTRAINT `waterbearer_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `waterbearer_ibfk_2` FOREIGN KEY (`waterStoreId`) REFERENCES `waterstore` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `waterbearer_ibfk_3` FOREIGN KEY (`statue`) REFERENCES `waterbearerstatue` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `waterstorecomments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `waterStoreID` int(11) NOT NULL,
+  `CommentContent` text,
+  `reply` text,
+  `CommentTime` int(11) NOT NULL,
+  `agreeCount` int(11) DEFAULT '0',
+  `againstCount` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `userID` (`userID`),
+  KEY `waterStoreID` (`waterStoreID`),
+  CONSTRAINT `waterstorecomments_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `waterstorecomments_ibfk_2` FOREIGN KEY (`waterStoreID`) REFERENCES `waterstore` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
