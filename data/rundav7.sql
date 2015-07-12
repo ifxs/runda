@@ -235,7 +235,7 @@ create table orderDetail(
 	-- orderCancelReason int, -- 订单取消原因
 	orderCancelReason varchar(300), -- 订单取消原因
 	-- orderFailReason int, -- 订单失败原因
-	orderFailReason varchar(300),, -- 订单失败原因
+	orderFailReason varchar(300), -- 订单失败原因
 	orderSubmitTime int not null, --  订单提交时间
 	orderDoneTime int, -- 订单完成时间
 	foreign key(orderOwnerID) references user(id) ON DELETE CASCADE,
@@ -247,7 +247,11 @@ create table orderDetail(
 -- 订单所包含的商品表
 create table orderContainGoods(
 	id int not null auto_increment primary key,
-	orderID 	foreign key(orderID) references orderDetail(id) ON DELETE CASCADE,
+	orderID int not null, -- 订单ID
+	waterGoodsID int not null, -- 该条记录的商品ID 
+	waterGoodsCount tinyint not null default 1, -- 该条记录的商品的数量
+	waterGoodsPrice decimal(6,2), -- 该条记录的商品单价
+	foreign key(orderID) references orderDetail(id) ON DELETE CASCADE,
 	foreign key(waterGoodsID) references barrelWaterGoods(id) ON DELETE CASCADE
 );
 -- 订单评价表
