@@ -10,9 +10,6 @@ function C($controllerName,$actionName){
 	$obj -> $actionName();
 }
 
-//定义一个模型调用函数
-//定义一个视图调用函数
-
 //定义字符串过滤、处理函数
 function addslashesForUrl($url){
 	return (!get_magic_quotes_gpc()) ? addslashes($url) : $url;
