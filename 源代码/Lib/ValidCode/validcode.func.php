@@ -1,15 +1,14 @@
 <?php
 class ValidCode{
-	static $code;
 	public static function getCode($num = 4){
-// 		$str = '7418529630qazwsxedcrfvtgbyhnujmikolpLKJHGFDSAZXCVBNMOPIUTYREWQ';
+		$code = "";
         $str = "1425367980";
-		for($i = 0;$i <$num;$i++){
-			self::$code .= $str{rand(0,strlen($str)-1)};
+		for($i = 0; $i <$num; $i++){
+			$code .= $str{rand(0,9)};
 		}
-		return self::$code;
+		return $code;
 	}
-	public static function getImage($width=90,$height=30){
+	public static function getImage($validCode, $width=90, $height=30){
 		//创建资源
 		$img = imagecreatetruecolor($width,$height);
 		//背景色
@@ -20,12 +19,11 @@ class ValidCode{
 		$black = imagecolorallocate($img,0,0,0);
 		imagerectangle($img, 0, 0, $width-1, $height-1, $black);
 		//画字符
-		for($i=0;$i<strlen(self::$code);$i++){
+		for($i=0;$i<strlen(self::$validCode);$i++){
 			$color = rand(1, 125);
-			
-			$x = 5+($width/strlen(self::$code))*$i;
+			$x = 5+($width/strlen(self::$validCode))*$i;
 			$y = 1 + rand(5,$height-imagefontheight(5));
-			imagechar($img, 15, $x, $y, self::$code{$i}, $color);
+			imagechar($img, 15, $x, $y, self::$validCode{$i}, $color);
 		}
 		//画干扰点
 		for($i=0;$i<100;$i++){
