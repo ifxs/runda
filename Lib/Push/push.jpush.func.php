@@ -68,14 +68,14 @@ class PushWithJpush{
 			}elseif($type == 1){
 				$result = $client->push()
 		        ->setPlatform(M\all)
-		        ->setAudience(M\audience(M\tag($tags)))
+		        ->setAudience(M\audience(M\tag($data)))
 		        ->setNotification(M\notification($content))
 		        ->send();
 			//alias
 			}elseif($type == 2){
 				$result = $client->push()
 		        ->setPlatform(M\all)
-		        ->setAudience(M\audience(M\alias($alias)))
+		        ->setAudience(M\audience(M\alias($data)))
 		        ->setNotification(M\notification($content))
 		        ->send();
 			}else{
