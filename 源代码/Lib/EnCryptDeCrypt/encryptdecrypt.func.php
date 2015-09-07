@@ -25,7 +25,6 @@ class EncryptDecrypt{
 	}
 	//解密
 	public static function decrypt($data, $key="hvjhghx27h653gfi9" ){
-	// public static function decrypt($data, "ascx27h653gfi9"){
 		$key = md5($key);
 	    $x = 0;
 	    $data = base64_decode($data);

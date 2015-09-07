@@ -1,4 +1,0 @@
-$sql2 = "select LAST_INSERT_ID() last_id;";
-$res = DBActive::executeQuery($sql2);
-
-$goodsID = $res['id'][0]['last_id'];
