@@ -28,14 +28,14 @@ use JPush\Exception\APIRequestException;
 // setAudience(M\audience(M\tag(array('tag1','tag2'))))//设置tag为tag1或tag2的受众，群发
 // setAudience(M\audience(M\alias(array('123')))) //设置别名alias为123的受众，单发
 // setAudience(M\audience(M\alias(array('1','123')),M\tag(array('tag1','tag2'))))
-// //取交集，也就是别名为1，且其tag值为tag1或tag2的用户才能收到推送
+			//取交集，也就是别名为1，且其tag值为tag1或tag2的用户才能收到推送
 
 // setNotification   设置通知
 // setNotification(M\notification('Hi, JPush')) //设置通用通知
 // setNotification(M\notification('Hi, JPush', M\android('Hi, android'))) 
-// //为安卓单独设置信息，ios则是显示第一个内容，也就是除了android之外的都是Hi,JPush
+			//为安卓单独设置信息，ios则是显示第一个内容，也就是除了android之外的都是Hi,JPush
 // setNotification(M\notification('Hi, JPush', M\ios('Hi, ios','happy',1,true)))
-// //为ios单独设置信息
+			//为ios单独设置信息
 // setNotification(M\notification('Hi, JPush', M\android('Hi, android'), M\ios('Hi, ios', 'happy', 1, true))) //两个都设置
 
  // setMessage  设置消息
