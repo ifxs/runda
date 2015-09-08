@@ -1,8 +1,6 @@
 <?php
 //引入生成验证码文件
 include DOC_PATH_ROOT.'/Lib/ValidCode/validcode.func.php';
-//引入数据库操作文件
-// require_once(DOC_PATH_ROOT."/Lib/DataBase/database.func.php");
 //引入Json文件
 require_once(DOC_PATH_ROOT."/Lib/JSON/json.func.php");
 //引入User文件
@@ -11,21 +9,20 @@ require_once(DOC_PATH_ROOT."/Model/EntityModel/user.class.php");
 require_once(DOC_PATH_ROOT."/Model/EntityModel/role.class.php");
 //引入User收货地址模型文件
 require_once(DOC_PATH_ROOT."/Model/EntityModel/userrecieveraddress.class.php");
-//引入发邮件文件
-// require_once(DOC_PATH_ROOT."/Lib/SwiftMailer/sendemail.swiftmailer.func.php");
-//引入加密解密文件
-// require_once(DOC_PATH_ROOT."/Lib/EnCryptDeCrypt/encryptdecrypt.func.php");
+
+
+
 class HomeController{
 //----------------------------------------------------------------
 //----------------------用户注册-----------------------------------
 //----------------------------------------------------------------
-	/*
+	/**
 	 * 用户注册界面
 	 */
 	function register(){
 		include DOC_PATH_ROOT."/View/Home/register.php";
 	}
-	/*
+	/**
 	 * 用户注册处理
 	 */
 	function registerProc(){
@@ -80,7 +77,7 @@ class HomeController{
 			echo Json::makeJson($code,$message);
 		}
 	}
-	/*
+	/**
 	*验证用户名是否可用
 	*/
 	function checkUserName(){
@@ -96,7 +93,7 @@ class HomeController{
 			echo $result;
 		}
 	}
-	/*
+	/**
 	*验证邮箱是否已经注册
 	*/
 	function checkEmail(){
@@ -112,7 +109,7 @@ class HomeController{
 			echo $result;
 		}
 	}
-	/*
+	/**
 	*验证手机号是否已经注册
 	*/
 	function checkPhoneNumber(){
@@ -132,7 +129,7 @@ class HomeController{
 //----------------------------------------------------------------
 //----------------------用户登录-----------------------------------
 //----------------------------------------------------------------
-	/*
+	/**
 	 *用户登录界面
 	 */
 	function login(){
@@ -143,7 +140,7 @@ class HomeController{
 			include DOC_PATH_ROOT.'/View/Home/login.php';
 		}
 	}
-	/*
+	/**
 	 * 用户登录处理 $_GET['tokenType'] 是说明用户是用户名登陆，还是电话号码登录
 	 */
 	function loginProc(){
@@ -242,7 +239,7 @@ class HomeController{
 			echo Json::makeJson($code,$message,$data);
 		}
 	}
-	/*
+	/**
 	 * 获取验证码图片
 	 */
 	function getCode(){
@@ -250,7 +247,7 @@ class HomeController{
 		$_SESSION['validcode'] = strtoupper($code);
 		ValidCode::getImage();
  	}
- 	/*
+ 	/**
  	 * 获取验证码字符串
  	 */
  	function getCodeString(){
@@ -258,7 +255,7 @@ class HomeController{
  	    $_SESSION['validcode'] = strtoupper($code);
         echo $code;
  	}
- 	/*
+ 	/**
 	 * (网页异步) 验证验证码
 	 */
 	function checkCode(){
@@ -286,19 +283,13 @@ class HomeController{
 //----------------------------------------------------------------
 //----------------------登录成功后---------------------------------
 //----------------------------------------------------------------
-	// /*
-	//  * 登录成功后选择继续当前操作或前往个人主页
-	//  */
-	// function switchTog(){
-	// 	include DOC_PATH_ROOT."/View/Home/switchTog.php";
-	// }
-	/*
+	/**
 	 * 个人主页
 	 */
 	function personPage(){
 		include DOC_PATH_ROOT.'/View/Home/personPage.php';
 	}
-	/*
+	/**
 	 * 个人信息 web版
 	 */
 	function myInformation(){
@@ -311,7 +302,7 @@ class HomeController{
         }
         include DOC_PATH_ROOT.'/View/Home/myInformation.php';
 	}
-	/*
+	/**
 	 * 个人信息 Phone版
 	 */
 	function myInformationPhone(){
@@ -327,7 +318,7 @@ class HomeController{
 //----------------------------------------------------------------------------
 //----------------------实名认证----------------------------------------------
 //----------------------------------------------------------------------------
-	/*
+	/**
 	 *实名认证界面
 	 */
 	function userRealNameAuthentication(){
@@ -354,7 +345,7 @@ class HomeController{
 		}
 		include DOC_PATH_ROOT.'/View/Home/userRealNameAuthentication.php';
 	}
-	/*
+	/**
 	 *实名认证处理--处理身份证图片
 	 */
 	function userRealNameAuthenIDCardImgProc(){
@@ -427,7 +418,7 @@ class HomeController{
 	        }
 	    }
 	}
-	/*
+	/**
 	 *实名认证申请处理
 	 */
 	function userRealNameAuthenticationProc(){
@@ -453,7 +444,7 @@ class HomeController{
 //----------------------------------------------------------------
 //----------------------修改密码 解除锁定-------------------------
 //----------------------------------------------------------------
-	/*
+	/**
 	 * 修改密码
 	 */
 	function changePassword(){
@@ -507,7 +498,7 @@ class HomeController{
 			}
 		}
 	}
-	/*
+	/**
 	 * 修改密码处理
 	 */
 	function changePasswordProc(){
@@ -544,7 +535,7 @@ class HomeController{
 			echo Json::makeJson("400",'请求错误');
 		}
 	}
-	/*
+	/**
 	 * 解除锁定     还没有写
 	 */
 	function debLocking(){
@@ -554,13 +545,13 @@ class HomeController{
 //----------------------------------------------------------------
 //----------------------收货地址--------------------------------------
 //----------------------------------------------------------------
-	/*
+	/**
 	 * 新增收货地址界面
 	 */
 	function addUserRecieverAddress(){
 	    include DOC_PATH_ROOT.'/View/Home/addUserRecieverAddress.php';
 	}
-    /*
+    /**
      * 新增收货地址处理
      */
 	function addUserRecieverAddressProc(){
@@ -588,7 +579,7 @@ class HomeController{
 				// 	        include '/View/Home/addUserRecieverAddress.php';
 				// 	    }
 	}
-	/*
+	/**
 	 * 管理用户收货地址 web版
 	 */
 	function magageUserRecieverAddress(){
@@ -596,7 +587,7 @@ class HomeController{
 	   $result = $userRAddr ->getUserRecieverAddress($_SESSION['id']);
 	   include DOC_PATH_ROOT.'/View/Home/magageUserRecieverAddress.php';
 	}
-	/*
+	/**
 	 * 管理用户收货地址  phone版
 	 */
 	function magageUserRecieverAddressPhone(){
@@ -608,7 +599,7 @@ class HomeController{
             echo Json::makeJson("400","获取用户收货地址失败");
         }
 	}
-	/*
+	/**
 	 * 删除用户收货地址  phone版
 	 */
 	function deleteUserRecieverAddress(){
@@ -628,7 +619,7 @@ class HomeController{
 //----------------------------------------------------------------
 //----------------------购物车管理---------------------------------------	
 //----------------------------------------------------------------
-	/*
+	/**
 	 *添加桶装水到购物车
 	 */
 	function addShoppingCart(){
@@ -656,7 +647,7 @@ class HomeController{
 			}
 		}
 	} 
-	/*
+	/**
 	 *管理我的购物车 web版
 	 */	
 	function manageMyShoppingCart(){
@@ -677,7 +668,7 @@ class HomeController{
 		}
 		include DOC_PATH_ROOT.'/View/Home/manageMyShoppingCart.php';
 	}
-	/*
+	/**
 	 *将商品移除购物车
 	 */
 	function deleteGoodsOnMyShoppingCart(){
@@ -696,7 +687,7 @@ class HomeController{
 //----------------------------------------------------------------
 //----------------------移动端使用---------------------------------------
 //----------------------------------------------------------------
-	/*
+	/**
 	 *根据用户id获取用户信息 移动端使用
 	 * 如水站负责人
 	 */
@@ -715,7 +706,7 @@ class HomeController{
 //----------------------------------------------------------------
 //----------------------退出---------------------------------------
 //----------------------------------------------------------------
-	/*
+	/**
 	 * 退出
 	 */
 	function quit(){

@@ -9,7 +9,8 @@ require_once(DOC_PATH_ROOT."/Model/EntityModel/barrelwaterbrand.class.php");
 class RunDaController{
 //-------------------------------------------------------------------
 //-------------------网站首页----------------------------------------
-	/*
+//-------------------------------------------------------------------
+	/**
 	 *网站首页
 	 */
 	function index(){
@@ -32,7 +33,8 @@ class RunDaController{
 	}
 //-------------------------------------------------------------------
 //------------------商品详情页---------------------------------------
-	/*
+//-------------------------------------------------------------------
+	/**
 	 *商品详情页 web版
 	 */
 	function barrelWaterGoodsDetail(){
@@ -52,7 +54,7 @@ class RunDaController{
 	}
 //-------------------------------------------------------------------
 //-----------------移动端使用----------------------------------------
-    /*
+    /**
 	 *获取附近的水站 移动端使用
 	 */
 	function getNearbyWaterStore(){
@@ -66,8 +68,8 @@ class RunDaController{
 	    	echo Json::makeJson("400","没有数据");
 	    }
 	}
-	/*
-	 *根据桶装水id获取桶装水详情
+	/**
+	 *根据桶装水id获取桶装水详情(含描述)
 	 */
 	function getBarrelWaterGoodsDetailByID(){
 		include DOC_PATH_ROOT."/Model/EntityModel/barrelwatergoodsphotos.class.php";
@@ -87,7 +89,7 @@ class RunDaController{
 			echo Json::makeJson("400","获取数据异常,请重试");
 		}
 	}
-	/*
+	/**
 	 *根据桶装水id获取桶装水图片
 	 */
 	function getBarrelWaterGoodsPhotoByID(){
@@ -108,7 +110,7 @@ class RunDaController{
 			echo Json::makeJson("400","没有图片");
 		}
 	}
-	/*
+	/**
 	 *根据桶装水id获取桶装水评价
 	 */
 	function getBarrelWaterGoodsCommentByID(){
@@ -131,19 +133,19 @@ class RunDaController{
 	}
 //-------------------------------------------------------------------
 //----------------其他---------------------------------------------
-	/*
+	/**
 	 *用户注册协议
 	 */
 	function rundaUserRigisterProtoclol(){
 		include DOC_PATH_ROOT.'/View/RunDa/rundaUserRigisterProtoclol.php';
 	}
-	/*
+	/**
 	 *关于润达
 	 */
 	function aboutRunDa(){
 		include DOC_PATH_ROOT.'/View/RunDa/aboutRunDa.php';
 	}
-	/*
+	/**
 	 *联系润达
 	 */
 	function connectToRunDa(){

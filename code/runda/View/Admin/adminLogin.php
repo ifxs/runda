@@ -34,26 +34,22 @@
 			<h3>后台管理员登录</h3><hr /><hr />
 				<form class="form-horizontal" role="form" action="index.php?controller=Admin&method=adminLogin" method="post">
 					<div class="form-group has-success">
-						<!-- <label class="col-sm-2  control-label">用户名</label> -->
 						<div class="col-sm-4">
 							<input type="text" name="username" class="form-control" placeholder="管理员账号" />
 						</div>
 					</div>
 					<div class="form-group has-success">
-						<!-- <label class="col-sm-2  control-label">密&nbsp;&nbsp;&nbsp;&nbsp;码</label> -->
 						<div class="col-sm-4">
 							<input type="password" name="password" class="form-control" placeholder="管理员密码" />
 						</div>
 					</div>
 					<div class="form-group has-success">
-						<!-- <label class="col-sm-2  control-label">验证码</label> -->
 						<div class="col-sm-4">
 							<input type="text" id="checkcode" name="checkcode" class="form-control" placeholder="验证码" oninput="checkCode()" />
 						</div>
 						<div id="checkErr" class="col-sm-4 text-danger"></div>
 					</div>
 					<div class="form-group">
-							<!-- <label class="col-sm-2  control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> -->
 							<div class="col-sm-8">
 					    	<img id="validcode" src="index.php?controller=Admin&method=getCode" />&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="javascript:document.getElementById('validcode').src='index.php?controller=Admin&method=getCode&'+Math.random()">换1张</a>
 					    	</div>
@@ -70,4 +66,4 @@
 <?php
 	include DOC_PATH_ROOT.'/View/Admin/footer.php';
 ?>
-<script src="/Content/javascript/js/admin/admin_login_valide.js"></script>
+<script src="/Content/javascript/js/admin/admin_login_ajax_valide_checkcode.js"></script>

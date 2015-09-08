@@ -21,7 +21,7 @@
 	<a href="http://jqueryui.com/">jqueryui</a>
 	<a href="http://kindeditor.net/">kindeditor</a>
 	</p>
-	<p>Copyright &copy; 2015 润达科技&nbsp;&nbsp;&nbsp;备案号：<a href="http://www.miitbeian.gov.cn/" target="_blank">黔ICP备15004186号</a>&nbsp;&nbsp;&nbsp;版权所有</p>
+	<p>Copyright &copy; 2015 &nbsp;&nbsp;&nbsp;&nbsp;润达&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备案号：<a href="http://www.miitbeian.gov.cn/" target="_blank">黔ICP备15004186号</a>&nbsp;&nbsp;&nbsp;版权所有</p>
 	<!-- <div class="web">
 		<a href="#"><img src="/Content/image/common/webLogo.jpg" alt="logo"></a>
 		<a href="#"><img src="/Content/image/common/webLogo.jpg" alt="logo"></a>

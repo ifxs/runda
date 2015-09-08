@@ -75,7 +75,7 @@
 			</ul>
 		</div>
 
-		<!-- 3 商品展示1 -->
+		<!-- 3 商品展示1 最新上架 -->
 		<div class="goodsshow">
 		<!-- <span class="con_bar ">最新上架<span> -->
 		<span class="bg-info con_bar">最新上架<span>
@@ -116,7 +116,7 @@
 		 </div>
 		<!-- 商品展示结束1 -->
 
-		<!-- 3 商品展示2 -->
+		<!-- 3 商品展示2 最多销量 -->
 		<div class="goodsshow">
 		<!-- <span class="con_bar">最多销量<span> -->
 		<span class="bg-info con_bar">最多销量<span>
@@ -155,7 +155,7 @@
 		</div>
 		<!-- 商品展示结束2 -->
 
-			<!-- 3 水站展示 -->
+		<!-- 4 水站展示 -->
 		<div class="waterstoreshow">
 		<!-- <span class="con_bar">最多销量热榜水站<span> -->
 		<span class="bg-info con_bar">最多销量热榜水站<span>

@@ -21,7 +21,6 @@ require_once(DOC_PATH_ROOT."/Model/EntityModel/waterbearerstatue.class.php");
 require_once(DOC_PATH_ROOT."/Model/EntityModel/barrelwatercategory.class.php");
 //引入桶装水品牌模型文件
 require_once(DOC_PATH_ROOT."/Model/EntityModel/barrelwaterbrand.class.php");
-
 //------------------------------
 //引入图片轮播model
 require_once(DOC_PATH_ROOT."/Model/EntityModel/imagecarousel.class.php");
@@ -37,21 +36,23 @@ require_once(DOC_PATH_ROOT."/Lib/ImageProc/imageproc.func.php");
 //引入图片大小配置文件
 require_once(DOC_PATH_ROOT."/Config/imagescale.config.php");
 
-class AdminController {
 
+
+
+class AdminController {
 //----------------------------------------------------------------------------------------
 //--------验证码--------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
-	//管理员使用自己的验证码生成和验证系统，目的是同一个浏览器可以登录管理员和其他用户
-    /*
+    /**
      * 获取验证码图片
+     * 管理员使用自己的验证码生成和验证系统，目的是同一个浏览器可以登录管理员和其他用户
      */
     function getCode(){
         $code = ValidCode::getCode();
         $_SESSION['adminValidcode'] = strtoupper($code);
-        ValidCode::getImage();
+        ValidCode::getImage($code);
     }
-    /*
+    /**
      * (网页异步) 验证验证码
      */
     function checkCode(){
@@ -77,16 +78,18 @@ class AdminController {
     }
 
 //-------------------------------------------------------------
-//--------管理员登录 退出--------------------------------------
+//--------管理员登录、退出--------------------------------------
 //-------------------------------------------------------------
-    /*
+    /**
      *管理员登录 含界面和处理 
      */
     function adminLogin(){
+    	//已经登录
         if(isset($_SESSION['adminID']) && isset($_SESSION['adminName'])){
             header("location:index.php?controller=Admin&method=adminIndex");
             return ;
         }
+        
         //处理登录
     	if(isset($_POST["adminLogin"])){
     		//验证验证码
@@ -118,7 +121,7 @@ class AdminController {
 	        include DOC_PATH_ROOT.'/View/Admin/adminLogin.php';
     	}
     }
-    /*
+    /**
     *管理员退出
     */
     function adminLogou(){
@@ -133,7 +136,7 @@ class AdminController {
 //-------------------------------------------------------------
 //--------管理员首页-------------------------------------------
 //-------------------------------------------------------------
-    /*
+    /**
      * 管理员首页
      */
 	function adminIndex(){
@@ -143,14 +146,14 @@ class AdminController {
 //-------------------------------------------------------------
 //--------用户管理---------------------------------------------
 //-------------------------------------------------------------
-	/*
+	/**
 	 * 用户角色管理
 	 */
 	function userRoleManage(){
 	    $result = Role::getRole();
 	    include DOC_PATH_ROOT.'/View/Admin/User/userRoleManage.php';
 	}
-	/*
+	/**
 	 * 用户管理
 	 */
 	function userManage(){
@@ -178,7 +181,7 @@ class AdminController {
 	    $pageBar = Pages::createPagesBar($currentPage,$pageCount,"/index.php?controller=Admin&method=userManage");
 	    include DOC_PATH_ROOT.'/View/Admin/User/userManage.php';
 	}
-	/*
+	/**
 	 * 删除某一个用户
 	 */
 	function deleteAnUser(){
@@ -188,7 +191,7 @@ class AdminController {
 	    }
 	    header("location:index.php?controller=Admin&method=userManage");
 	}
-	/*
+	/**
 	 *获取已申请待审核的实名认证 
 	 */
 	function userRealNameAuthenticationAudit(){
@@ -216,7 +219,7 @@ class AdminController {
 	    $pageBar = Pages::createPagesBar($currentPage,$pageCount,"/index.php?controller=Admin&method=userRealNameAuthenticationAudit");
 	    include DOC_PATH_ROOT.'/View/Admin/User/userRealNameAuthenticationAudit.php';
 	}
-	/*
+	/**
 	 *用户实名认证审核处理
 	 */
 	function userRealNameAuthenticationAuditProc(){
@@ -243,7 +246,7 @@ class AdminController {
 	    	echo Json::makeJson("400","请求错误");
 		}
 	}
-	/*
+	/**
 	 * 用户收货地址管理(仅能执行删除操作)
 	 */
 	function userReciverAddressManage(){
@@ -265,7 +268,7 @@ class AdminController {
 	    $pageBar = Pages::createPagesBar($currentPage,$pageCount,"/index.php?controller=Admin&method=userReciverAddressManage");
 	    include DOC_PATH_ROOT.'/View/Admin/User/userReciverAddressManage.php';
 	}
-	/*
+	/**
 	 * 删除某一个收货地址
 	 */
 	function deleteAnUserRecieverAddress(){
@@ -279,14 +282,14 @@ class AdminController {
 //---------------------------------------------------------------------
 //--------水站管理-----------------------------------------------------
 //---------------------------------------------------------------------
-	/*
+	/**
 	 * 水站工作状态管理
 	 */
 	function waterStoreStatueManage(){
 	    $result = WaterStoreStatue::getWaterStoreStatue();
 	    include DOC_PATH_ROOT.'/View/Admin/WaterStore/waterStoreStatueManage.php';
 	}
-	/*
+	/**
 	 * 获取已申请未审核的水站
 	 */
 	function waterStoreAudit(){
@@ -295,7 +298,7 @@ class AdminController {
 	    $result = $waterStore ->getWaterStoreWithoutAudit();
 	    include DOC_PATH_ROOT.'/View/Admin/WaterStore/waterStoreAudit.php';
 	}
-	/*
+	/**
 	 * 审核水站操作
 	 */
 	function waterStoreAuditProc(){
@@ -322,7 +325,7 @@ class AdminController {
 	    	echo Json::makeJson("400","请求错误");
 		}
 	}
-	/*
+	/**
 	 * 水站管理 （查看所有水站）
 	 */
 	function waterStoreManage(){
@@ -330,7 +333,9 @@ class AdminController {
 	    $result = $waterStore ->getAllWaterStore();
 	    include DOC_PATH_ROOT.'/View/Admin/WaterStore/waterStoreManage.php';
 	}
-	/*
+	
+//-------------------------------------------------------------
+	/**
 	 *展示图片，如：营业执照。。。。
 	 */
 	function showImage(){
@@ -341,11 +346,13 @@ class AdminController {
 	    // $imageSrc = "/".substr($src,strrpos($src,"Content"));
 		include DOC_PATH_ROOT.'/View/Admin/WaterStore/showImage.php';
 	}
+//-------------------------------------------------------------
 
+	
 //-------------------------------------------------------------
 //--------送水工管理-------------------------------------------
 //-------------------------------------------------------------
-	/*
+	/**
 	 * 送水工工作状态管理
 	 */
 	function waterBearStatueManage(){
@@ -356,32 +363,30 @@ class AdminController {
 // 	 * 送水工管理
 // 	 */
 // 	function  waterBearManage(){
-	    
 // 	}
 // 	/*
 // 	 * 送水工的行车路径管理
 // 	 */
-
-//            这些都迁移到水站管理里面去
+//    ---------------------------------》》》》这些都迁移到水站管理里面去
 
 //-----------------------------------------------------------------------
 //---------桶装水管理-----------------------------------------------------
 //-----------------------------------------------------------------------
-	/*
+	/**
 	 * 桶装水类别
 	 */
 	function barrelWaterCategoryManage(){
 	    $result = BarrelWaterCategory::getBarrelWaterCategory();
 	    include DOC_PATH_ROOT.'/View/Admin/BarrelWater/barrelWaterCategoryManage.php';
 	}
-	/*
+	/**
 	 * 桶装水品牌
 	 */
 	function barrelWaterBrandManage(){
 	    $result = BarrelWaterBrand::getBarrelWaterBrand();
 	    include DOC_PATH_ROOT.'/View/Admin/BarrelWater/barrelWaterBrandManage.php';
 	}
-	/*
+	/**
 	 * 获取所有桶装水
 	 */
 	function getAlllBarrelWaterGoods(){
@@ -410,7 +415,7 @@ class AdminController {
 //-------------------------------------------------------------
 //----------订单管理-------------------------------------------
 //-------------------------------------------------------------
-	/*
+	/**
 	 *订单类别管理
 	 */
 	function orderCategoryManage(){
@@ -418,7 +423,7 @@ class AdminController {
 		$result = OrderCategory::getOrderCategory();
 		include DOC_PATH_ROOT.'/View/Admin/Order/orderCategoryManage.php';
 	}
-	/*
+	/**
 	 *订单状态管理
 	 */
 	function orderStatueManage(){
@@ -426,7 +431,7 @@ class AdminController {
 		$result = OrderStatue::getOrderStatue();
 		include DOC_PATH_ROOT.'/View/Admin/Order/orderStatueManage.php';
 	}
-	/*
+	/**
 	 *订单管理--所有订单
 	 */
 	function orderManage(){
@@ -476,20 +481,16 @@ class AdminController {
         
         include DOC_PATH_ROOT.'/View/Admin/Order/orderManage.php';
 	}
-	
-//-------------------------------------------------------------
-//-------------------------------------------------------------
-	
-	
 //-------------------------------------------------------------
 //------------推送功能------------------------------------------
-	/*
+//-------------------------------------------------------------
+	/**
 	 *发推送界面
 	 */
 	function sendPush(){
 	    include DOC_PATH_ROOT.'/View/Admin/Push/sendPush.php';
 	}
-	/*
+	/**
 	 *发广播推送
 	 */
 	function sendBroadCastPush(){
@@ -505,13 +506,10 @@ class AdminController {
 		}
 	}
 //-------------------------------------------------------------
-//-------------------------------------------------------------
-	
-	
-//-------------------------------------------------------------
 //------------管理图片轮播管理----------------------------------------
-	/*
-	 * 管理图片轮播   imageCarousel
+//-------------------------------------------------------------
+	/**
+	 * 管理图片轮播
 	 */
 	public function imageCarousel(){
 		//当前页
@@ -531,8 +529,8 @@ class AdminController {
 	    $pageBar = Pages::createPagesBar($currentPage,$pageCount,"/index.php?controller=Admin&method=imageCarousel");
 	    include DOC_PATH_ROOT.'/View/Admin/ImageCarousel/imageCarousel.php';
 	}
-	/*
-	 * 新增轮播图片  addImageCarousel
+	/**
+	 * 新增轮播图片
 	 */
 	public function addImageCarousel(){
 	    //异步上传图片
@@ -633,8 +631,8 @@ class AdminController {
 	    	}
 	    }
 	}
-	/*
-	 * 展示与否 轮播图片  ShowImageCarousel
+	/**
+	 * 展示与否 轮播图片
 	 */
 	function showImageCarousel(){
 	    if(isset($_GET['action'])){
@@ -669,7 +667,7 @@ class AdminController {
 		// 	header("location:index.php?controller=Admin&method=imageCarousel");
 	 //    }
 	}
-	/*
+	/**
 	 *删除轮播
 	 */
 	function delImageCarousel(){

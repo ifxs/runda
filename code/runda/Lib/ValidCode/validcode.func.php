@@ -1,12 +1,17 @@
 <?php
 class ValidCode{
+	static $code = "";
 	public static function getCode($num = 4){
-		$code = "";
+		//先将旧的验证码置空
+		self::$code = "";
+		
+		//再生成新的验证码
         $str = "1425367980";
 		for($i = 0; $i <$num; $i++){
-			$code .= $str{rand(0,9)};
+			self::$code .= $str{rand(0,9)};
 		}
-		return $code;
+		//返回验证码
+		return self::$code;
 	}
 	public static function getImage($validCode, $width=90, $height=30){
 		//创建资源
@@ -19,11 +24,11 @@ class ValidCode{
 		$black = imagecolorallocate($img,0,0,0);
 		imagerectangle($img, 0, 0, $width-1, $height-1, $black);
 		//画字符
-		for($i=0;$i<strlen(self::$validCode);$i++){
+		for($i=0;$i<strlen($validCode);$i++){
 			$color = rand(1, 125);
-			$x = 5+($width/strlen(self::$validCode))*$i;
+			$x = 5+($width/strlen($validCode))*$i;
 			$y = 1 + rand(5,$height-imagefontheight(5));
-			imagechar($img, 15, $x, $y, self::$validCode{$i}, $color);
+			imagechar($img, 15, $x, $y, $validCode{$i}, $color);
 		}
 		//画干扰点
 		for($i=0;$i<100;$i++){
