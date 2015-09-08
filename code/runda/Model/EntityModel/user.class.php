@@ -34,13 +34,10 @@ class User {
 	private $country; //县/区  外键ID int   not null
 	private $detailAddress; //详细地址 string   not null
 	
-	//构造方法 不带ID
-	
-	//构造方法  带ID
 //-----------------------------------------------------------------------------
 //--------------用户注册-------------------------------------------------------
 //-----------------------------------------------------------------------------
-    /*
+    /**
      * 用户注册 即时添加用户
      */
     public function addUser($userName,$password,$nickName,$sex,$realName,$phoneNumber,$email,$province,$city,$country,$detailAddress){
@@ -130,17 +127,13 @@ class User {
 		}else{
 		//用户名密码不为空
             $sql = "select id from user where userName=? and passWord=?  and role=?";
-		    // $sql = "select id from user where userName='".$userName."' and passWord='".$passWord."'  and role=3";
             try{
                 $res = DBActive::executeQuery($sql,array($userName,$passWord,3));
-		    	// $res = DBActive::executeQueryWithoutParam($sql);
 			}catch (Exception $e){
                 return Json::makeJson("400",'系统错误,请重试');
-			    // return Json::makeJson("400",$e ->getMessage());
 			}
 			if($res == null){
                 return Json::makeJson("400",'用户名或密码错误(请使用管理员账号登陆)');
-			    // return Json::makeJson("400",$sql);
 			}else{
 			    $id = $res[0]["id"];
 			    return Json::makeJson("200",'登录成功',array('id' =>$id));
@@ -204,11 +197,35 @@ class User {
 			}
 		}
 	}
-
+//-----------------------------------------------------------------------------
+//--------------送水工登录------------------------------------
+//-----------------------------------------------------------------------------
+	public function valideWaterBearer($userName,$passWord){
+		//用户名或密码不能为空
+		if($phoneNumber == "" || $passWord == ""){
+			return Json::makeJson("400","手机号或密码不能为空");
+		}else{
+			//用户名密码不为空
+			$sql = "select id,userName from user where phoneNumber=? and passWord=? and role=1;";
+			try{
+				$res = DBActive::executeQuery($sql,array($phoneNumber,$passWord));
+			}catch (Exception $e){
+				return Json::makeJson("400",'系统错误');
+			}
+			if($res == null){
+				return Json::makeJson("400",'手机号或密码错误');
+			}else{
+				$id = $res[0]['id'];
+				$userName = $res[0]['userName'];
+				return Json::makeJson("200",'登录成功',array('id' =>$id,'userName'=>$userName));
+			}
+		}
+	}
+	
 //-------------------------------------------------------------------------
 //--------------验证是否可用---用户名||邮箱||手机号------------------------
 //-------------------------------------------------------------------------
-	/*
+	/**
 	*验证用户名是否可用
 	*/
     public function checkUserName($userName){
@@ -227,7 +244,7 @@ class User {
             // return Json::makeJson(400,"2","");
         }
     }
-    /*
+    /**
 	*验证邮箱是否已经注册
 	*/
     public function checkEmail($email){
@@ -246,7 +263,7 @@ class User {
             // return Json::makeJson(400,"2","");
         }
     }
-    /*
+    /**
 	*验证手机号是否已经注册
 	*/
     public function checkPhoneNumber($phoneNumber){
@@ -269,8 +286,9 @@ class User {
 //-------------------------------------------------------------------------
 //--------------获取个人信息-----------------------------------------------
 //-------------------------------------------------------------------------
-    /*
-     *获取个人信息
+    /**
+     * 获取个人信息
+     * Home控制器调用， web版和 Phone版都使用了该函数，该函数是查询当前登录用户的信息
      */
     public function getUserInformation($userID){
         $sql = "select * from user where id=?;";
@@ -286,28 +304,44 @@ class User {
             return null;
         }
     }
-    /*
-     *获取个人的 真实姓名和手机 信息
+    /**
+     * 根据用户id获取用户部分信息 移动端Phone使用，且是指定id
+     */
+    public function getUserPartInformation($userID){
+    	$sql = "select id,userName,nickName,sex,realName,phoneNumber,email,province,city,country,detailAddress from user where id=?";
+    	try{
+    		DBActive::executeNoQuery("set character_set_results=utf8");
+    		$result = DBActive::executeQuery($sql,array($userID));
+    		if($result != null){
+    			return $result[0];
+    		}else{
+    			return null;
+    		}
+    	}catch(PDOException $e){
+    		return null;
+    	}
+    }
+    /**
+     *获取个人的 真实姓名和手机号
      */
     public function getUserRealNameAndPhone($userID){
-        $sql = "select realName,phoneNumber from user where id=?;";
-        try{
-            DBActive::executeNoQuery("set character_set_results=utf8");
-            $result = DBActive::executeQuery($sql,array($userID));
-            if($result != null){
-                return $result[0];
-            }else{
-                return null;
-            }
-        }catch(PDOException $e){
-            return null;
-        }
+    	$sql = "select realName,phoneNumber from user where id=?;";
+    	try{
+    		DBActive::executeNoQuery("set character_set_results=utf8");
+    		$result = DBActive::executeQuery($sql,array($userID));
+    		if($result != null){
+    			return $result[0];
+    		}else{
+    			return null;
+    		}
+    	}catch(PDOException $e){
+    		return null;
+    	}
     }
-
 //-------------------------------------------------------------------------
 //--------------实名认证---------------------------------------------------
 //-------------------------------------------------------------------------
-    /*
+    /**
      *查询用户实名认证状态 
      * param int id
      * return boolean 
@@ -330,7 +364,7 @@ class User {
             return -1;
         }
     }
-    /*
+    /**
      *用户申请实名认证 
      */
     public function realNameAuthenApply($id,$realName,$idCardNumber,$idCardGraphFront,$idCardGraphBack){
@@ -346,7 +380,7 @@ class User {
     		return $e ->getMessage();
     	}
     }
-    /*
+    /**
      *处理用户实名认证  管理员使用
      */
     public function realNameAuthenProc($userID,$isRealNameAuthen){
@@ -366,7 +400,7 @@ class User {
 //-------------------------------------------------------------------------
 //--------------根据邮箱修改密码-------------------------------------------
 //-------------------------------------------------------------------------
-    /*
+    /**
      * 验证邮箱是否注册过，如果注册过就查询出用户名
      */
     public function checkUserByEmail($email){
@@ -386,7 +420,7 @@ class User {
             // return Json::makeJson(400,"系统错误","");
         }
     }
-    /*
+    /**
      * 根据验证邮箱修改密码
      */
     public function changePassWordByEmail($email,$passWord){
@@ -403,16 +437,14 @@ class User {
 //--------------根据手机号修改密码-----------------------------------------
 //-------------------------------------------------------------------------
     		//未写
-
 //-------------------------------------------------------------------------
 //--------------解除用户锁定-----------------------------------------------
 //-------------------------------------------------------------------------
     		//未写
-    
 //-------------------------------------------------------------------------
 //--------------管理员管理用户---------------------------------------------
 //-------------------------------------------------------------------------
-    /*
+    /**
      * 获取所有用户
      */
     public function getAllUsers($currentPage,$singlePageRecordCount){
@@ -427,7 +459,7 @@ class User {
                 //return $e->getMessage();
         }
     }
-    /*
+    /**
      * 获取所有申请了实名认证待审核的用户
      */
     public function getWithoutRealNameAuthenUsers($currentPage,$singlePageRecordCount){
@@ -442,7 +474,7 @@ class User {
                 //return $e->getMessage();
         }
     }
-    /*
+    /**
      * 删除某一个用户
      * param $id  用户的id
      */
@@ -460,22 +492,5 @@ class User {
 //------------------------------------------------------------------------
 //--------------移动端使用------------------------------------------------
 //------------------------------------------------------------------------
-    /*
-     *
-     */
-	public function getUserPartInformation($userID){
-        $sql = "select id,userName,nickName,sex,realName,phoneNumber,email,province,city,country,detailAddress from user where id=?";
-        try{
-        	DBActive::executeNoQuery("set character_set_results=utf8");
-            $result = DBActive::executeQuery($sql,array($userID));
-            if($result != null){
-            	return $result[0];
-            }else{
-            	return null;
-            }
-        }catch(PDOException $e){
-            return null;
-        }
-        
-    }
+    
 }

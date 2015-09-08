@@ -6,7 +6,50 @@ require(DOC_PATH_ROOT."/Model/EntityModel/waterbearer.class.php");
 require_once(DOC_PATH_ROOT."/Lib/JSON/json.func.php");
 
 class WaterBearerController{
-
+//-----------------------------------------------------------------
+//------------登录---------------------------------------------
+//-----------------------------------------------------------------
+	/**
+	 * 登录
+	 */
+	function login(){
+		if(empty($_POST)){
+			//请求错误
+			echo '{"code":"400","msg":"请求错误","data":""}';
+		}else{
+			$username = $_POST['userName'];
+			$passwd = $_POST['passWord'];
+			$password = md5($passwd);
+			$user = new User();
+			$result = $user ->valideWaterBearer($username, $password);
+			$res = json_decode($result,true);
+			if($res['code']== "200"){
+				//保存登录用户的信息
+				$_SESSION['id'] = $res['data']['id'];
+				$_SESSION['userName'] = $res['data']['userName'];
+				//根据用户的选择来决定是否保存密码
+				$code = "200";
+				$message = "登录成功";
+				$data = "";
+				echo '{"code":"200","msg":"登录成功","data":""}';
+			}else{
+				echo $result;
+			}
+		}
+	}
+	/**
+	 * 退出
+	 */
+	function logout(){
+		//清除Session
+		if(isset($_SESSION['id'])){
+			unset($_SESSION['id']);
+		}
+		if(isset($_SESSION['username'])){
+			unset($_SESSION['username']);
+		}
+		echo '{"code":"200","msg":"退出登录成功","data":""}';
+	}
 //-----------------------------------------------------------------
 //------------订单相关---------------------------------------------
 //-----------------------------------------------------------------

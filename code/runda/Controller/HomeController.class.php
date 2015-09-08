@@ -198,7 +198,6 @@ class HomeController{
 					$password = md5($passwd);
 					$user = new User();
 	    			$result = $user ->ValideUserWithPhone($phoneNumber, $password);
- 	    			//print_r($result);
 					//登录成功要保存用户名密码
 					$res = json_decode($result,true);
 					if($res['code']== "200"){
@@ -245,16 +244,16 @@ class HomeController{
 	function getCode(){
 		$code = ValidCode::getCode();
 		$_SESSION['validcode'] = strtoupper($code);
-		ValidCode::getImage();
+		ValidCode::getImage($code);
  	}
  	/**
  	 * 获取验证码字符串
  	 */
- 	function getCodeString(){
- 	    $code = ValidCode::getCode();
- 	    $_SESSION['validcode'] = strtoupper($code);
-        echo $code;
- 	}
+//  	function getCodeString(){
+//  	    $code = ValidCode::getCode();
+//  	    $_SESSION['validcode'] = strtoupper($code);
+//         echo $code;
+//  	}
  	/**
 	 * (网页异步) 验证验证码
 	 */
@@ -290,7 +289,7 @@ class HomeController{
 		include DOC_PATH_ROOT.'/View/Home/personPage.php';
 	}
 	/**
-	 * 个人信息 web版
+	 * 当前登录用户的个人信息 web版
 	 */
 	function myInformation(){
         $user = new User();
@@ -303,7 +302,7 @@ class HomeController{
         include DOC_PATH_ROOT.'/View/Home/myInformation.php';
 	}
 	/**
-	 * 个人信息 Phone版
+	 * 当前登录用户的个人信息 Phone版
 	 */
 	function myInformationPhone(){
         $user = new User();
@@ -688,11 +687,10 @@ class HomeController{
 //----------------------移动端使用---------------------------------------
 //----------------------------------------------------------------
 	/**
-	 *根据用户id获取用户信息 移动端使用
-	 * 如水站负责人
+	 * 根据用户id获取用户信息 移动端使用
+	 * 需要指定用户的id
 	 */
 	function getUserPartInformationByID(){
-		// require_once(DOC_PATH_ROOT."/Model/EntityModel/user.class.php");
 		$id = isset($_GET['id']) ? $_GET['id'] : -1;
 		$user = new User();
         $userInfo = $user ->getUserPartInformation($id);

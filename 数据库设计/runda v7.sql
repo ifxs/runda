@@ -1,4 +1,4 @@
--- create database RunDa;
+create database RunDa;
 -- 角色表
 create table role(
 id tinyint not null primary key,

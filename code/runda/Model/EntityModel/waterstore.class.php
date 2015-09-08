@@ -132,9 +132,6 @@ class WaterStore {
 //-------------水站使用->水站业绩----------------------------------
 	/*
 	 *获取某一水站的所有桶装水
-	 * id,orderOwnerID,waterBearerID,recieverPersonName,
-	 * recieverPersonPhone,recieverAddress,recieverTime,
-	 * remark,totalPrice,settleMethod,orderStatue,orderSubmitTime
 	 */
 	public function getAllOrder($waterStoreID,$currentPage,$singlePageRecordCount){
 		require(DOC_PATH_ROOT."/Model/EntityModel/orderdetail.class.php");
@@ -254,22 +251,6 @@ class WaterStore {
 	}
 
 //-------------------------------------------------------------------------------
-//-------------移动端使用-------------------------------------------
-	/*
-	 *获取附近的水站 移动端使用
-	 */
-	public function getNearbyWaterStore($count){
-	    $sql = "select * from waterStore order by id desc limit 0,".$count.";";
-	    try{
-	    	DBActive::executeNoQuery("set character_set_results=utf8");
-	        $res = DBActive::executeQuery($sql);
-	        return $res;
-	    }catch(PDOException $e){
-	        return null;
-	    }
-	}
-
-//-------------------------------------------------------------------------------
 //-------------我的水站首页使用--------------------------------------------
 	/*
 	 *通过水站id获取水站
@@ -289,4 +270,24 @@ class WaterStore {
 	    }
 	}
 
+	
+	
+	
+	
+//-------------------------------------------------------------------------------
+//-------------移动端使用-------------------------------------------
+	/*
+	 *获取附近的水站 移动端使用
+	 */
+	public function getNearbyWaterStore($count){
+		$sql = "select * from waterStore order by id desc limit 0,".$count.";";
+		try{
+			DBActive::executeNoQuery("set character_set_results=utf8");
+			$res = DBActive::executeQuery($sql);
+			return $res;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
+	
 }

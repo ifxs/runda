@@ -26,7 +26,6 @@
 				<h2>*</h2>(字母或数字或_组成,长度至少12位)
 			</div>
 		</div>
-
 		<div class="form-group has-success">
 			<label class="col-sm-2  control-label">确认密码</label>
 			<div class="col-sm-3">
@@ -36,7 +35,6 @@
 				<h2>*</h2>
 			</div>
 		</div>
-
 		<div class="form-group has-success">
 			<label class="col-sm-2  control-label">昵&nbsp;&nbsp;&nbsp;&nbsp;称</label>
 			<div class="col-sm-3">

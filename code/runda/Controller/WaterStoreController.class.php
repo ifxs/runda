@@ -204,7 +204,6 @@ class WaterStoreController{
 //-------------------------------------------------------------------
 	/*
 	 *管理我的水站  web版
-	 *  
 	 * 能正常管理水站是会把水站ID保持在session中：$_SESSION['waterStoreID']
 	 */
 	function manageMyWaterStore(){
@@ -249,32 +248,32 @@ class WaterStoreController{
 		}
 	}
 	/*
-	 *管理我的水站 Phone版
+	 *管理我的水站 Phone版    ------>>>已弃用  2015年9月9日00:41:41
 	 */
-	function manageMyWaterStorePhone(){
-		//先查询用户是否是水站所有人
-		$waterStore = new WaterStore();
-		$result = $waterStore ->queryMyWaterStore($_SESSION['id']);
-		//用户还不是水站负责人
-		if($result == array()){
-			echo Json::makeJson("404","用户还不是水站负责人");
-		//用户是水站负责人
-		}elseif(isset($result['id']) && isset($result['waterStoreName'])){
-			//待审核
-			if($result['auditStatus'] == 0){
-				echo Json::makeJson("420","待审核");
-			//审核通过
-			}elseif($result['auditStatus'] == 1){
-				$_SESSION['waterStoreID'] = $result[0]['id'];
-				echo Json::makeJson("200","用户是水站负责人",$result);
-			//审核失败
-			}else{
-				echo Json::makeJson("440","审核失败",$result['auditDetail']);
-			}
-		}else{
-			echo Json::makeJson("400","系统错误");
-		}
-	}
+// 	function manageMyWaterStorePhone(){
+// 		//先查询用户是否是水站所有人
+// 		$waterStore = new WaterStore();
+// 		$result = $waterStore ->queryMyWaterStore($_SESSION['id']);
+// 		//用户还不是水站负责人
+// 		if($result == array()){
+// 			echo Json::makeJson("404","用户还不是水站负责人");
+// 		//用户是水站负责人
+// 		}elseif(isset($result['id']) && isset($result['waterStoreName'])){
+// 			//待审核
+// 			if($result['auditStatus'] == 0){
+// 				echo Json::makeJson("420","待审核");
+// 			//审核通过
+// 			}elseif($result['auditStatus'] == 1){
+// 				$_SESSION['waterStoreID'] = $result[0]['id'];
+// 				echo Json::makeJson("200","用户是水站负责人",$result);
+// 			//审核失败
+// 			}else{
+// 				echo Json::makeJson("440","审核失败",$result['auditDetail']);
+// 			}
+// 		}else{
+// 			echo Json::makeJson("400","系统错误");
+// 		}
+// 	}
 
 //-------------------------------------------------------------------
 //----------水站业绩管理---------------------------------------------
@@ -371,13 +370,6 @@ class WaterStoreController{
 
 		// }
 	}
-	/*
-	 *我的水站首页 phone版
-	 */
-	function myWaterStorePhone(){
-		echo JOSN::makeJson("400","还没写");
-	}
-
 //-------------------------------------------------------------------	
 //----------添加桶装水-----------------------------------------------	
 //-------------------------------------------------------------------
@@ -701,7 +693,6 @@ class WaterStoreController{
 			echo Json::makeJson("400","系统错误,请重试");
 		}else{
 			echo Json::makeJson("200","获取数据成功",$result);
-			// print_r(Json::makeJson("200","获取数据成功"));
 		}
 	}
 	/*
@@ -803,7 +794,7 @@ class WaterStoreController{
 	}
 	
 //-------------------------------------------------------------------
-//---------根据水站id查询水站的所有上架的桶装水----------------------
+//---------根据水站id查询水站的所有上架的桶装水-移动端使用---------------------
 //-------------------------------------------------------------------
 	/*
      * 根据水站id获取某一水站的所有桶装水 phone版
@@ -825,7 +816,7 @@ class WaterStoreController{
     }
 	
 //--------------------------------------------------------------------
-//---------其他-->水站信息-营业执照-----------------------------------------------------
+//---------其他-->水站信息-营业执照-水站入驻协议-----------------------------------------------------
 //-------------------------------------------------------------------
 	/*
 	 *水站信息
