@@ -23,7 +23,7 @@ class WaterBearerDriverRoute{
     	$sql = "insert into waterBearerDriverRoute (waterBearerId,waterBearerPositionLongitude,waterBearerPositionLatitude,date,time) values(?,?,?,?,?)";
     	try{
     		$date = date("Ymd");
-    		$time = date("h:m:s");
+    		$time = date("H:i:s");
     		$res = DBActive::executeNoQuery($sql,array($waterBearerId, $longitude, $latitude, $date, $time));
     		if($res){
     			return '{"code":"200","msg":"上传成功","data":""}';

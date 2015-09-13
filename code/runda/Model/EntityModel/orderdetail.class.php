@@ -7,7 +7,8 @@ class OrderDetail{
 //---------------------------------------------------------------
 //--------------下订单相关---------------------------------------
 //---------------------------------------------------------------
-	/* 第一步
+	/**
+	 *  第一步
 	 * 生成订单 
 	 *  ------------->要更新物流
 	 *     生成订单id,添加所有者，所属水站，订单总价，订单分类，订单状态，订单提交时间，
@@ -31,7 +32,8 @@ class OrderDetail{
 			// return array("code"=>"500","message"=>$e ->getMessage());
 		}
 	}
-	/* 第二步
+	/**
+	 *  第二步
 	 *添加订单总价格
 	 */
 	public function addTotalPriceForOrder($orderID,$TotalPrice){
@@ -47,7 +49,8 @@ class OrderDetail{
 			return false;
 		}
 	}
-	/* 第三步
+	/** 
+	 * 第三步
 	 *  ------------->要更新物流
 	 * 完成订单 ---》在线支付，货到付款
 	 *添加收货人，收货人电话，收货时间，收货地址，结束发送，备注，修改订单状态
@@ -68,7 +71,7 @@ class OrderDetail{
 			// return $sql;
 		}
 	}
-	/* 
+	/**
 	 *查询订单是否已经付款
 	 */
 	public function checkOrderForIsalreadyPay($orderID){
@@ -92,7 +95,7 @@ class OrderDetail{
 //---------------------------------------------------------------
 //--------------操作订单相关 取消 删除---------------------------
 //---------------------------------------------------------------
-	/*
+	/**
 	 *取消订单
 	 *    orderCancelReason orderCategory,orderStatue
 	 */
@@ -100,8 +103,7 @@ class OrderDetail{
 		// $logInfo = date("Y-m-d H:i:s")." ---> 系统已为您分配送水工:xxxxx<br />";
 		// logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')
 	}
-	/*
-	 *
+	/**
 	 *删除订单
 	 */
 	public function deleteOrder($orderid,$userid){
@@ -121,7 +123,7 @@ class OrderDetail{
 //---------------------------------------------------------------
 //--------------查看订单相关-------------------------------------
 //---------------------------------------------------------------
-	/*
+	/**
 	 *获取所有订单
 	 */
 	public function getAllOrder($userID,$currentPage,$singlePageRecordCount){
@@ -134,7 +136,7 @@ class OrderDetail{
 	        return null;
 	    }
 	}
-	/*
+	/**
 	 *获取已完成订单
 	 */
 	public function getDoneOrder($userID,$currentPage,$singlePageRecordCount){
@@ -147,7 +149,7 @@ class OrderDetail{
 	        return null;
 	    }
 	}
-	/*
+	/**
 	 *获取未完成订单
 	 */
 	public function getUnfinishedOrder($userID,$currentPage,$singlePageRecordCount){
@@ -160,7 +162,7 @@ class OrderDetail{
 	        return null;
 	    }
 	}
-	/*
+	/**
 	 *获取待付款订单
 	 */
 	public function getNonPaymentOrder($userID,$currentPage,$singlePageRecordCount){
@@ -173,7 +175,7 @@ class OrderDetail{
 	        return null;
 	    }
 	}
-	/*
+	/**
 	 *获取已取消订单
 	 */
 	public function getCanceleddOrder($userID,$currentPage,$singlePageRecordCount){
@@ -187,7 +189,7 @@ class OrderDetail{
 	        return null;
 	    }
 	}
-	/*
+	/**
 	 *获取已失败订单
 	 */
 	public function getFaileddOrder($userID,$currentPage,$singlePageRecordCount){
@@ -200,11 +202,10 @@ class OrderDetail{
 	        return null;
 	    }
 	}
-
 //---------------------------------------------------------------
 //--------------查询订单相关-------------------------------------
 //---------------------------------------------------------------
-	/*
+	/**
 	 *根据订单id查询订单详细
 	 */
 	public function getOrderDetailByOrderID($orderID){
@@ -225,16 +226,15 @@ class OrderDetail{
 //---------------------------------------------------------------
 //--------------订单相关 从分配送水工到配送完成------------------
 //---------------------------------------------------------------
-	/*
-		*--1--分配送水工
-		*--2--送水工出发
-		*--3--更新物流信息
-		*--4--订单配送完成
-		*--5--订单整个完成
-		*--6--订单配送失败
-	*/
-
-	/*
+	/**
+	 *--1--分配送水工
+	 *--2--送水工出发
+	 *--3--更新物流信息
+	 *--4--订单配送完成
+	 *--5--订单整个完成
+	 *--6--订单配送失败
+	 */
+	/**
 	 *查询未分配送水工的订单
 	 */
 	public static function getNoAllocateOrder(){
@@ -247,8 +247,7 @@ class OrderDetail{
 			return null;
 		}
 	}
-
-	/*
+	/**
 	 *--1--分配送水工，设置送水工字段值,同时要更新订单状态,还要推送
 	 *  ------------->要更新物流
 	 *    waterBearerID
@@ -271,7 +270,7 @@ class OrderDetail{
 		// 3 向送水工发推送
 		//。。。。。。。。。。。。。。
 	}
-	/*
+	/**
 	 *--2--送水工出发
 	 *     更新订单状态 发推送
 	 *			orderStatue = 4	订单配送中
@@ -292,7 +291,7 @@ class OrderDetail{
 			return false;
 		}
 	}
-	/*
+	/**
 	 *--3--更新物流信息
 	 *			orderStatue = 4	订单配送中
 	 *          logisticeInformation
@@ -311,7 +310,7 @@ class OrderDetail{
 			return false;
 		}
 	}
-	/*
+	/**
 	 *--4--订单配送完成 
 	 *	由送水工触发
 	 */
@@ -329,8 +328,7 @@ class OrderDetail{
 			return false;
 		}
 	}
-	/*
-	 *
+	/**
 	 *--5--订单整个完成
 	 *	由用户完成评价触发，或系统自动评价触发
 	 *    orderDoneTime orderCategory,orderStatue
@@ -339,7 +337,7 @@ class OrderDetail{
 		// $logInfo = date("Y-m-d H:i:s")." ---> 系统已为您分配送水工:xxxxx<br />";
 		// logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')
 	}
-	/*
+	/**
 	 *--6--订单配送失败
 	 *    由送水工触发 原因多是送水失败了，故由送水工触发
 	 *    orderFailReason orderCategory,orderStatue
@@ -358,145 +356,11 @@ class OrderDetail{
 			return false;
 		}
 	}
-
-//---------该删除的------------------------------
-	// //---------------------------------------------------------------
-	// //--------------操作订单相关 取消 删除---------------------------
-	// //---------------------------------------------------------------
-	// 	/*
-	// 	 *取消订单
-	// 	 *    orderCancelReason orderCategory,orderStatue
-	// 	 */
-	// 	public function xxxx(){
-	// 		// $logInfo = date("Y-m-d H:i:s")." ---> 系统已为您分配送水工:xxxxx<br />";
-	// 		// logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')
-	// 	}
-	// 	/*
-	// 	 *
-	// 	 *删除订单
-	// 	 */
-	// 	public function deleteOrder($orderid,$userid){
-	// 		$sql = "delete from orderDetail where orderOwnerID=? and (orderCategory=1 or orderStatue=0) and id=?";
-	// 		try{
-	// 			$rowCount = DBActive::executeNoQuery($sql,array($userid,$orderid));
-	// 			if($rowCount > 0){
-	// 				return 1;
-	// 			}else{
-	// 				return 0;
-	// 			}
-	// 		}catch(PDOException $e){
-	// 			return 2;
-	// 		}
-	// 	}
-
-	// //---------------------------------------------------------------
-	// //--------------查看订单相关-------------------------------------
-	// //---------------------------------------------------------------
-	// 	/*
-	// 	 *获取所有订单
-	// 	 */
-	// 	public function getAllOrder($userID,$currentPage,$singlePageRecordCount){
-	// 		$begin = ($currentPage - 1) * $singlePageRecordCount;
-	// 	    $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount;
-	// 	    try{
-	// 	        $result = DBActive::executeQuery($sql,array($userID));
-	// 	        return $result;
-	// 	    }catch(PDOException $e){
-	// 	        return null;
-	// 	    }
-	// 	}
-	// 	/*
-	// 	 *获取已完成订单
-	// 	 */
-	// 	public function getDoneOrder($userID,$currentPage,$singlePageRecordCount){
-	// 		$begin = ($currentPage - 1) * $singlePageRecordCount;
-	// 	    $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=3 and orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
-	// 	    try{
-	// 	        $result = DBActive::executeQuery($sql,array($userID));
-	// 	        return $result;
-	// 	    }catch(PDOException $e){
-	// 	        return null;
-	// 	    }
-	// 	}
-	// 	/*
-	// 	 *获取未完成订单
-	// 	 */
-	// 	public function getUnfinishedOrder($userID,$currentPage,$singlePageRecordCount){
-	// 		$begin = ($currentPage - 1) * $singlePageRecordCount;
-	// 	    $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=0 and orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
-	// 	    try{
-	// 	        $result = DBActive::executeQuery($sql,array($userID));
-	// 	        return $result;
-	// 	    }catch(PDOException $e){
-	// 	        return null;
-	// 	    }
-	// 	}
-	// 	/*
-	// 	 *获取待付款订单
-	// 	 */
-	// 	public function getNonPaymentOrder($userID,$currentPage,$singlePageRecordCount){
-	// 		$begin = ($currentPage - 1) * $singlePageRecordCount;
-	// 	    $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime from orderDetail where orderOwnerID=? and orderStatue=0 order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
-	// 	    try{
-	// 	        $result = DBActive::executeQuery($sql,array($userID));
-	// 	        return $result;
-	// 	    }catch(PDOException $e){
-	// 	        return null;
-	// 	    }
-	// 	}
-	// 	/*
-	// 	 *获取已取消订单
-	// 	 */
-	// 	public function getCanceleddOrder($userID,$currentPage,$singlePageRecordCount){
-	// 		$begin = ($currentPage - 1) * $singlePageRecordCount;
-	// 	    // $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=1 and orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
-	// 	    $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderCancelReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
-	// 	    try{
-	// 	        $result = DBActive::executeQuery($sql,array($userID));
-	// 	        return $result;
-	// 	    }catch(PDOException $e){
-	// 	        return null;
-	// 	    }
-	// 	}
-	// 	/*
-	// 	 *获取已失败订单
-	// 	 */
-	// 	public function getFaileddOrder($userID,$currentPage,$singlePageRecordCount){
-	// 		$begin = ($currentPage - 1) * $singlePageRecordCount;
-	// 	    $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderFailReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
-	// 	    try{
-	// 	        $result = DBActive::executeQuery($sql,array($userID));
-	// 	        return $result;
-	// 	    }catch(PDOException $e){
-	// 	        return null;
-	// 	    }
-	// 	}
-
-	// //---------------------------------------------------------------
-	// //--------------查询订单相关-------------------------------------
-	// //---------------------------------------------------------------
-	// 	/*
-	// 	 *根据订单id查询订单详细
-	// 	 */
-	// 	public function getOrderDetailByOrderID($orderID){
-	// 		$sql = "select * from orderDetail where id=?";
-	// 	    try{
-	// 	        $result = DBActive::executeQuery($sql,array($orderID));
-	// 	        if($result != null){
-	// 	        	return $result[0];
-	// 	        }else{
-	// 	        	return null;
-	// 	        }
-	// 	    }catch(PDOException $e){
-	// 	        return null;
-	// 	    }
-	// 	}
-
 //===================3水站=======================================
 //---------------------------------------------------------------
 //--------------查询订单相关-------------------------------------
 //---------------------------------------------------------------
-	/*
+	/**
 	 *查询该水站的所有订单
 	 */
 	public function getAllOrderOfOneWaterStore($waterStoreID,$currentPage,$singlePageRecordCount){
@@ -510,13 +374,11 @@ class OrderDetail{
 			return null;
 		}
 	}
-
-
 //===================4管理员=======================================
 //---------------------------------------------------------------
 //--------------查询订单相关-------------------------------------
 //---------------------------------------------------------------
-	/*
+	/**
 	 *获取所有订单
 	 */
 	public function getTheAllOrders($currentPage,$singlePageRecordCount){
@@ -529,5 +391,4 @@ class OrderDetail{
 	        return null;
 	    }
 	}
-
 }

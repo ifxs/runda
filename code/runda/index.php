@@ -2,6 +2,7 @@
 
 //开启会话
 session_start();
+//设置时区
 date_default_timezone_set("PRC");
 //获取文档路径，在整个应用中使用绝对路径
 define("DOC_PATH_ROOT",$_SERVER['DOCUMENT_ROOT']);
@@ -29,7 +30,7 @@ if($controller == "RunDa"){
 	// 不需要登录的：login loginProc getCode getCodeString checkCode register checkUserName checkEmail checkPhoneNumber registerProc debLocking changePassword changePasswordProc getUserPartInformationByID
 	$allowHomeMethodsNoSession = array("login","loginProc","getCode","getCodeString","checkCode","register","checkUserName","checkEmail","checkPhoneNumber","registerProc","debLocking","changePassword","changePasswordProc","getUserPartInformationByID");
 	//需要登录的： personPage  switchTog myInformation userRealNameAuthentication userRealNameAuthenIDCardImgProc userRealNameAuthenticationProc myInformationPhone addUserRecieverAddress addUserRecieverAddressProc magageUserRecieverAddress magageUserRecieverAddressPhone addShoppingCart quit
-	$allowHomeMethodsSession = array("personPage","switchTog","myInformation","updateMyInformation","userRealNameAuthentication","userRealNameAuthenIDCardImgProc","userRealNameAuthenticationProc","myInformationPhone","addUserRecieverAddress","addUserRecieverAddressProc","magageUserRecieverAddress","magageUserRecieverAddressPhone","addShoppingCart","manageMyShoppingCart","deleteGoodsOnMyShoppingCart","quit");
+	$allowHomeMethodsSession = array("personPage","switchTog","myInformation","updateMyInformation","userRealNameAuthentication","userRealNameAuthenIDCardImgProc","userRealNameAuthenticationProc","myInformationPhone","addUserRecieverAddress","addUserRecieverAddressProc","magageUserRecieverAddress","magageUserRecieverAddressPhone","addShoppingCart","manageMyShoppingCart","deleteGoodsOnMyShoppingCart","manageMyShoppingCartPhone","quit");
     if(in_array($method,$allowHomeMethodsNoSession)){
     }else if(in_array($method,$allowHomeMethodsSession)){
     	if(!isset($_SESSION['userName'])|| !isset($_SESSION['id'])){

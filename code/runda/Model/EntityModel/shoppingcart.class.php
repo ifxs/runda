@@ -65,11 +65,25 @@ class ShoppingCart{
 	 *  删除购物车里已经被下单的桶装水的桶装水
 	 *  用户手动移除商品
 	 */	
-	public static function deleteGoodsOnMyShoppingCart($waterGoodsID){
+	public static function deleteGoodsOnMyShoppingCart($cartOwnerID, $waterGoodsID){
 		// $sql = "select * from shoppingCart where cartOwnerID=?;";
-		$sql = "delete from shoppingCart where waterGoodsID=?;";
+		$sql = "delete from shoppingCart where cartOwnerID=? and waterGoodsID=?;";
 		try{
-			$result = DBActive::executeNoQuery($sql,array($waterGoodsID));
+			$result = DBActive::executeNoQuery($sql,array($cartOwnerID,$waterGoodsID));
+			return $result;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
+
+
+	/**
+	 * 查询购物车里的桶装水 Phone使用，结果中有桶装水的名称、
+	 */
+	public static function getMyShoppingCartWithGoodsName($id){
+		$sql = "select barrelWaterGoods.waterGoodsName,barrelWaterGoods.waterGoodsPrice,barrelWaterGoods.waterGoodsDefaultImage,shoppingCart.waterGoodsID,shoppingCart.waterGoodsCount,shoppingCart.addCartTime from shoppingCart inner join barrelWaterGoods on shoppingCart.waterGoodsID=barrelWaterGoods.id  where cartOwnerID=?;";
+		try{
+			$result = DBActive::executeQuery($sql,array($id));
 			return $result;
 		}catch(PDOException $e){
 			return null;

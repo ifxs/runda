@@ -117,8 +117,8 @@ id int not null auto_increment primary key,
 waterBearerId int not null,
 waterBearerPositionLongitude varchar(20) not null,-- 经度
 waterBearerPositionLatitude varchar(20) not null, -- 纬度
-date char(6) not null, -- 20150412
-time int not null,
+date char(10) not null, -- 2015-04-12
+time char(8) not null,-- 16:45:47
 remainCapacity tinyint,
 foreign key(waterBearerId) references user(id) ON DELETE CASCADE
 );

@@ -643,7 +643,7 @@ class HomeController{
 			//first check this goods is already in this table or not
 			$isIn = ShoppingCart::checkGoodsIsAlreadyInShoppingCart($_SESSION['id'], $_GET['id']);
 			if($isIn == "yes"){
-				echo Json::makeJson("400","添加成功");
+				echo Json::makeJson("400","该商品已在您的购物车中");
 			//add to shopping-cart
 			}elseif($isIn == "no"){
 				$waterGoodsCount = isset($_GET['waterGoodsCount']) ? $_GET['waterGoodsCount'] : 1;
@@ -681,16 +681,30 @@ class HomeController{
 		include DOC_PATH_ROOT.'/View/Home/manageMyShoppingCart.php';
 	}
 	/**
-	 *将商品移除购物车
+	 *将商品移出购物车
 	 */
 	function deleteGoodsOnMyShoppingCart(){
 		if(isset($_GET['wgid'])){
 			require(DOC_PATH_ROOT."/Model/EntityModel/shoppingcart.class.php");
-			ShoppingCart::deleteGoodsOnMyShoppingCart($_GET['wgid']);
-			echo Json::makeJson("200");
+			ShoppingCart::deleteGoodsOnMyShoppingCart($_SESSION['id'], $_GET['wgid']);
+			echo Json::makeJson("200", "移出成功");
 		}
 	}
-
+	/**
+	 *管理我的购物车    phone版
+	 */
+	function manageMyShoppingCartPhone(){
+		//引入购物车模型文件
+		require(DOC_PATH_ROOT."/Model/EntityModel/shoppingcart.class.php");
+		require(DOC_PATH_ROOT."/Model/EntityModel/barrelwatergoods.class.php");
+	
+		$barrelWaterGoods = ShoppingCart::getMyShoppingCartWithGoodsName($_SESSION['id']);
+		if($barrelWaterGoods == null){
+			echo '{"code":"300","message":"购物车中没有商品","data":[]}';
+		}else{
+			echo Json::makeJson("200","获取成功", $barrelWaterGoods);
+		}
+	}
 //----------------------------------------------------------------
 //----------------------添加收藏---------------------------------------
 //----------------------------------------------------------------
