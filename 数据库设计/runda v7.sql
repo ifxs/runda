@@ -119,7 +119,7 @@ waterBearerPositionLongitude varchar(20) not null,-- 经度
 waterBearerPositionLatitude varchar(20) not null, -- 纬度
 date char(6) not null, -- 20150412
 time int not null,
-remainCapacity tinyint not null,
+remainCapacity tinyint,
 foreign key(waterBearerId) references user(id) ON DELETE CASCADE
 );
 -- 送水工评价表

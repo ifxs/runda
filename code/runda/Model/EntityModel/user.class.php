@@ -115,7 +115,63 @@ class User {
 			return Json::makeJson($code,$message);
 		}
     }
-
+    /**
+     *验证用户名是否可用
+     */
+    public function checkUserName($userName){
+    	$sql = "select count(*) number from user where userName=?;";
+    	try{
+    		$res = DBActive::executeQuery($sql,array($userName));
+    		if($res[0]["number"] != 0){
+    			return Json::makeJson("400","用户名不可用","");
+    			// return Json::makeJson(400,$res,"");
+    		}else{
+    			return Json::makeJson("200","用户名可用","");
+    			// return Json::makeJson(200,"4","");
+    		}
+    	}catch (Exception $e){
+    		return Json::makeJson("400","系统错误","");
+    		// return Json::makeJson(400,"2","");
+    	}
+    }
+    /**
+     *验证邮箱是否已经注册
+     */
+    public function checkEmail($email){
+    	$sql = "select count(*) number from user where email=?;";
+    	try{
+    		$res = DBActive::executeQuery($sql,array($email));
+    		if($res[0]["number"] != 0){
+    			return Json::makeJson("444","邮箱已注册","");
+    			// return Json::makeJson(400,$res,"");
+    		}else{
+    			return Json::makeJson("200","邮箱未注册","");
+    			// return Json::makeJson(200,"4","");
+    		}
+    	}catch (Exception $e){
+    		return Json::makeJson("400","系统错误","");
+    		// return Json::makeJson(400,"2","");
+    	}
+    }
+    /**
+     *验证手机号是否已经注册
+     */
+    public function checkPhoneNumber($phoneNumber){
+    	$sql = "select count(*) number from user where phoneNumber=?;";
+    	try{
+    		$res = DBActive::executeQuery($sql,array($phoneNumber));
+    		if($res[0]["number"] != 0){
+    			return Json::makeJson("444","手机号已注册","");
+    			// return Json::makeJson(400,$res,"");
+    		}else{
+    			return Json::makeJson("200","手机号未注册","");
+    			// return Json::makeJson(200,"4","");
+    		}
+    	}catch (Exception $e){
+    		return Json::makeJson("400","系统错误","");
+    		// return Json::makeJson(400,"2","");
+    	}
+    }
 //-----------------------------------------------------------------------------
 //--------------管理员登录-----------------------------------------------------
 //-----------------------------------------------------------------------------
@@ -140,7 +196,6 @@ class User {
 			}
 		}
 	}
-
 //-----------------------------------------------------------------------------
 //--------------用户登录-----用户名||手机号------------------------------------
 //-----------------------------------------------------------------------------
@@ -200,7 +255,7 @@ class User {
 //-----------------------------------------------------------------------------
 //--------------送水工登录------------------------------------
 //-----------------------------------------------------------------------------
-	public function valideWaterBearer($userName,$passWord){
+	public function valideWaterBearer($phoneNumber,$passWord){
 		//用户名或密码不能为空
 		if($phoneNumber == "" || $passWord == ""){
 			return Json::makeJson("400","手机号或密码不能为空");
@@ -221,68 +276,6 @@ class User {
 			}
 		}
 	}
-	
-//-------------------------------------------------------------------------
-//--------------验证是否可用---用户名||邮箱||手机号------------------------
-//-------------------------------------------------------------------------
-	/**
-	*验证用户名是否可用
-	*/
-    public function checkUserName($userName){
-        $sql = "select count(*) number from user where userName=?;";
-        try{
-            $res = DBActive::executeQuery($sql,array($userName));
-	        if($res[0]["number"] != 0){
-	            return Json::makeJson("400","用户名不可用","");
-	            // return Json::makeJson(400,$res,"");
-	        }else{
-	            return Json::makeJson("200","用户名可用","");
-	            // return Json::makeJson(200,"4","");
-	        }
-        }catch (Exception $e){
-            return Json::makeJson("400","系统错误","");
-            // return Json::makeJson(400,"2","");
-        }
-    }
-    /**
-	*验证邮箱是否已经注册
-	*/
-    public function checkEmail($email){
-        $sql = "select count(*) number from user where email=?;";
-        try{
-            $res = DBActive::executeQuery($sql,array($email));
-	        if($res[0]["number"] != 0){
-	            return Json::makeJson("444","邮箱已注册","");
-	            // return Json::makeJson(400,$res,"");
-	        }else{
-	            return Json::makeJson("200","邮箱未注册","");
-	            // return Json::makeJson(200,"4","");
-	        }
-        }catch (Exception $e){
-            return Json::makeJson("400","系统错误","");
-            // return Json::makeJson(400,"2","");
-        }
-    }
-    /**
-	*验证手机号是否已经注册
-	*/
-    public function checkPhoneNumber($phoneNumber){
-    	$sql = "select count(*) number from user where phoneNumber=?;";
-        try{
-            $res = DBActive::executeQuery($sql,array($phoneNumber));
-	        if($res[0]["number"] != 0){
-	            return Json::makeJson("444","手机号已注册","");
-	            // return Json::makeJson(400,$res,"");
-	        }else{
-	            return Json::makeJson("200","手机号未注册","");
-	            // return Json::makeJson(200,"4","");
-	        }
-        }catch (Exception $e){
-            return Json::makeJson("400","系统错误","");
-            // return Json::makeJson(400,"2","");
-        }
-    }
-
 //-------------------------------------------------------------------------
 //--------------获取个人信息-----------------------------------------------
 //-------------------------------------------------------------------------
@@ -338,6 +331,29 @@ class User {
     		return null;
     	}
     }
+//-------------------------------------------------------------------------
+//--------------更新用户信息-----------------------------------------------
+//-------------------------------------------------------------------------
+    public function updateUserInfo($userID, $userName, $province, $city, $country, $detailAddress){
+    	$sql = "select count(*) number from user where userName=?;";
+    	try{
+    		$res = DBActive::executeQuery($sql,array($userName));
+    		if($res[0]["number"] != 0){
+    			return Json::makeJson("400","用户名已存在","");
+    		}
+    	}catch (Exception $e){
+    		return Json::makeJson("400","系统错误","");
+    	}
+    	
+    	$sql2 = "update user set userName=?,province=?,city=?,country=?,detailAddress=? where id=?;";
+    	try{
+    		$result = DBActive::executeNoQuery($sql2,array($userName, $province, $city, $country, $detailAddress,$userID));
+    		return Json::makeJson("200","更新成功","");
+    	}catch(PDOException $e){
+    		return Json::makeJson("400","系统错误","");
+    	}
+    }
+    
 //-------------------------------------------------------------------------
 //--------------实名认证---------------------------------------------------
 //-------------------------------------------------------------------------

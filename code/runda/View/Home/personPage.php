@@ -22,19 +22,19 @@
   					<li role="presentation"><a href="index.php?controller=Order&method=getFaileddOrder" target="contentIframe">已失败订单</a></li>
   					<li role="presentation"><a href="index.php?controller=Home&method=manageMyShoppingCart" target="_blank">我的购物车</a></li>
 				</ul>
-				<hr />
-				<h4>我的收藏</h4><br />
-				<ul class="nav nav-pills nav-stacked">
-	  				<li role="presentation"><a href="#">收藏的水站</a></li>
-  					<li role="presentation"><a href="#">收藏的桶装水</a></li>
-				</ul>
-				<hr />
-				<h4>客户服务</h4><br />
-				<ul class="nav nav-pills nav-stacked">
-	  				<li role="presentation"><a href="#">价格保护</a></li>
-  					<li role="presentation"><a href="#">我的投诉</a></li>
-  					<li role="presentation"><a href="#">购买咨询</a></li>
-				</ul>
+<!-- 				<hr /> -->
+<!-- 				<h4>我的收藏</h4><br /> -->
+<!-- 				<ul class="nav nav-pills nav-stacked"> -->
+<!-- 	  				<li role="presentation"><a href="#">收藏的水站</a></li> -->
+<!--   					<li role="presentation"><a href="#">收藏的桶装水</a></li> -->
+<!-- 				</ul> -->
+<!-- 				<hr /> -->
+<!-- 				<h4>客户服务</h4><br /> -->
+<!-- 				<ul class="nav nav-pills nav-stacked"> -->
+<!-- 	  				<li role="presentation"><a href="#">价格保护</a></li> -->
+<!--   					<li role="presentation"><a href="#">我的投诉</a></li> -->
+<!--   					<li role="presentation"><a href="#">购买咨询</a></li> -->
+<!-- 				</ul> -->
 				<hr />
 				<h4>个人信息</h4><br />
 				<ul class="nav nav-pills nav-stacked">

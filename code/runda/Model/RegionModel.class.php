@@ -1,7 +1,7 @@
 <?php
 require_once(DOC_PATH_ROOT."/Lib/DataBase/database.func.php");
 class Region{
-	/*
+	/**
 	 * 从数据库获取省份
 	 * 返回一个二维数组
 	 * 形如：
@@ -25,52 +25,56 @@ class Region{
 			)
 	 */
 	public static function getProvinces(){
-		Region_DBActive::executeNoQuery("set character_set_results=utf8");
+// 		DBActive::executeNoQuery("set character_set_results=utf8");
+// 		Region_DBActive::executeNoQuery("set character_set_results=utf8");
 		$sql = "select * from provinces;";
 		try{
-			// $result = DBActive::executeQuery($sql, array());
+// 			$result = DBActive::executeQuery($sql, array());
 			$result = Region_DBActive::executeQuery($sql, array());
 		}catch(PDOException $e){
 			return null;
 		}
 		return $result;
 	}
-	/*
+	/**
 	 * 从数据库获取市
 	 */
 	public static function getCities($provinceID){
-		Region_DBActive::executeNoQuery("set character_set_results=utf8");
+// 		DBActive::executeNoQuery("set character_set_results=utf8");
+// 		Region_DBActive::executeNoQuery("set character_set_results=utf8");
 		$sql = "select * from cities where provinceID = ?;";
 		try{
-			// $result = DBActive::executeQuery($sql, array($provinceID));
+// 			$result = DBActive::executeQuery($sql, array($provinceID));
 			$result = Region_DBActive::executeQuery($sql, array($provinceID));
 		}catch(PDOException $e){
 			return null;
 		}
 		return $result;
 	}
-	/*
+	/**
 	 * 从数据库获取县
 	 */
 	public static function getCountries($cityID){
-		Region_DBActive::executeNoQuery("set character_set_results=utf8");
+// 		DBActive::executeNoQuery("set character_set_results=utf8");
+// 		Region_DBActive::executeNoQuery("set character_set_results=utf8");
 		$sql = "select * from countries where cityID = ?;";
 		try{
-			// $result = DBActive::executeQuery($sql, array($cityID));
+// 			$result = DBActive::executeQuery($sql, array($cityID));
 			$result = Region_DBActive::executeQuery($sql, array($cityID));
 		}catch(PDOException $e){
 			return null;
 		}
 		return $result;
 	}
-	/*
-	*
-	*/
+	/**
+	 *
+	 */
 	public static function getFirstCityID($provinceID){
-		Region_DBActive::executeNoQuery("set character_set_results=utf8");
+// 		DBActive::executeNoQuery("set character_set_results=utf8");
+// 		Region_DBActive::executeNoQuery("set character_set_results=utf8");
 		$sql = "select * from cities where provinceID = ? limit 0,1;";
 		try{
-			// $result = DBActive::executeQuery($sql, array($provinceID));
+// 			$result = DBActive::executeQuery($sql, array($provinceID));
 			$result = Region_DBActive::executeQuery($sql, array($provinceID));
 		}catch(PDOException $e){
 			return null;

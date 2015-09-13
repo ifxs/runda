@@ -1,6 +1,6 @@
 <!-- 顶部 -->
 <?php
-	$title = "润达智能水-用户注册 --润达送水 润你生活";
+	$title = "润达智能送水-用户注册 --润达送水 润你生活";
 	include DOC_PATH_ROOT.'/View/header.php';
 ?>
 <!-- 顶部结束 -->

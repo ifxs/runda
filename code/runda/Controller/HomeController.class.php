@@ -144,7 +144,8 @@ class HomeController{
 	 * 用户登录处理 $_GET['tokenType'] 是说明用户是用户名登陆，还是电话号码登录
 	 */
 	function loginProc(){
-		if( (isset($_POST['userName']) || isset($_POST['phoneNumber']))  && isset($_POST['passWord']) && isset($_GET['tokenType'])){
+// 		if( (isset($_POST['userName']) || isset($_POST['phoneNumber']))  && isset($_POST['passWord']) && isset($_GET['tokenType'])){
+		if(!empty($_POST)){
 			//验证验证码
 			if(strtoupper($_POST['checkCode']) != strtoupper($_SESSION['validcode'])){
 				$code = "400";
@@ -289,6 +290,18 @@ class HomeController{
 		include DOC_PATH_ROOT.'/View/Home/personPage.php';
 	}
 	/**
+	 * 修改个人信息 业务处理
+	 */
+	function updateMyInformation(){
+		if(empty($_POST)){
+			echo Json::makeJson("400","请求错误");
+		}else{
+			$user = new User();
+			$result = $user ->updateUserInfo($_SESSION['id'], $_POST['userName'], $_POST['province'], $_POST['city'], $_POST['country'], $_POST['detailAddress']);
+			return $result;
+		}
+	}
+	/**
 	 * 当前登录用户的个人信息 web版
 	 */
 	function myInformation(){
@@ -351,18 +364,18 @@ class HomeController{
 		require_once(DOC_PATH_ROOT."/Lib/ImageProc/imageproc.func.php");
 		require_once(DOC_PATH_ROOT."/Config/imagescale.config.php");
 		if(!isset($_FILES["idCardGraphImg"])){
-	            echo Json::makeJson("400",'请选择文件');
+	            echo Json::makeJson("4001",'请选择文件');
 	            // header("location:index.php?controller=Admin&method=addImageCarousel&errorinfo=请选择文件");
 	            // return ;
 	    }else{
 	        //文件错误
 	        if($_FILES["idCardGraphImg"]['error'] == 1 || $_FILES["idCardGraphImg"]['error'] == 2){
-	            echo Json::makeJson("400",'文件过大');
+	            echo Json::makeJson("4002",'文件过大');
 	         //    header("location:index.php?controller=Admin&method=addImageCarousel&errorinfo=文件过大");
 	        	// return ;
 	        //服务器错误
 	        }elseif ($_FILES["idCardGraphImg"]['error'] > 2){
-	            echo Json::makeJson("400",'请求或服务器错误');
+	            echo Json::makeJson("4003",'请求或服务器错误');
 	            // header("location:index.php?controller=Admin&method=addImageCarousel&errorinfo=服务器错误");
 	        	// return ;
 	        //正常
@@ -373,7 +386,7 @@ class HomeController{
 	            $ext = array_pop($arr);
 	            $allowExt = array("gif","png","jpeg","jpg");
 	            if(!in_array($ext, $allowExt)){
-	                echo Json::makeJson("400",'不支持的文件类型');
+	                echo Json::makeJson("4004",'不支持的文件类型');
 	             //    header("location:index.php?controller=Admin&method=addImageCarousel&errorinfo=不支持的文件类型");
 	            	// return ;
 	            }
@@ -395,7 +408,7 @@ class HomeController{
 	            $fileNewName = $fileRute.$fileName;
 	            //第四步：保存文件
 	            if(move_uploaded_file($upfile, $fileNewName)){
-	                //上传成功后要等比缩放图片的大小 缩放为： 1100 X 560
+	                //上传成功后要等比缩放图片的大小 缩放为：  440 X 250
 	                list($width,$height) = getimagesize($fileNewName);
 	                if($width != IDCARD_GRAPH_WIDTH || $height != IDCARD_GRAPH_HEIGHT){
 	                    // ImageProc::scaleImageKeepRate($fileNewName , IDCARD_GRAPH_WIDTH , IDCARD_GRAPH_HEIGHT);
@@ -410,7 +423,7 @@ class HomeController{
 	                // header("location:index.php?controller=Admin&method=addImageCarousel&errorinfo=上传成功&imagePath=".$fileNewName);
 	                // return ;
 	            }else{
-	                echo Json::makeJson("400",'服务器错误');
+	                echo Json::makeJson("4005",'服务器错误');
 	                // header("location:index.php?controller=Admin&method=addImageCarousel&errorinfo=服务器错误");
 	                // return ;
 	            }

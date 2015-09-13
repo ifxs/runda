@@ -9,12 +9,12 @@ class RegionController{
 	function getProvincesJson(){
 		$provinces = Region::getProvinces();
 		if($provinces != null){
-			$code = 200;
+			$code = '200';
 			$message = "数据获取成功";
 			$data = $provinces;
 			echo Json::makeJson($code,$message,$data);
 		}else{
-			$code = 404;
+			$code = '404';
 			$message = "没有找到数据";
 			$data = '';
 			echo Json::makeJson($code,$message,$data);
@@ -31,12 +31,12 @@ class RegionController{
 		$provinceID = $_GET["provinceID"];
 		$cities = Region::getCities($provinceID);
 	    if($cities != null){
-			$code = 200;
+			$code = '200';
 			$message = "数据获取成功";
 			$data = $cities;
 			echo Json::makeJson($code,$message,$data);
 		}else{
-			$code = 404;
+			$code = '404';
 			$message = "没有找到数据";
 			$data = '';
 			echo Json::makeJson($code,$message,$data);
@@ -53,12 +53,12 @@ class RegionController{
 		$cityID = $_GET["cityID"];
 		$countries = Region::getCountries($cityID);
 		if($countries != null){
-			$code = 200;
+			$code = '200';
 			$message = "数据获取成功";
 			$data = $countries;
 			echo Json::makeJson($code,$message,$data);
 		}else{
-			$code = 404;
+			$code = '404';
 			$message = "没有找到数据";
 			$data = '';
 			echo Json::makeJson($code,$message,$data);
@@ -75,12 +75,12 @@ class RegionController{
 		$provinceID = $_GET["provinceID"];
 		$city = Region::getFirstCityID($provinceID);
 	    if($city != null){
-			$code = 200;
+			$code = '200';
 			$message = "数据获取成功";
 			$data = $city;
 			echo Json::makeJson($code,$message,$data);
 		}else{
-			$code = 404;
+			$code = '404';
 			$message = "没有找到数据";
 			$data = '';
 			echo Json::makeJson($code,$message,$data);

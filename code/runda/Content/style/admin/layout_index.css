@@ -7,7 +7,7 @@
 .nav_left{
 	float: left;
 	width: 16%;
-	height:1066px;
+	height:966px;
 	/*border: double;*/
 }
 .nav_left .nav_box{
@@ -20,7 +20,7 @@
 .content_right{
 	float: right;
 	width: 80%;
-	height:1066px;
+	height:966px;
 	padding:10px 12px;
 	/*border: double 2px red;*/
 }

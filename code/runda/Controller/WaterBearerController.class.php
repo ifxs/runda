@@ -17,24 +17,32 @@ class WaterBearerController{
 			//请求错误
 			echo '{"code":"400","msg":"请求错误","data":""}';
 		}else{
-			$username = $_POST['userName'];
+			
+			//引入User文件
+			require_once(DOC_PATH_ROOT."/Model/EntityModel/user.class.php");
+			
+			$phoneNumber = $_POST['phoneNumber'];
 			$passwd = $_POST['passWord'];
 			$password = md5($passwd);
 			$user = new User();
-			$result = $user ->valideWaterBearer($username, $password);
-			$res = json_decode($result,true);
-			if($res['code']== "200"){
-				//保存登录用户的信息
-				$_SESSION['id'] = $res['data']['id'];
-				$_SESSION['userName'] = $res['data']['userName'];
-				//根据用户的选择来决定是否保存密码
-				$code = "200";
-				$message = "登录成功";
-				$data = "";
-				echo '{"code":"200","msg":"登录成功","data":""}';
-			}else{
-				echo $result;
-			}
+			$result = $user ->valideWaterBearer($phoneNumber, $password);
+// 			$res = json_decode($result,true);
+// 			if($res['code']== "200"){
+// // 				//保存登录用户的信息
+// // 				$_SESSION['id'] = $res['data']['id'];
+// // 				$_SESSION['userName'] = $res['data']['userName'];
+// 				//根据用户的选择来决定是否保存密码
+// // 				$code = "200";
+// // 				$message = "登录成功";
+// // 				$data = "";
+// // 				echo '{"code":"200","msg":"登录成功","data":""}';
+
+// 				echo $result;
+// 			}else{
+// 				echo $result;
+// 			}
+
+			echo $result;
 		}
 	}
 	/**
@@ -132,13 +140,19 @@ class WaterBearerController{
 //-----------------------------------------------------------------
 //------------送水工位置-------------------------------------------
 //-----------------------------------------------------------------
-	/*
-	 *送水工实时上传地理位置
+	/**
+	 * 送水工实时上传地理位置
 	 */
 	public function uploadWaterBearerRealTimeLocation(){
-		//时间
-		//经度
-		//纬度
+		if(empty($_POST)){
+			echo Json::makeJson("400","请求错误");
+		}else{
+			
+			require_once(DOC_PATH_ROOT."/Model/EntityModel/waterbearerdriverroute.class.php");
+			
+			$bearRoute = new WaterBearerDriverRoute();
+			echo $bearRoute ->updateRTLocation($_POST['waterBearerId'], $_POST['longitude'], $_POST['latitude']);
+		}
 	}
 //-----------------------------------------------------------------
 //------------送水工工作状态-------------------------------------------

@@ -1,6 +1,7 @@
 <?php
 
-
+//引入数据库操作文件
+require_once(DOC_PATH_ROOT."/Lib/DataBase/database.func.php");
 
 class WaterBearerDriverRoute{
     private $id; // int not null auto_increment primary key,
@@ -10,6 +11,31 @@ class WaterBearerDriverRoute{
     private $date; // char(6) not null, -- 20150412
     private $time; // int not null,
     private $remainCapacity; // tinyint not null,
+    
+    
+    
+    
+    
+    /**
+     * 送水工实时上传地理位置
+     */
+    public function updateRTLocation($waterBearerId, $longitude, $latitude){
+    	$sql = "insert into waterBearerDriverRoute (waterBearerId,waterBearerPositionLongitude,waterBearerPositionLatitude,date,time) values(?,?,?,?,?)";
+    	try{
+    		$date = date("Ymd");
+    		$time = date("h:m:s");
+    		$res = DBActive::executeNoQuery($sql,array($waterBearerId, $longitude, $latitude, $date, $time));
+    		if($res){
+    			return '{"code":"200","msg":"上传成功","data":""}';
+    		}else{
+    			return '{"code":"400","msg":"上传失败","data":""}';
+    		}
+    	}catch(PDOException $e){
+    		return '{"code":"400","msg":"上传失败","data":""}';
+    	}
+    }
+    
+    
 }
 // create table  waterBearerDriverRoute(
 // id int not null auto_increment primary key,
@@ -18,6 +44,6 @@ class WaterBearerDriverRoute{
 // waterBearerPositionLatitude varchar(200) not null, -- 纬度
 // date char(6) not null, -- 20150412
 // time int not null,
-// remainCapacity tinyint not null,
+// remainCapacity tinyint,
 // foreign key(waterBearerId) references user(id) ON DELETE CASCADE
 // );

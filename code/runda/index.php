@@ -29,7 +29,7 @@ if($controller == "RunDa"){
 	// 不需要登录的：login loginProc getCode getCodeString checkCode register checkUserName checkEmail checkPhoneNumber registerProc debLocking changePassword changePasswordProc getUserPartInformationByID
 	$allowHomeMethodsNoSession = array("login","loginProc","getCode","getCodeString","checkCode","register","checkUserName","checkEmail","checkPhoneNumber","registerProc","debLocking","changePassword","changePasswordProc","getUserPartInformationByID");
 	//需要登录的： personPage  switchTog myInformation userRealNameAuthentication userRealNameAuthenIDCardImgProc userRealNameAuthenticationProc myInformationPhone addUserRecieverAddress addUserRecieverAddressProc magageUserRecieverAddress magageUserRecieverAddressPhone addShoppingCart quit
-	$allowHomeMethodsSession = array("personPage","switchTog","myInformation","userRealNameAuthentication","userRealNameAuthenIDCardImgProc","userRealNameAuthenticationProc","myInformationPhone","addUserRecieverAddress","addUserRecieverAddressProc","magageUserRecieverAddress","magageUserRecieverAddressPhone","addShoppingCart","manageMyShoppingCart","deleteGoodsOnMyShoppingCart","quit");
+	$allowHomeMethodsSession = array("personPage","switchTog","myInformation","updateMyInformation","userRealNameAuthentication","userRealNameAuthenIDCardImgProc","userRealNameAuthenticationProc","myInformationPhone","addUserRecieverAddress","addUserRecieverAddressProc","magageUserRecieverAddress","magageUserRecieverAddressPhone","addShoppingCart","manageMyShoppingCart","deleteGoodsOnMyShoppingCart","quit");
     if(in_array($method,$allowHomeMethodsNoSession)){
     }else if(in_array($method,$allowHomeMethodsSession)){
     	if(!isset($_SESSION['userName'])|| !isset($_SESSION['id'])){
@@ -75,12 +75,12 @@ if($controller == "RunDa"){
 	// }
 //WaterBearer 送水工
 }elseif($controller == "WaterBearer"){
-	// 不需要登录的：
-	$allowHomeMethodsNoSession = array();
-	//需要登录的：
-	$allowHomeMethodsSession = array();
-    if(in_array($method,$allowHomeMethodsNoSession)){
-    }else if(in_array($method,$allowHomeMethodsSession)){
+// 	// 不需要登录的：
+// 	$allowHomeMethodsNoSession = array();
+// 	//需要登录的：
+// 	$allowHomeMethodsSession = array();
+//     if(in_array($method,$allowHomeMethodsNoSession)){
+//     }else if(in_array($method,$allowHomeMethodsSession)){
     	// if(!isset($_SESSION['userName'])|| !isset($_SESSION['id'])){
     	// //返回Json
     	//    $returnJSONArray = array("myInformationPhone","userRealNameAuthenIDCardImgProc","userRealNameAuthenticationProc","magageUserRecieverAddressPhone","addUserRecieverAddressProc","addShoppingCart");
@@ -91,7 +91,7 @@ if($controller == "RunDa"){
     	// //重定向
     	// 	$method = "login";
     	// }
-    }
+//     }
 //OrderAllocate 订单分配
 }elseif($controller == "OrderAllocate"){
 	$allowHomeMethodsNoSession = array("allocateWaterBearer");
@@ -114,7 +114,8 @@ if($controller == "RunDa"){
 	$allowWaterStoreMethodSession = array("waterStoreEnterProc","upLoadBusinessLicense","manageMyWaterStore","manageMyWaterStorePhone","myWaterStore","myWaterStorePhone","waterStoreInformation","uploadBarrelWater","uploadBarrelWaterGoodsPhotos","uploadBarrelWaterProc","getAllBarrelWaterGoods","groundingBarrelWaterGoods","unGroundingBarrelWaterGoods","deleteBarrelWaterGoods","waterStoreBusinessLicense","addWaterBearer","getAllWaterBearers","delWaterBearer","getwaterStoreStatus","changewaterStoreStatus","achievementManage","getAllOrder");
 	if(in_array($method,$allowWaterStoreMethodNoSession)){
 	}elseif(in_array($method,$allowWaterStoreMethodSession)){
-		if(!isset($_SESSION['userName']) || !isset($_SESSION['id']) || !isset($_SESSION['waterStoreID'])){
+// 		if(!isset($_SESSION['userName']) || !isset($_SESSION['id']) || !isset($_SESSION['waterStoreID'])){
+		if(!isset($_SESSION['userName']) || !isset($_SESSION['id'])){
 			//waterStoreEnter upLoadBusinessLicense manageMyWaterStorePhone myWaterStorePhone uploadBarrelWaterProc uploadBarrelWaterGoodsPhotos addWaterBearer getAllWaterBearers
 			$returnJSONArray = array("waterStoreEnter","upLoadBusinessLicense","manageMyWaterStorePhone","myWaterStorePhone","uploadBarrelWaterProc","uploadBarrelWaterGoodsPhotos","addWaterBearer","getAllWaterBearers");
     	    if(in_array($method,$returnJSONArray)){
