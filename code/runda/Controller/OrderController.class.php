@@ -64,7 +64,7 @@ class OrderController{
 						//将该只桶装水的总价加入订单总价中
 						$orderTotalPrice[$m] =$orderTotalPrice[$m] + $waterGoodsCountArr[$i] * $price;
 						//将桶装水加入该订单
-						$orderContainGoods ->addGoodsForOrder($orderArr[$m],$waterGoodsArr[$i],$waterGoodsCountArr[$i]);
+						$orderContainGoods ->addGoodsForOrder($orderArr[$m],$waterGoodsArr[$i],$waterGoodsCountArr[$i],$price);
 					}
 				}
 			}//通过比对将每一个桶装水加入相应的订单中并计算每个订单的总价完毕
@@ -90,7 +90,6 @@ class OrderController{
 			echo Json::makeJson("400","请求错误");
 		}
 	}
-
 //----------------------------------------------------------------
 //------------结算订单----------------------------------------------
 //----------------------------------------------------------------
@@ -519,6 +518,233 @@ class OrderController{
 			}
 		}else{
 			echo Json::makeJson("400","请求错误");
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+	/**
+	 * 生成订单 Phone端
+	 */
+	function placeOrderPhone(){
+		if(empty($_POST)){
+	
+		}else{
+			$order = new OrderDetail();
+// 			$order ->placeOrderPhone($orderOwnerID,$waterStoreID,$recieverPersonName,$recieverPersonPhone,
+// 					$recieverAddress,$recieverTime,$remark,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice);
+			$result = $order ->placeOrderPhone($_SESSION['id'],$_POST['waterStoreID'],$_POST['recieverPersonName'],$_POST['recieverPersonPhone'],
+					$_POST['recieverAddress'],$_POST['recieverTime'],
+							$_POST['remark'],$_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
+			
+			//成功
+			if($result){
+				$data = array(
+						'orderID' =>$result
+				);
+				echo Json::makeJson("200","下订单成功",$data);
+			}else{
+				echo '{"code":"400","message":"下订单失败","data":[]}';
+			}
+		}
+	}
+	/**
+	 * 为订单付款  Phone端
+	 * orderStatue=1        订单已付款待分配送水工
+	 */
+	function settleOrderPhone(){
+		if(empty($_POST)){
+			
+		}else{
+			$order = new OrderDetail();
+			$result = $order ->settleOrderPhone($_POST['orderID'],$_POST['settleMethod']);
+			//成功
+			if($result){
+				echo '{"code":"200","message":"付款成功","data":[]}';
+			}else{
+				echo '{"code":"400","message":"付款失败","data":[]}';
+			}
+		}
+	}
+	/*
+	 *获取所有订单 web版
+	 */
+	function getAllOrderPhone(){
+		//获取订单信息
+		$order = new OrderDetail();
+		$orderResult = $order ->getAllOrderPhone($_SESSION['id']);
+	
+		//获取订单所含的桶装水
+// 		$orderContainGoods = new OrderContainGoods();
+// 		$orderContainGoodsResult = array();
+// 		if($orderResult != null){
+// 			$orderCount = count($orderResult);
+// 			for($i =0 ;$i < $orderCount; $i++){
+// 				$orderContainGoodsResult[] = $orderContainGoods ->getGoodsByOrderID($orderResult[$i]['id']);
+// 			}
+// 		}
+
+		if($orderResult){
+			echo Json::makeJson("200","获取成功",$orderResult);
+		}else{
+			echo '{"code":"400","message":"获取失败","data":[]}';
+		}
+	}
+	/*
+	 *获取已完成订单 web版
+	 */
+	function getDoneOrderPhone(){
+		//获取订单信息
+		$order = new OrderDetail();
+		$orderResult = $order ->getDoneOrderPhone($_SESSION['id']);
+	
+// 		//获取订单所含的桶装水
+// 		$orderContainGoods = new OrderContainGoods();
+// 		$orderContainGoodsResult = array();
+// 		if($orderResult != null){
+// 			$orderCount = count($orderResult);
+// 			for($i =0 ;$i < $orderCount; $i++){
+// 				$orderContainGoodsResult[] = $orderContainGoods ->getGoodsByOrderID($orderResult[$i]['id']);
+// 			}
+// 		}
+		if($orderResult){
+			echo Json::makeJson("200","获取成功",$orderResult);
+		}else{
+			echo '{"code":"400","message":"获取失败","data":[]}';
+		}
+	}
+	/*
+	 *获取未完成订单 web版
+	 */
+	function getUnfinishedOrderPhone(){
+		//获取订单信息
+		$order = new OrderDetail();
+		$orderResult = $order ->getUnfinishedOrderPhone($_SESSION['id']);
+	
+// 		//获取订单所含的桶装水
+// 		$orderContainGoods = new OrderContainGoods();
+// 		$orderContainGoodsResult = array();
+// 		if($orderResult != null){
+// 			$orderCount = count($orderResult);
+// 			for($i =0 ;$i < $orderCount; $i++){
+// 				$orderContainGoodsResult[] = $orderContainGoods ->getGoodsByOrderID($orderResult[$i]['id']);
+// 			}
+// 		}
+// 		//获取订单状态
+// 		$orderStatueArrRaw = OrderStatue::getOrderStatue();
+// 		$orderStatueArr = array();
+// 		foreach ($orderStatueArrRaw as $key => $value) {
+// 			$orderStatueArr[] = $value['orderStatueName'];
+// 		}
+		if($orderResult){
+			echo Json::makeJson("200","获取成功",$orderResult);
+		}else{
+			echo '{"code":"400","message":"获取失败","data":[]}';
+		}
+	}
+	/*
+	 *查看待付款订单 web版
+	 */
+	function getNonPaymentOrderPhone(){
+		//获取订单信息
+		$order = new OrderDetail();
+		$orderResult = $order ->getNonPaymentOrderPhone($_SESSION['id']);
+	
+// 		//获取订单所含的桶装水
+// 		$orderContainGoods = new OrderContainGoods();
+// 		$orderContainGoodsResult = array();
+// 		if($orderResult != null){
+// 			$orderCount = count($orderResult);
+// 			for($i =0 ;$i < $orderCount; $i++){
+// 				$orderContainGoodsResult[] = $orderContainGoods ->getGoodsByOrderID($orderResult[$i]['id']);
+// 			}
+// 		}
+// 		//获取订单状态
+// 		$orderStatueArrRaw = OrderStatue::getOrderStatue();
+// 		$orderStatueArr = array();
+// 		foreach ($orderStatueArrRaw as $key => $value) {
+// 			$orderStatueArr[] = $value['orderStatueName'];
+// 		}
+		if($orderResult){
+			echo Json::makeJson("200","获取成功",$orderResult);
+		}else{
+			echo '{"code":"400","message":"获取失败","data":[]}';
+		}
+	}
+	/*
+	 *获取已取消订单 web版
+	 */
+	function getCanceleddOrderPhone(){
+		//获取订单信息
+		$order = new OrderDetail();
+		$orderResult = $order ->getCanceleddOrderPhone($_SESSION['id']);
+	
+		//获取订单所含的桶装水
+// 		$orderContainGoods = new OrderContainGoods();
+// 		$orderContainGoodsResult = array();
+// 		if($orderResult != null){
+// 			$orderCount = count($orderResult);
+// 			for($i =0 ;$i < $orderCount; $i++){
+// 				$orderContainGoodsResult[] = $orderContainGoods ->getGoodsByOrderID($orderResult[$i]['id']);
+// 			}
+// 		}
+		if($orderResult){
+			echo Json::makeJson("200","获取成功",$orderResult);
+		}else{
+			echo '{"code":"400","message":"获取失败","data":[]}';
+		}
+	}
+	/*
+	 *获取失败订单 web版
+	 */
+	function getFaileddOrderPhone(){
+		//获取订单信息
+		$order = new OrderDetail();
+		$orderResult = $order ->getFaileddOrderPhone($_SESSION['id']);
+	
+// 		//获取订单所含的桶装水
+// 		$orderContainGoods = new OrderContainGoods();
+// 		$orderContainGoodsResult = array();
+// 		if($orderResult != null){
+// 			$orderCount = count($orderResult);
+// 			for($i =0 ;$i < $orderCount; $i++){
+// 				$orderContainGoodsResult[] = $orderContainGoods ->getGoodsByOrderID($orderResult[$i]['id']);
+// 			}
+// 		}
+		// require DOC_PATH_ROOT.'/Model/EntityModel/orderstatue.class.php';
+		// //获取订单状态
+		// $orderStatueArrRaw = OrderStatue::getOrderStatue();
+		// $orderStatueArr = array();
+		// foreach ($orderStatueArrRaw as $key => $value) {
+		// 	$orderStatueArr[] = $value['orderStatueName'];
+		// }
+		if($orderResult){
+			echo Json::makeJson("200","获取成功",$orderResult);
+		}else{
+			echo '{"code":"400","message":"获取失败","data":[]}';
+		}
+	}
+	/**
+	 *查看订单详细情况 Phone端
+	 */
+	function viewOrderPhone(){
+		$orderID = isset($_GET['orderid']) ? $_GET['orderid'] : -1;
+		$order = new OrderDetail();
+		//1 查询订单详情
+		$orderDetail = $order ->getOrderDetailByOrderID($orderID);
+		if($orderDetail){
+			echo Json::makeJson("200","查询订单成功",$orderDetail);
+		}else{
+			echo '{"code":"400","message":"没有查询到相关订单","data":[]}';
 		}
 	}
 

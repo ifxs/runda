@@ -6,10 +6,10 @@ class OrderContainGoods{
 	/*
 	 *为刚生成的订单添加桶装水
 	 */
-	public function addGoodsForOrder($orderID,$waterGoodsID,$waterGoodsCount){
-		$sql = "insert into orderContainGoods (orderID,waterGoodsID,waterGoodsCount) values(?,?,?)";
+	public function addGoodsForOrder($orderID,$waterGoodsID,$waterGoodsCount,$price){
+		$sql = "insert into orderContainGoods (orderID,waterGoodsID,waterGoodsCount,waterGoodsPrice) values(?,?,?,?)";
 		try{
-			DBActive::executeNoQuery($sql,array($orderID,$waterGoodsID,$waterGoodsCount));
+			DBActive::executeNoQuery($sql,array($orderID,$waterGoodsID,$waterGoodsCount,$price));
 			return true;
 		}catch(PDOException $e){
 			// return $e ->getMessage().$sql.$orderID.$waterGoodsID.$waterGoodsCount;

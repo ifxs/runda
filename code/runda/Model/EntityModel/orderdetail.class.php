@@ -334,6 +334,8 @@ class OrderDetail{
 	 *    orderDoneTime orderCategory,orderStatue
 	 */
 	public function orderDoneComment(){
+		//订单完成时间
+		
 		// $logInfo = date("Y-m-d H:i:s")." ---> 系统已为您分配送水工:xxxxx<br />";
 		// logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')
 	}
@@ -390,5 +392,176 @@ class OrderDetail{
 	    }catch(PDOException $e){
 	        return null;
 	    }
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---------------------------------------------------------------
+	//--------------下订单相关  phone端---------------------------------------
+	//-------------------------------------------------------------
+	/**
+	 * 生成订单
+	 * orderStatue=0  	订单已提交未付款
+	 */
+	public function placeOrderPhone($orderOwnerID,$waterStoreID,$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice){
+			
+		//引入订单包含桶装水模型文件
+		require(DOC_PATH_ROOT."/Model/EntityModel/ordercontaingoods.class.php");
+			
+		// 			$orderContainGoods = new OrderContainGoods();
+		// 			$orderContainGoods->addGoodsForOrder($orderID,$waterGoodsID,$waterGoodsCount,$price);
+			
+			
+		//桶装水所属水站、收货人姓名、收货人电话、收货地址、收货时间、备注、订单提交时间
+			
+		//订单提交时间
+		$orderSubmitTime = time();
+		//物流信息
+		$logInfo = date("Y-m-d H:i:s").' ---> 订单创建成功,等待用户付款<br />';
+			
+			
+		//订单总额
+		$totalPrice = $waterGoodsCount * $waterGoodsPrice;
+	
+			
+		$sql = "insert into orderDetail (orderOwnerID,waterStoreID,
+					recieverPersonName,recieverPersonPhone,recieverAddress,
+					recieverTime,remark,
+			
+					totalPrice,orderCategory,orderStatue
+			
+					logisticeInformation,orderSubmitTime) values(
+				?,?,?,?,?,?,?,?,?,?,?,?)";
+		$sql2 = "select LAST_INSERT_ID() last_id;";
+		try{
+			$rowCount = DBActive::executeNoQuery($sql,array($orderOwnerID,$waterStoreID,
+					$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,
+					$totalPrice,0,0,
+					$logInfo,$orderSubmitTime));
+			if($rowCount > 0){
+				$lastID = DBActive::executeQuery($sql2);
+					
+					
+				$orderContainGoods = new OrderContainGoods();
+					
+				$res = $orderContainGoods->addGoodsForOrder($lastID,$waterGoodsID,$waterGoodsCount,$price);
+					
+				if($res){
+					return $lastID;
+				}else{
+					return false;
+				}
+					
+			}else{
+				return false;
+			}
+		}catch(PDOException $e){
+			// return array("code"=>"500","message"=>$e ->getMessage());
+			return false;
+		}
+	}
+	/**
+	 * 为订单付款
+	 * orderStatue=1        订单已付款待分配送水工
+	 */
+	public function settleOrderPhone($orderID, $settleMethod){
+		$logInfo = date("Y-m-d H:i:s")." ---> 您已完成订单结算,等待系统为您分配送水工<br />";
+		$sql = "update orderDetail set orderStatue=1,settleMethod=?,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}') where id=?";
+		try{
+			$rowCount = DBActive::executeNoQuery($sql,array($settleMethod,$orderID));
+			if($rowCount > 0){
+				return true;
+			}else{
+				return false;
+			}
+		}catch(PDOException $e){
+			return false;
+		}
+	}
+	/**
+	 *获取所有订单
+	 */
+	public function getAllOrderPhone($userID){
+		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderOwnerID=? order by orderSubmitTime desc";
+		try{
+			$result = DBActive::executeQuery($sql,array($userID));
+			return $result;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
+	/**
+	 *获取已完成订单
+	 */
+	public function getDoneOrderPhone($userID){
+		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=3 and orderOwnerID=? order by orderSubmitTime desc;";
+		try{
+			$result = DBActive::executeQuery($sql,array($userID));
+			return $result;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
+	/**
+	 *获取未完成订单
+	 */
+	public function getUnfinishedOrderPhone($userID){
+		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=0 and orderOwnerID=? order by orderSubmitTime desc;";
+		try{
+			$result = DBActive::executeQuery($sql,array($userID));
+			return $result;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
+	/**
+	 *获取待付款订单
+	 */
+	public function getNonPaymentOrderPhone($userID){
+		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime from orderDetail where orderOwnerID=? and orderStatue=0 order by orderSubmitTime desc;";
+		try{
+			$result = DBActive::executeQuery($sql,array($userID));
+			return $result;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
+	/**
+	 *获取已取消订单
+	 */
+	public function getCanceleddOrderPhone($userID){
+		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderCancelReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc;";
+		try{
+			$result = DBActive::executeQuery($sql,array($userID));
+			return $result;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
+	/**
+	 *获取已失败订单
+	 */
+	public function getFaileddOrderPhone($userID){
+		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderFailReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc;";
+		try{
+			$result = DBActive::executeQuery($sql,array($userID));
+			return $result;
+		}catch(PDOException $e){
+			return null;
+		}
 	}
 }

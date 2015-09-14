@@ -62,7 +62,13 @@ if($controller == "RunDa"){
 	 //       return ;
 		//     // }
 		// }else{
-			$returnJSONArray = array("placeOrder","orderSettleLocalProc","orderSettleOnlineProc");
+			$returnJSONArray = array(
+					"placeOrder","orderSettleLocalProc","orderSettleOnlineProc",
+					"placeOrderPhone","settleOrderPhone",
+					"getAllOrderPhone","getDoneOrderPhone","getUnfinishedOrderPhone","getNonPaymentOrderPhone",
+					"getCanceleddOrderPhone","getFaileddOrderPhone",
+					"viewOrderPhone"
+			);
 			if(in_array($method,$returnJSONArray)){
 				echo JSON::makeJson("600","用户还没有登录");
 	       		return ;
