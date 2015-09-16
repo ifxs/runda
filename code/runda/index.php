@@ -101,12 +101,12 @@ if($controller == "RunDa"){
 //     }
 //OrderAllocate 订单分配
 }elseif($controller == "OrderAllocate"){
-	$allowHomeMethodsNoSession = array("allocateWaterBearer");
-	//需要登录的：
-	$allowHomeMethodsSession = array();
-    if(in_array($method,$allowHomeMethodsNoSession)){
-    }else if(in_array($method,$allowHomeMethodsSession)){
-    }
+// 	$allowHomeMethodsNoSession = array("allocateWaterBearer");
+// 	//需要登录的：
+// 	$allowHomeMethodsSession = array();
+//     if(in_array($method,$allowHomeMethodsNoSession)){
+//     }else if(in_array($method,$allowHomeMethodsSession)){
+//     }
 //Region 地区
 }elseif($controller == "Region"){
 		// Region->getProvincesJson getCitiesJson getCountriesJson getFirstCityIDJson

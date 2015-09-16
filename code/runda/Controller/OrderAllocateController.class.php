@@ -80,6 +80,10 @@ class OrderAllocateController{
 	
 	
 	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	/**
 	 * 送水工获取未分配的订单
 	 */
@@ -89,6 +93,36 @@ class OrderAllocateController{
 			echo Json::makeJsonIncludeJson("200","获取成功",$res);
 		}else{
 			echo Json::makeJson("300","没有未分配的订单");
+		}
+	}
+	/**
+	 * 送水工获取自己的未完成订单
+	 */
+	public function obtainOwnUnDoneOrders() {
+		if(isset($_GET['waterBearID'])){
+			$res = $noAllocateOrders = OrderDetail::getBearUnDoweOrders($_GET['waterBearID']);
+			if($res){
+				echo Json::makeJsonIncludeJson("200","获取成功",$res);
+			}else{
+				echo Json::makeJson("300","没有订单");
+			}
+		}else{
+			echo '{"code":"400","msg":"请求错误","data":""}';
+		}
+	}
+	/**
+	 * 送水工获取自己的已完成订单
+	 */
+	public function obtainOwnDoneOrders() {
+		if(isset($_GET['waterBearID'])){
+			$res = $noAllocateOrders = OrderDetail::getBearDoweOrders($_GET['waterBearID']);
+			if($res){
+				echo Json::makeJsonIncludeJson("200","获取成功",$res);
+			}else{
+				echo Json::makeJson("300","没有订单");
+			}
+		}else{
+			echo '{"code":"400","msg":"请求错误","data":""}';
 		}
 	}
 

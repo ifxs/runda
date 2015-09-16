@@ -597,6 +597,31 @@ class OrderDetail{
 			return null;
 		}
 	}
-	
+	/**
+	 * 送水工获取自己的未完成订单
+	 */
+	public static function getBearUnDoweOrders($waterBearerID){
+		$sql = "select * from orderDetail where orderStatue=3 or orderStatue=4 and waterBearerID=?";
+		try{
+			DBActive::executeNoQuery("set character_set_results=utf8");
+			$res = DBActive::executeQuery($sql,array($waterBearerID));
+			return $res;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
+	/**
+	 * 送水工获取自己的已完成订单
+	 */
+	public static function getBearDoweOrders($waterBearerID){
+		$sql = "select * from orderDetail where orderStatue > 4 and waterBearerID=?";
+		try{
+			DBActive::executeNoQuery("set character_set_results=utf8");
+			$res = DBActive::executeQuery($sql,array($waterBearerID));
+			return $res;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
 	
 }
