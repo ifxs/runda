@@ -579,4 +579,24 @@ class OrderDetail{
 			return null;
 		}
 	}
+	
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	/**
+	 *查询未分配送水工的订单
+	 */
+	public static function getNoAllocateOrders(){
+		$sql = "select * from orderDetail where orderStatue=1";
+		try{
+			DBActive::executeNoQuery("set character_set_results=utf8");
+			$res = DBActive::executeQuery($sql);
+			return $res;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
+	
+	
 }

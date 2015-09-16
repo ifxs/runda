@@ -4,6 +4,9 @@
 require(DOC_PATH_ROOT."/Model/EntityModel/orderdetail.class.php");
 require(DOC_PATH_ROOT."/Model/EntityModel/waterbearer.class.php");
 
+
+require_once(DOC_PATH_ROOT."/Lib/JSON/json.func.php");
+
 class OrderAllocateController{
 	/**
 	 *为已付款的订单分配送水工
@@ -72,4 +75,21 @@ class OrderAllocateController{
 			}
 		}
 	}
+	
+	
+	
+	
+	
+	/**
+	 * 送水工获取未分配的订单
+	 */
+	public function obtainNoAllocateOrders(){
+		$res = $noAllocateOrders = OrderDetail::getNoAllocateOrders();
+		if($res){
+			echo Json::makeJsonIncludeJson("200","获取成功",$res);
+		}else{
+			echo Json::makeJson("300","没有未分配的订单");
+		}
+	}
+
 }

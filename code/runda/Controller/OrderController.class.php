@@ -27,6 +27,8 @@ class OrderController{
 			$waterStoreIDArr = $_POST['waterStoreID'];
 			$waterGoodsArr = $_POST['waterGoodsID'];
 			$waterGoodsCountArr = $_POST['waterGoodsCount'];
+			
+			
 			//去重复，得到所有的水站id
 			$waterStoreIDUniqueArr = array_unique($waterStoreIDArr);
 
@@ -72,12 +74,18 @@ class OrderController{
 			for($p = 0; $p < $total; $p++){
 				$order ->addTotalPriceForOrder($orderArr[$p],$orderTotalPrice[$p]);
 			}//写入完毕
+			
+			
+			
 			//将购物车中的商品删除
 			require(DOC_PATH_ROOT."/Model/EntityModel/shoppingcart.class.php");
 			for($q = 0; $q < $count; $q++) {
-				$shopCart =ShoppingCart::deleteGoodsOnMyShoppingCart($waterGoodsArr[$q]);
+				$shopCart =ShoppingCart::deleteGoodsOnMyShoppingCart($_SESSION['id'],$waterGoodsArr[$q]);
 			}
 			//-----------------------------------------------
+			
+			
+			
 			//返回所有拆分后的订单
 			if($total > 1){
 				// echo Json::makeJson("200","下单成功,订单已被拆分",$orderArr);

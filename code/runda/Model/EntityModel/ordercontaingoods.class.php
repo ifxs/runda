@@ -1,6 +1,6 @@
 <?php
 
-// require_once(DOC_PATH_ROOT."/Lib/DataBase/database.func.php");
+require_once(DOC_PATH_ROOT."/Lib/DataBase/database.func.php");
 
 class OrderContainGoods{
 	/*
@@ -12,8 +12,8 @@ class OrderContainGoods{
 			DBActive::executeNoQuery($sql,array($orderID,$waterGoodsID,$waterGoodsCount,$price));
 			return true;
 		}catch(PDOException $e){
-			// return $e ->getMessage().$sql.$orderID.$waterGoodsID.$waterGoodsCount;
-			return false;
+			return $e ->getMessage().$sql.$orderID.$waterGoodsID.$waterGoodsCount;
+// 			return false;
 		}
 	}
 	/*
@@ -29,9 +29,3 @@ class OrderContainGoods{
 		}
 	}
 }
-// create table orderContainGoods(
-// 	id int not null auto_increment primary key,
-// 	orderID int not null, -- 订单ID
-// 	waterGoodsID int not null, -- 该条记录的商品ID 
-// 	waterGoodsCount tinyint not null default 1, -- 该条记录的商品的数量
-// 	不需要了 ------------》waterGoodsPrice decimal(6,2), -- 该条记录的商品单价
