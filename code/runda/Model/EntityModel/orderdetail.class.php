@@ -99,9 +99,19 @@ class OrderDetail{
 	 *取消订单
 	 *    orderCancelReason orderCategory,orderStatue
 	 */
-	public function xxxx(){
-		// $logInfo = date("Y-m-d H:i:s")." ---> 系统已为您分配送水工:xxxxx<br />";
-		// logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')
+	public function cancelOrder($orderid){
+		$logInfo = date("Y-m-d H:i:s")." ---> 取消订单<br />";
+		$sql = "update orderDetail set orderCategory=2,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')  where orderOwnerID=?";
+		try{
+			$rowCount = DBActive::executeNoQuery($sql,array($orderid));
+			if($rowCount > 0){
+				return true;
+			}else{
+				return false;
+			}
+		}catch(PDOException $e){
+			return false;
+		}
 	}
 	/**
 	 *删除订单
@@ -227,14 +237,6 @@ class OrderDetail{
 //--------------订单相关 从分配送水工到配送完成------------------
 //---------------------------------------------------------------
 	/**
-	 *--1--分配送水工
-	 *--2--送水工出发
-	 *--3--更新物流信息
-	 *--4--订单配送完成
-	 *--5--订单整个完成
-	 *--6--订单配送失败
-	 */
-	/**
 	 *查询未分配送水工的订单
 	 */
 	public static function getNoAllocateOrder(){
@@ -247,6 +249,15 @@ class OrderDetail{
 			return null;
 		}
 	}
+	
+	/**
+	 *--1--分配送水工
+	 *--2--送水工出发
+	 *--3--更新物流信息
+	 *--4--订单配送完成
+	 *--5--订单整个完成
+	 *--6--订单配送失败
+	 */
 	/**
 	 *--1--分配送水工，设置送水工字段值,同时要更新订单状态,还要推送
 	 *  ------------->要更新物流
@@ -281,7 +292,7 @@ class OrderDetail{
 		try{
 			$rowCount = DBActive::executeNoQuery($sql,array($orderID));
 			if($rowCount > 0){
-				//向用户推送通知其桶装水已被送水工承接
+				//TODO 向用户推送通知其桶装水已被送水工承接
 				//。。。。。。。。。。。。。。
 				return true;
 			}else{
@@ -335,9 +346,12 @@ class OrderDetail{
 	 */
 	public function orderDoneComment(){
 		//订单完成时间
+		$orderDoneTime = time();
+		$logInfo = date("Y-m-d H:i:s")." ---> 用户已收货<br />";
+// 		logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')
 		
-		// $logInfo = date("Y-m-d H:i:s")." ---> 系统已为您分配送水工:xxxxx<br />";
-		// logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')
+		
+		
 	}
 	/**
 	 *--6--订单配送失败
@@ -417,7 +431,7 @@ class OrderDetail{
 	 * 生成订单
 	 * orderStatue=0  	订单已提交未付款
 	 */
-	public function placeOrderPhone($orderOwnerID,$waterStoreID,$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice){
+	public function placeOrderPhone($orderOwnerID,$waterStoreID,$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$settleMethod,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice){
 			
 		//引入订单包含桶装水模型文件
 		require(DOC_PATH_ROOT."/Model/EntityModel/ordercontaingoods.class.php");
@@ -461,6 +475,7 @@ class OrderDetail{
 				$res = $orderContainGoods->addGoodsForOrder($lastID,$waterGoodsID,$waterGoodsCount,$price);
 					
 				if($res){
+					$this ->settleOrderPhone($lastID, $settleMethod);
 					return $lastID;
 				}else{
 					return false;

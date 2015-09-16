@@ -250,11 +250,11 @@ class HomeController{
  	/**
  	 * 获取验证码字符串
  	 */
-//  	function getCodeString(){
-//  	    $code = ValidCode::getCode();
-//  	    $_SESSION['validcode'] = strtoupper($code);
-//         echo $code;
-//  	}
+ 	function getCodeString(){
+ 	    $code = ValidCode::getCode();
+ 	    $_SESSION['validcode'] = strtoupper($code);
+        echo $code;
+ 	}
  	/**
 	 * (网页异步) 验证验证码
 	 */

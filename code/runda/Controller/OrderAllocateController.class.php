@@ -5,7 +5,7 @@ require(DOC_PATH_ROOT."/Model/EntityModel/orderdetail.class.php");
 require(DOC_PATH_ROOT."/Model/EntityModel/waterbearer.class.php");
 
 class OrderAllocateController{
-	/*
+	/**
 	 *为已付款的订单分配送水工
 	 */
 	public function allocateWaterBearer(){

@@ -26,22 +26,6 @@ class WaterBearerController{
 			$password = md5($passwd);
 			$user = new User();
 			$result = $user ->valideWaterBearer($phoneNumber, $password);
-// 			$res = json_decode($result,true);
-// 			if($res['code']== "200"){
-// // 				//保存登录用户的信息
-// // 				$_SESSION['id'] = $res['data']['id'];
-// // 				$_SESSION['userName'] = $res['data']['userName'];
-// 				//根据用户的选择来决定是否保存密码
-// // 				$code = "200";
-// // 				$message = "登录成功";
-// // 				$data = "";
-// // 				echo '{"code":"200","msg":"登录成功","data":""}';
-
-// 				echo $result;
-// 			}else{
-// 				echo $result;
-// 			}
-
 			echo $result;
 		}
 	}

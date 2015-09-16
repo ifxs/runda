@@ -272,7 +272,7 @@ class User {
 			}else{
 				$id = $res[0]['id'];
 				$userName = $res[0]['userName'];
-				return Json::makeJson("200",'登录成功',array('id' =>$id,'userName'=>$userName));
+				return Json::makeJsonIncludeJson("200",'登录成功',array('id' =>$id,'userName'=>$userName));
 			}
 		}
 	}

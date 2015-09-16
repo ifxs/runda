@@ -499,7 +499,17 @@ class OrderController{
 	 *取消订单
 	 */
 	function cancelOrderProc(){
-
+		if(isset($_GET['orderid'])){
+			$orderDetail = new OrderDetail();
+			$res = $orderDetail ->cancelOrder($_GET['orderid']);
+			if($res){
+				echo '{"code":"200","message":"取消成功","data":[]}';
+			}else{
+				echo '{"code":"400","message":"取消失败","data":[]}';
+			}
+		}else{
+			echo '{"code":"400","message":"请求错误","data":[]}';
+		}
 	}
 	/*
 	 *删除订单
@@ -537,14 +547,15 @@ class OrderController{
 	 */
 	function placeOrderPhone(){
 		if(empty($_POST)){
-	
+			echo '{"code":"400","message":"参数异常","data":[]}';
 		}else{
 			$order = new OrderDetail();
 // 			$order ->placeOrderPhone($orderOwnerID,$waterStoreID,$recieverPersonName,$recieverPersonPhone,
 // 					$recieverAddress,$recieverTime,$remark,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice);
 			$result = $order ->placeOrderPhone($_SESSION['id'],$_POST['waterStoreID'],$_POST['recieverPersonName'],$_POST['recieverPersonPhone'],
 					$_POST['recieverAddress'],$_POST['recieverTime'],
-							$_POST['remark'],$_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
+							$_POST['remark'],$_POST['settleMethod'],
+					$_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 			
 			//成功
 			if($result){
@@ -557,10 +568,10 @@ class OrderController{
 			}
 		}
 	}
-	/**
-	 * 为订单付款  Phone端
-	 * orderStatue=1        订单已付款待分配送水工
-	 */
+// 	/**
+// 	 * 为订单付款  Phone端   ---->弃用
+// 	 * orderStatue=1        订单已付款待分配送水工
+// 	 */
 	function settleOrderPhone(){
 		if(empty($_POST)){
 			
@@ -575,7 +586,7 @@ class OrderController{
 			}
 		}
 	}
-	/*
+	/**
 	 *获取所有订单 web版
 	 */
 	function getAllOrderPhone(){
@@ -599,7 +610,7 @@ class OrderController{
 			echo '{"code":"400","message":"获取失败","data":[]}';
 		}
 	}
-	/*
+	/**
 	 *获取已完成订单 web版
 	 */
 	function getDoneOrderPhone(){
@@ -622,7 +633,7 @@ class OrderController{
 			echo '{"code":"400","message":"获取失败","data":[]}';
 		}
 	}
-	/*
+	/**
 	 *获取未完成订单 web版
 	 */
 	function getUnfinishedOrderPhone(){
@@ -651,7 +662,7 @@ class OrderController{
 			echo '{"code":"400","message":"获取失败","data":[]}';
 		}
 	}
-	/*
+	/**
 	 *查看待付款订单 web版
 	 */
 	function getNonPaymentOrderPhone(){
@@ -680,7 +691,7 @@ class OrderController{
 			echo '{"code":"400","message":"获取失败","data":[]}';
 		}
 	}
-	/*
+	/**
 	 *获取已取消订单 web版
 	 */
 	function getCanceleddOrderPhone(){
@@ -703,7 +714,7 @@ class OrderController{
 			echo '{"code":"400","message":"获取失败","data":[]}';
 		}
 	}
-	/*
+	/**
 	 *获取失败订单 web版
 	 */
 	function getFaileddOrderPhone(){
@@ -748,4 +759,13 @@ class OrderController{
 		}
 	}
 
+	
+	
+	/**
+	 * 取消订单
+	 */
+	
+	/**
+	 * 延期收货
+	 */
 }
