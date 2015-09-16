@@ -432,34 +432,15 @@ class OrderDetail{
 	 * orderStatue=0  	订单已提交未付款
 	 */
 	public function placeOrderPhone($orderOwnerID,$waterStoreID,$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$settleMethod,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice){
-			
-		//引入订单包含桶装水模型文件
-// 		require(DOC_PATH_ROOT."/Model/EntityModel/ordercontaingoods.class.php");
-			
-		// 			$orderContainGoods = new OrderContainGoods();
-		// 			$orderContainGoods->addGoodsForOrder($orderID,$waterGoodsID,$waterGoodsCount,$price);
-			
-			
-		//桶装水所属水站、收货人姓名、收货人电话、收货地址、收货时间、备注、订单提交时间
-			
 		//订单提交时间
 		$orderSubmitTime = time();
 		//物流信息
 		$logInfo = date("Y-m-d H:i:s").' ---> 订单创建成功,等待用户付款<br />';
 			
-			
 		//订单总额
 		$totalPrice = $waterGoodsCount * $waterGoodsPrice;
-	
 			
-		$sql = "insert into orderDetail (orderOwnerID,waterStoreID,
-					recieverPersonName,recieverPersonPhone,recieverAddress,
-					recieverTime,remark,
-			
-					totalPrice,orderCategory,orderStatue
-			
-					logisticeInformation,orderSubmitTime) values(
-				?,?,?,?,?,?,?,?,?,?,?,?)";
+		$sql = "insert into orderDetail (orderOwnerID,waterStoreID,recieverPersonName,recieverPersonPhone,recieverAddress,recieverTime,remark,totalPrice,orderCategory,orderStatue,logisticeInformation,orderSubmitTime) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		$sql2 = "select LAST_INSERT_ID() last_id;";
 		try{
 			$rowCount = DBActive::executeNoQuery($sql,array($orderOwnerID,$waterStoreID,
@@ -485,7 +466,6 @@ class OrderDetail{
 				return false;
 			}
 		}catch(PDOException $e){
-			// return array("code"=>"500","message"=>$e ->getMessage());
 			return false;
 		}
 	}
