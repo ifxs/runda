@@ -12,8 +12,8 @@ class OrderContainGoods{
 			DBActive::executeNoQuery($sql,array($orderID,$waterGoodsID,$waterGoodsCount,$price));
 			return true;
 		}catch(PDOException $e){
-			return $e ->getMessage().$sql.$orderID.$waterGoodsID.$waterGoodsCount;
-// 			return false;
+// 			return $e ->getMessage().$sql.$orderID.$waterGoodsID.$waterGoodsCount;
+			return false;
 		}
 	}
 	/*

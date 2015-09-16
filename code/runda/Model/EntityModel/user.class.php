@@ -51,13 +51,22 @@ class User {
 			if($rowCount > 0){
 				//----------- the CentOS is Error---------------------------
 				//----用户注册成功后，邮箱不为空就给他发邮件发送邮件
-			    if($email != ''){
-                    require(DOC_PATH_ROOT."/Lib/SwiftMailer/sendemail.swiftmailer.func.php");
-    				$swiftMailer = new SwiftMailer();
-    				$subject = "恭喜您,注册成功";
-    				$body = "您好,恭喜您注册成功,您的用户名是:".$userName.",您可以点击网站上的'联系我们'向我们提出您的宝贵意见。感谢您的注册，您的支持将是我们进步的最大的动力!";
-    				$swiftMailer ->sendMail($email,"",$subject,$body);
-			    }
+				
+				
+				
+				
+// 			    if($email != ''){
+//                     require(DOC_PATH_ROOT."/Lib/SwiftMailer/sendemail.swiftmailer.func.php");
+//     				$swiftMailer = new SwiftMailer();
+//     				$subject = "恭喜您,注册成功";
+//     				$body = "您好,恭喜您注册成功,您的用户名是:".$userName.",您可以点击网站上的'联系我们'向我们提出您的宝贵意见。感谢您的注册，您的支持将是我们进步的最大的动力!";
+//     				$swiftMailer ->sendMail($email,"",$subject,$body);
+// 			    }
+			    
+			    
+			    
+			    
+			    
     //----发短信------------------------------------------------------------------------------------			    
 			    //----用户注册成功后，给他发短信 Date:20150425 23:17
 
@@ -82,11 +91,18 @@ class User {
                 //---------------------------------------------------------------------
                 //---------上线使用-------------------------------------------------
                 //---------------------------------------------------------------------
-                require(DOC_PATH_ROOT."/Lib/SendSMS/sendsms.juhe.func.php");
-                $sender = new SendSMSByJuHe();
-                $value = urlencode("#app#=润达智能送水&#username#=".$userName);
-                // 2428 是注册模板
-                $sender ->sendSMS($phoneNumber,"2428",$value);
+                
+			    
+			    
+			    
+//                 require(DOC_PATH_ROOT."/Lib/SendSMS/sendsms.juhe.func.php");
+//                 $sender = new SendSMSByJuHe();
+//                 $value = urlencode("#app#=润达智能送水&#username#=".$userName);
+//                 // 2428 是注册模板
+//                 $sender ->sendSMS($phoneNumber,"2428",$value);
+
+			    
+			    
                 // if($res == "404"){
                 //  return Json::makeJson("400","phone number error");
                 // }
