@@ -434,7 +434,7 @@ class OrderDetail{
 	public function placeOrderPhone($orderOwnerID,$waterStoreID,$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$settleMethod,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice){
 			
 		//引入订单包含桶装水模型文件
-		require(DOC_PATH_ROOT."/Model/EntityModel/ordercontaingoods.class.php");
+// 		require(DOC_PATH_ROOT."/Model/EntityModel/ordercontaingoods.class.php");
 			
 		// 			$orderContainGoods = new OrderContainGoods();
 		// 			$orderContainGoods->addGoodsForOrder($orderID,$waterGoodsID,$waterGoodsCount,$price);

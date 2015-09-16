@@ -558,12 +558,8 @@ class OrderController{
 			echo '{"code":"400","message":"参数异常","data":[]}';
 		}else{
 			$order = new OrderDetail();
-// 			$order ->placeOrderPhone($orderOwnerID,$waterStoreID,$recieverPersonName,$recieverPersonPhone,
-// 					$recieverAddress,$recieverTime,$remark,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice);
-			$result = $order ->placeOrderPhone($_SESSION['id'],$_POST['waterStoreID'],$_POST['recieverPersonName'],$_POST['recieverPersonPhone'],
-					$_POST['recieverAddress'],$_POST['recieverTime'],
-							$_POST['remark'],$_POST['settleMethod'],
-					$_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
+			$result = $order ->placeOrderPhone($_SESSION['id'],$_POST['waterStoreID'],$_POST['recieverPersonName'],$_POST['recieverPersonPhone'],$_POST['recieverAddress'],$_POST['recieverTime'],$_POST['remark'],$_POST['settleMethod'],
+$_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 			
 			//成功
 			if($result){
