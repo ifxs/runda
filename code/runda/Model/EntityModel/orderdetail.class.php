@@ -453,7 +453,7 @@ class OrderDetail{
 					
 				$orderContainGoods = new OrderContainGoods();
 					
-				$res = $orderContainGoods->addGoodsForOrder($lastID,$waterGoodsID,$waterGoodsCount,$price);
+				$res = $orderContainGoods->addGoodsForOrder($lastID,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice);
 					
 				if($res){
 					$this ->settleOrderPhone($lastID, $settleMethod);
