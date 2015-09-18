@@ -424,9 +424,9 @@ class OrderDetail{
 	
 	
 	
-	//---------------------------------------------------------------
-	//--------------下订单相关  phone端---------------------------------------
-	//-------------------------------------------------------------
+//---------------------------------------------------------------
+//--------------下订单相关  phone端---------------------------------------
+//-------------------------------------------------------------
 	/**
 	 * 生成订单
 	 * orderStatue=0  	订单已提交未付款
@@ -440,11 +440,11 @@ class OrderDetail{
 		//订单总额
 		$totalPrice = $waterGoodsCount * $waterGoodsPrice;
 			
-		$sql = "insert into orderDetail (orderOwnerID,waterStoreID,recieverPersonName,recieverPersonPhone,recieverAddress,recieverTime,remark,totalPrice,orderCategory,orderStatue,logisticeInformation,orderSubmitTime) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		$sql = "insert into orderDetail (orderOwnerID,waterStoreID,recieverPersonName,recieverPersonPhone,recieverAddress,recieverTime,remark,settleMethod,totalPrice,orderCategory,orderStatue,logisticeInformation,orderSubmitTime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$sql2 = "select LAST_INSERT_ID() last_id;";
 		try{
 			$rowCount = DBActive::executeNoQuery($sql,array($orderOwnerID,$waterStoreID,
-					$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,
+					$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$settleMethod,
 					$totalPrice,0,0,
 					$logInfo,$orderSubmitTime));
 			if($rowCount > 0){
@@ -561,9 +561,28 @@ class OrderDetail{
 	}
 	
 	
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	/**
+	 * 延期收货
+	 */
+	public function relayReceiveDate($orderID, $recieverTime){
+		$logInfo = date("Y-m-d H:i:s")." ---> 您修改了收货时间,改为了：".$recieverTime."<br />";
+		$sql = "update orderDetail set recieverTime=?,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}') where id=?";
+		try{
+			$rowCount = DBActive::executeNoQuery($sql,array($recieverTime,$orderID));
+			if($rowCount > 0){
+				return true;
+			}else{
+				return false;
+			}
+		}catch(PDOException $e){
+			return false;
+		}
+	}
+	
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	/**
 	 *查询未分配送水工的订单
 	 */

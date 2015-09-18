@@ -763,13 +763,34 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 		}
 	}
 
-	
-	
 	/**
-	 * 取消订单
+	 * 获取订单所包含的桶装水
 	 */
+	function obtainOrderIncludeWaters(){
+		//3 获取订单所含的桶装水
+		$orderContainGoods = new OrderContainGoods();
+		$orderContainGoodsResult = $orderContainGoods ->getGoodsByOrderID($_GET['orderid']);
+		if($orderContainGoodsResult){
+			echo Json::makeJson("200","查询成功",$orderContainGoodsResult);
+		}else{
+			echo '{"code":"400","message":"没有查询到相关订单","data":[]}';
+		}
+	}
 	
 	/**
 	 * 延期收货
 	 */
+	public function relayReceiveDate(){
+		if(empty($_GET)){
+			echo '{"code":"400","message":"请求错误","data":[]}';
+		}else{
+			$order = new OrderDetail();
+			$result = $order ->relayReceiveDate($_GET['orderid'], $_GET['recieverTime']);
+			if($result){
+				echo '{"code":"200","message":"操作成功","data":[]}';
+			}else{
+				echo '{"code":"400","message":"操作失败","data":[]}';
+			}
+		}
+	}
 }

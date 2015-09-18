@@ -297,7 +297,7 @@ class HomeController{
 			echo Json::makeJson("400","请求错误");
 		}else{
 			$user = new User();
-			$result = $user ->updateUserInfo($_SESSION['id'], $_POST['userName'], $_POST['province'], $_POST['city'], $_POST['country'], $_POST['detailAddress']);
+			$result = $user ->updateUserInfo($_SESSION['id'], $_POST['realName'], $_POST['province'], $_POST['city'], $_POST['country'], $_POST['detailAddress']);
 			return $result;
 		}
 	}
