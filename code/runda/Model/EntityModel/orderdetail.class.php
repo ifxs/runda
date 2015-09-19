@@ -432,11 +432,44 @@ class OrderDetail{
 	 * orderStatue=0  	订单已提交未付款
 	 */
 	public function placeOrderPhone($orderOwnerID,$waterStoreID,$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$settleMethod,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice){
-		//订单提交时间
-		$orderSubmitTime = time()."";
-		//物流信息
-		$logInfo = date("Y-m-d H:i:s").' ---> 订单创建成功,等待用户付款<br />';
+// 		//订单提交时间
+// 		$orderSubmitTime = time()."";
+// 		//物流信息
+// 		$logInfo = date("Y-m-d H:i:s").' ---> 订单创建成功,等待用户付款<br />';
 			
+// 		//订单总额
+// 		$totalPrice = $waterGoodsCount * $waterGoodsPrice;
+			
+// 		$sql = "insert into orderDetail (orderOwnerID,waterStoreID,recieverPersonName,recieverPersonPhone,recieverAddress,recieverTime,remark,settleMethod,totalPrice,orderCategory,orderStatue,logisticeInformation,orderSubmitTime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+// 		$sql2 = "select LAST_INSERT_ID() last_id;";
+// 		try{
+// 			$rowCount = DBActive::executeNoQuery($sql,array($orderOwnerID,$waterStoreID,
+// 					$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$settleMethod,
+// 					$totalPrice,0,0,
+// 					$logInfo,$orderSubmitTime));
+// 			if($rowCount > 0){
+// 				$lastID = DBActive::executeQuery($sql2);
+// 				$lid = $lastID[0]['last_id'];
+// 				$orderContainGoods = new OrderContainGoods();
+// 				$res = $orderContainGoods->addGoodsForOrder($lid,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice);
+// 				if($res){
+// 					$this ->settleOrderPhone($lastID, $settleMethod);
+// 					return $lastID;
+// 				}else{
+// 					return false;
+// 				}
+					
+// 			}else{
+// 				return false;
+// 			}
+// 		}catch(PDOException $e){
+// 			return false;
+// 		}
+		//订单提交时间
+		$orderSubmitTime = time();
+		//物流信息
+		$logInfo1 = date("Y-m-d H:i:s").' ---> 订单创建成功,等待用户付款<br />';
+		$logInfo = $logInfo1.date("Y-m-d H:i:s")." ---> 您已完成订单结算,等待系统为您分配送水工<br />";
 		//订单总额
 		$totalPrice = $waterGoodsCount * $waterGoodsPrice;
 			
@@ -445,15 +478,16 @@ class OrderDetail{
 		try{
 			$rowCount = DBActive::executeNoQuery($sql,array($orderOwnerID,$waterStoreID,
 					$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$settleMethod,
-					$totalPrice,0,0,
+					$totalPrice,0,1,
 					$logInfo,$orderSubmitTime));
 			if($rowCount > 0){
 				$lastID = DBActive::executeQuery($sql2);
+				$lID = $lastID[0]['last_id'];
 				$orderContainGoods = new OrderContainGoods();
-				$res = $orderContainGoods->addGoodsForOrder($lastID,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice);
+				$res = $orderContainGoods->addGoodsForOrder($lID,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice);
 				if($res){
-					$this ->settleOrderPhone($lastID, $settleMethod);
-					return $lastID;
+					///////////$this ->settleOrderPhone($lastID, $settleMethod);
+					return $lID;
 				}else{
 					return false;
 				}
