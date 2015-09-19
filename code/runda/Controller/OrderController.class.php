@@ -638,7 +638,7 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 		}
 	}
 	/**
-	 *获取未完成订单 web版
+	 *获取未完成订单
 	 */
 	function getUnfinishedOrderPhone(){
 		//获取订单信息
@@ -667,7 +667,7 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 		}
 	}
 	/**
-	 *查看待付款订单 web版
+	 *查看待付款订单 
 	 */
 	function getNonPaymentOrderPhone(){
 		//获取订单信息
@@ -696,7 +696,7 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 		}
 	}
 	/**
-	 *获取已取消订单 web版
+	 *获取已取消订单 
 	 */
 	function getCanceleddOrderPhone(){
 		//获取订单信息
@@ -719,7 +719,7 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 		}
 	}
 	/**
-	 *获取失败订单 web版
+	 *获取失败订单
 	 */
 	function getFaileddOrderPhone(){
 		//获取订单信息

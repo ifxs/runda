@@ -433,7 +433,7 @@ class OrderDetail{
 	 */
 	public function placeOrderPhone($orderOwnerID,$waterStoreID,$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$settleMethod,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice){
 		//订单提交时间
-		$orderSubmitTime = time();
+		$orderSubmitTime = time()."";
 		//物流信息
 		$logInfo = date("Y-m-d H:i:s").' ---> 订单创建成功,等待用户付款<br />';
 			
@@ -449,12 +449,8 @@ class OrderDetail{
 					$logInfo,$orderSubmitTime));
 			if($rowCount > 0){
 				$lastID = DBActive::executeQuery($sql2);
-					
-					
 				$orderContainGoods = new OrderContainGoods();
-					
 				$res = $orderContainGoods->addGoodsForOrder($lastID,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice);
-					
 				if($res){
 					$this ->settleOrderPhone($lastID, $settleMethod);
 					return $lastID;
