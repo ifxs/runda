@@ -190,7 +190,7 @@ class OrderDetail{
 	 */
 	public function getCanceleddOrder($userID,$currentPage,$singlePageRecordCount){
 		$begin = ($currentPage - 1) * $singlePageRecordCount;
-	    // $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=1 and orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
+	    // $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
 	    $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderCancelReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
 	    try{
 	        $result = DBActive::executeQuery($sql,array($userID));
@@ -204,7 +204,7 @@ class OrderDetail{
 	 */
 	public function getFaileddOrder($userID,$currentPage,$singlePageRecordCount){
 		$begin = ($currentPage - 1) * $singlePageRecordCount;
-	    $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderFailReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
+	    $sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderFailReason,orderSubmitTime from orderDetail where orderCategory=5 and orderOwnerID=? order by orderSubmitTime desc limit ".$begin.",".$singlePageRecordCount.";";
 	    try{
 	        $result = DBActive::executeQuery($sql,array($userID));
 	        return $result;
@@ -522,11 +522,6 @@ class OrderDetail{
 	 */
 	public function getAllOrderPhone($userID){
 // 		select barrelWaterGoods.waterCate,barrelWaterGoods.waterBrand,barrelWaterGoods.waterGoodsName,barrelWaterGoods.waterGoodsDescript,barrelWaterGoods.waterGoodsPrice,barrelWaterGoods.waterGoodsDefaultImage,barrelWaterGoods.waterGoodsInventory,orderDetail.waterBearerID,orderDetail.waterStoreID,orderDetail.recieverPersonName,orderDetail.recieverPersonPhone,orderDetail.recieverAddress,orderDetail.recieverTime,orderDetail.remark,orderDetail.totalPrice,orderDetail.settleMethod,orderDetail.orderCategory,orderDetail.orderStatue,orderDetail.logisticeInformation,orderDetail.orderCancelReason,orderDetail.orderFailReason,orderDetail.orderSubmitTime,orderDetail.orderDoneTime,orderContainGoods.waterGoodsID,orderContainGoods.waterGoodsCount,waterStore.waterStoreName,waterStore.waterStoreTellPhone from orderDetail join orderContainGoods on orderDetail.id=orderContainGoods.orderID left join waterStore ON orderDetail.waterStoreID=waterStoreID.id left join barrelWaterGoods ON orderDetail.waterBearerID=barrelWaterGoods.id;
-
-		
-		
-		
-		
 // 		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderOwnerID=? order by orderSubmitTime desc";
 		$sql = "select t1.*,t2.waterStoreName,t2.waterStoreTellPhone,t3.*,t4.* from orderDetail as t1,waterstore as t2,barrelwatergoods as t3,ordercontaingoods as t4
 		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderOwnerID=? order by orderSubmitTime desc";
@@ -543,7 +538,10 @@ class OrderDetail{
 	 *获取已完成订单
 	 */
 	public function getDoneOrderPhone($userID){
-		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=3 and orderOwnerID=? order by orderSubmitTime desc;";
+// 		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=3 and orderOwnerID=? order by orderSubmitTime desc;";
+		$sql = "select t1.*,t2.waterStoreName,t2.waterStoreTellPhone,t3.*,t4.* from orderDetail as t1,waterstore as t2,barrelwatergoods as t3,ordercontaingoods as t4
+		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderCategory=3 and orderOwnerID=? order by orderSubmitTime desc";
+		
 		try{
 			$result = DBActive::executeQuery($sql,array($userID));
 			return $result;
@@ -570,7 +568,9 @@ class OrderDetail{
 	 *获取待付款订单
 	 */
 	public function getNonPaymentOrderPhone($userID){
-		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime from orderDetail where orderOwnerID=? and orderStatue=0 order by orderSubmitTime desc;";
+// 		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime from orderDetail where orderOwnerID=? and orderStatue=0 order by orderSubmitTime desc;";
+		$sql = "select t1.*,t2.waterStoreName,t2.waterStoreTellPhone,t3.*,t4.* from orderDetail as t1,waterstore as t2,barrelwatergoods as t3,ordercontaingoods as t4
+		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderStatue=0 and orderOwnerID=? order by orderSubmitTime desc";
 		try{
 			$result = DBActive::executeQuery($sql,array($userID));
 			return $result;
@@ -582,7 +582,10 @@ class OrderDetail{
 	 *获取已取消订单
 	 */
 	public function getCanceleddOrderPhone($userID){
-		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderCancelReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc;";
+// 		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderCancelReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc;";
+		$sql = "select t1.*,t2.waterStoreName,t2.waterStoreTellPhone,t3.*,t4.* from orderDetail as t1,waterstore as t2,barrelwatergoods as t3,ordercontaingoods as t4
+		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc";
+		
 		try{
 			$result = DBActive::executeQuery($sql,array($userID));
 			return $result;
@@ -594,7 +597,10 @@ class OrderDetail{
 	 *获取已失败订单
 	 */
 	public function getFaileddOrderPhone($userID){
-		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderFailReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc;";
+// 		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderFailReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc;";
+		$sql = "select t1.*,t2.waterStoreName,t2.waterStoreTellPhone,t3.*,t4.* from orderDetail as t1,waterstore as t2,barrelwatergoods as t3,ordercontaingoods as t4
+		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderCategory=5 and orderOwnerID=? order by orderSubmitTime desc";
+		
 		try{
 			$result = DBActive::executeQuery($sql,array($userID));
 			return $result;
@@ -602,9 +608,6 @@ class OrderDetail{
 			return null;
 		}
 	}
-	
-	
-	
 	/**
 	 * 延期收货
 	 */

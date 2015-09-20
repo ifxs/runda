@@ -98,6 +98,9 @@
 		if($orderDetail['orderStatue'] == 0){
 			echo '<br /><br /><a type="button" class="btn btn-danger btn-mid" href="index.php?controller=Order&method=orderSettle&orderid='.$orderDetail['id'].'">现在结算</a>';
 		}
+		if($orderDetail['orderStatue'] == 6){
+			echo '<br /><br /><a type="button" class="btn btn-danger btn-mid" href="index.php?controller=Order&method=orderSettle&orderid='.$orderDetail['id'].'">确认收货</a>';
+		}
 		echo '</div>';
 	}else{
 		echo '<div class="error_box">没有查询到该订单的相关信息,抑或你没有权限查看</div>';

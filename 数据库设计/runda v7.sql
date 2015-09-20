@@ -299,6 +299,10 @@ isShow tinyint not null,
 imageWeight tinyint not null
 )auto_increment=10000;
 
+
+
+
+
 -- 要修改的地方：
 -- 1->sex char(6) not null, (OK)
 -- 2->isShow tinyint not null  (OK)

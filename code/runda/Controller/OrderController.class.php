@@ -12,7 +12,7 @@ class OrderController{
 //----------------------------------------------------------------
 //------------下订单----------------------------------------------
 //----------------------------------------------------------------
-	/*
+	/**
 	 *下订单处理
 	 */
 	function placeOrder(){
@@ -101,7 +101,7 @@ class OrderController{
 //----------------------------------------------------------------
 //------------结算订单----------------------------------------------
 //----------------------------------------------------------------
-	/*
+	/**
 	 *订单结算页面
 	 */
 	function orderSettle(){
@@ -128,7 +128,7 @@ class OrderController{
 
 		// }
 	}
-	/*
+	/**
 	 *订单结算-货到付款-处理
 	 */
 	function orderSettleLocalProc(){
@@ -269,7 +269,7 @@ class OrderController{
         
         include DOC_PATH_ROOT.'/View/Order/getDoneOrder.php';
 	}
-	/*
+	/**
 	 *获取未完成订单 web版
 	 */
 	function getUnfinishedOrder(){
@@ -310,7 +310,7 @@ class OrderController{
         
         include DOC_PATH_ROOT.'/View/Order/getUnfinishedOrder.php';
 	}
-	/*
+	/**
 	 *查看待付款订单 web版
 	 */
 	function getNonPaymentOrder(){
@@ -390,7 +390,7 @@ class OrderController{
         
         include DOC_PATH_ROOT.'/View/Order/getNonPaymentOrder.php';
 	}
-	/*
+	/**
 	 *获取已取消订单 web版
 	 */
 	function getCanceleddOrder(){
@@ -475,6 +475,13 @@ class OrderController{
         include DOC_PATH_ROOT.'/View/Order/getFaileddOrder.php';
 	}
 
+	/**
+	 * 收货
+	 */
+// 	public function
+	/**
+	 * 评价
+	 */
 
 //----------------------------------------------------------------
 //------------查看订单详细情况----------------------------------------------
@@ -503,7 +510,7 @@ class OrderController{
 //----------------------------------------------------------------
 //------------操作订单 取消 删除----------------------------------------------
 //----------------------------------------------------------------
-	/*
+	/**
 	 *取消订单
 	 */
 	function cancelOrderProc(){
@@ -519,7 +526,7 @@ class OrderController{
 			echo '{"code":"400","message":"请求错误","data":[]}';
 		}
 	}
-	/*
+	/**
 	 *删除订单
 	 */
 	function deleteOrderProc(){
