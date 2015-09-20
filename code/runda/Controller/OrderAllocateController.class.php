@@ -99,6 +99,8 @@ class OrderAllocateController{
 	 * 送水工抢单
 	 */
 	public function addToMyOrders(){
+// 		var_dump($_GET);exit();
+		
 		if(empty($_GET)){
 			echo '{"code":"400","msg":"请求错误","data":""}';
 		}else{

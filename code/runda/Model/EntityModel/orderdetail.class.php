@@ -623,7 +623,7 @@ class OrderDetail{
 		$logInfo = $date.' ---> 已收货<br />';
 		$sql = "update orderDetail set orderCategory=3,orderStatue=8,orderDoneTime=?,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}') where id=?";
 		try{
-			$rowCount = DBActive::executeNoQuery($sql,array($date,$orderID));
+			$rowCount = DBActive::executeNoQuery($sql,array($date,$orderid));
 			if($rowCount > 0){
 				return true;
 			}else{
