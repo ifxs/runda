@@ -88,7 +88,7 @@ class OrderAllocateController{
 	 * 送水工获取未分配的订单
 	 */
 	public function obtainNoAllocateOrders(){
-		$res = $noAllocateOrders = OrderDetail::getNoAllocateOrders();
+		$res = OrderDetail::getNoAllocateOrders();
 		if($res){
 			echo Json::makeJsonIncludeJson("200","获取成功",$res);
 		}else{
@@ -96,11 +96,26 @@ class OrderAllocateController{
 		}
 	}
 	/**
+	 * 送水工抢单
+	 */
+	public function addToMyOrders(){
+		if(empty($_GET)){
+			echo '{"code":"400","msg":"请求错误","data":""}';
+		}else{
+			$res = OrderDetail::addToBearOrders($_GET['waterBearerID'],$_GET['orderid']);
+			if($res){
+				echo '{"code":"200","msg":"抢单成功","data":""}';
+			}else{
+				echo '{"code":"300","msg":"抢单失败","data":""}';
+			}
+		}
+	}
+	/**
 	 * 送水工获取自己的未完成订单
 	 */
 	public function obtainOwnUnDoneOrders() {
 		if(isset($_GET['waterBearID'])){
-			$res = $noAllocateOrders = OrderDetail::getBearUnDoweOrders($_GET['waterBearID']);
+			$res = OrderDetail::getBearUnDoweOrders($_GET['waterBearID']);
 			if($res){
 				echo Json::makeJsonIncludeJson("200","获取成功",$res);
 			}else{
@@ -115,7 +130,7 @@ class OrderAllocateController{
 	 */
 	public function obtainOwnDoneOrders() {
 		if(isset($_GET['waterBearID'])){
-			$res = $noAllocateOrders = OrderDetail::getBearDoweOrders($_GET['waterBearID']);
+			$res = OrderDetail::getBearDoweOrders($_GET['waterBearID']);
 			if($res){
 				echo Json::makeJsonIncludeJson("200","获取成功",$res);
 			}else{

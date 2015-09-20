@@ -168,13 +168,13 @@ class OrderController{
 			}
 		}
 	}
-	/*
+	/**
 	 *订单结算-在线支付-处理
 	 */
 	function orderSettleOnlineProc(){
 		echo Json::makeJson("200","成功");
 	}
-	/*
+	/**
 	 *订单结算成功页面
 	 */
 	function orderSettleResult(){
@@ -187,7 +187,7 @@ class OrderController{
 //----------------------------------------------------------------
 //------------查看订单----------------------------------------------
 //----------------------------------------------------------------
-	/*
+	/**
 	 *获取所有订单 web版
 	 */
 	function getAllOrder(){
@@ -228,7 +228,7 @@ class OrderController{
         
         include DOC_PATH_ROOT.'/View/Order/getAllOrder.php';
 	}
-	/*
+	/**
 	 *获取已完成订单 web版
 	 */
 	function getDoneOrder(){
@@ -432,7 +432,7 @@ class OrderController{
         
         include DOC_PATH_ROOT.'/View/Order/getCanceleddOrder.php';
 	}
-	/*
+	/**
 	 *获取失败订单 web版
 	 */
 	function getFaileddOrder(){
@@ -478,11 +478,23 @@ class OrderController{
 	/**
 	 * 收货
 	 */
-// 	public function
+	public function xx(){
+		if(isset($_GET['orderid'])){
+			
+		}else{
+			
+		}
+	}
 	/**
 	 * 评价
 	 */
-
+	public function xxx(){
+		if(empty($_POST)){
+				
+		}else{
+				
+		}
+	}
 //----------------------------------------------------------------
 //------------查看订单详细情况----------------------------------------------
 //----------------------------------------------------------------
@@ -545,12 +557,6 @@ class OrderController{
 			echo Json::makeJson("400","请求错误");
 		}
 	}
-
-	
-	
-	
-	
-	
 	
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
@@ -769,7 +775,6 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 			echo '{"code":"400","message":"没有查询到相关订单","data":[]}';
 		}
 	}
-
 	/**
 	 * 获取订单所包含的桶装水
 	 */
@@ -783,7 +788,6 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 			echo '{"code":"400","message":"没有查询到相关订单","data":[]}';
 		}
 	}
-	
 	/**
 	 * 延期收货
 	 */
@@ -797,6 +801,39 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 				echo '{"code":"200","message":"操作成功","data":[]}';
 			}else{
 				echo '{"code":"400","message":"操作失败","data":[]}';
+			}
+		}
+	}
+
+	/**
+	 * 收货
+	 */
+	public function done(){
+		if(isset($_GET['orderid'])){
+			$order = new OrderDetail();
+			$result = $order ->done($_GET['orderid']);
+			if($result){
+				echo '{"code":"200","message":"收货成功","data":[]}';
+			}else{
+				echo '{"code":"400","message":"收货失败","data":[]}';
+			}	
+		}else{
+			echo '{"code":"400","message":"请求错误","data":[]}';
+		}
+	}
+	/**
+	 * 评价
+	 */
+	public function commentOrder(){
+		if(empty($_POST)){
+			echo '{"code":"400","message":"请求错误","data":[]}';
+		}else{
+			require_once(DOC_PATH_ROOT."/Model/EntityModel/ordercomments.class.php");
+			$res = OrderComments::commentOrder($_POST['orderID'],$_SESSION['id'],$_POST['CommentContent']);
+			if($result){
+				echo '{"code":"200","message":"评价成功","data":[]}';
+			}else{
+				echo '{"code":"400","message":"评价失败","data":[]}';
 			}
 		}
 	}

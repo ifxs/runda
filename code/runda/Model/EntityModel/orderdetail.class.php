@@ -412,18 +412,6 @@ class OrderDetail{
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 //---------------------------------------------------------------
 //--------------下订单相关  phone端---------------------------------------
 //-------------------------------------------------------------
@@ -555,7 +543,7 @@ class OrderDetail{
 	public function getUnfinishedOrderPhone($userID){
 // 		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=0 and orderOwnerID=? order by orderSubmitTime desc;";
 		$sql = "select t1.*,t2.waterStoreName,t2.waterStoreTellPhone,t3.*,t4.* from orderDetail as t1,waterstore as t2,barrelwatergoods as t3,ordercontaingoods as t4
-		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderCategory=0 and orderOwnerID=? order by orderSubmitTime desc";
+		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderStatue<5 and orderOwnerID=? order by orderSubmitTime desc";
 		
 		try{
 			$result = DBActive::executeQuery($sql,array($userID));
@@ -599,7 +587,7 @@ class OrderDetail{
 	public function getFaileddOrderPhone($userID){
 // 		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderFailReason,orderSubmitTime from orderDetail where orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc;";
 		$sql = "select t1.*,t2.waterStoreName,t2.waterStoreTellPhone,t3.*,t4.* from orderDetail as t1,waterstore as t2,barrelwatergoods as t3,ordercontaingoods as t4
-		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderCategory=5 and orderOwnerID=? order by orderSubmitTime desc";
+		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderCategory=2 and orderOwnerID=? order by orderSubmitTime desc";
 		
 		try{
 			$result = DBActive::executeQuery($sql,array($userID));
@@ -625,6 +613,59 @@ class OrderDetail{
 			return false;
 		}
 	}
+	/**
+	 * 收货
+	 */
+	public function done($orderid){
+		$date = date("Y-m-d H:i:s");
+		//物流信息
+		$logInfo = $date.' ---> 已收货<br />';
+		$sql = "update orderDetail set orderCategory=3,orderStatue=8,orderDoneTime=?,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}') where id=?";
+		try{
+			$rowCount = DBActive::executeNoQuery($sql,array($date,$orderID));
+			if($rowCount > 0){
+				return true;
+			}else{
+				return false;
+			}
+		}catch(PDOException $e){
+			return false;
+		}
+	}
+	
+	//--->迁移到了ordercomment类里了
+// 	/**
+// 	 * 评价
+// 	 */
+// 	public function commentOrder($orderid,$comment){
+		
+// 		$sql = "insert into orderDetail (orderOwnerID,waterStoreID,recieverPersonName,recieverPersonPhone,recieverAddress,recieverTime,remark,settleMethod,totalPrice,orderCategory,orderStatue,logisticeInformation,orderSubmitTime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+// 		$sql2 = "select LAST_INSERT_ID() last_id;";
+// 		try{
+// 			$rowCount = DBActive::executeNoQuery($sql,array($orderOwnerID,$waterStoreID,
+// 					$recieverPersonName,$recieverPersonPhone,$recieverAddress,$recieverTime,$remark,$settleMethod,
+// 					$totalPrice,0,1,
+// 					$logInfo,$orderSubmitTime));
+// 			if($rowCount > 0){
+// 				$lastID = DBActive::executeQuery($sql2);
+// 				$lID = $lastID[0]['last_id'];
+// 				$orderContainGoods = new OrderContainGoods();
+// 				$res = $orderContainGoods->addGoodsForOrder($lID,$waterGoodsID,$waterGoodsCount,$waterGoodsPrice);
+// 				if($res){
+// 					///////////$this ->settleOrderPhone($lastID, $settleMethod);
+// 					return $lID;
+// 				}else{
+// 					return false;
+// 				}
+					
+// 			}else{
+// 				return false;
+// 			}
+// 		}catch(PDOException $e){
+// 			return false;
+// 		}
+// 	}
+	
 	
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -640,6 +681,22 @@ class OrderDetail{
 			return $res;
 		}catch(PDOException $e){
 			return null;
+		}
+	}
+	/**
+	 * 送水工抢单
+	 */
+	public static function addToBearOrders($waterBearerID,$id){
+		$sql = "update orderDetail set waterBearerID=? where id=?";
+		try{
+			$res = DBActive::executeNoQuery($sql,array($waterBearerID,$id));
+			if($res){
+				return true;
+			}else{
+				return false;
+			}
+		}catch(PDOException $e){
+			return false;
 		}
 	}
 	/**
@@ -668,5 +725,4 @@ class OrderDetail{
 			return null;
 		}
 	}
-	
 }

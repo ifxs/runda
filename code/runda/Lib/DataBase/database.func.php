@@ -19,8 +19,11 @@ class DBActive{
 		}
 		try{
 			$stm = $pdo ->prepare($sql);
-			for($i=0;$i<count($paramArray);$i++){
-				$stm -> bindParam($i+1, $paramArray[$i]);
+			if(count($paramArray) != 0){
+				
+				for($i=0;$i<count($paramArray);$i++){
+					$stm -> bindParam($i+1, $paramArray[$i]);
+				}
 			}
 			$stm ->execute();
 			$stm ->setFetchMode(PDO::FETCH_ASSOC);
