@@ -101,7 +101,7 @@ class OrderDetail{
 	 */
 	public function cancelOrder($orderid){
 		$logInfo = date("Y-m-d H:i:s")." ---> 取消订单<br />";
-		$sql = "update orderDetail set orderCategory=2,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')  where orderOwnerID=?";
+		$sql = "update orderDetail set orderCategory=2,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')  where id=?";
 		try{
 			$rowCount = DBActive::executeNoQuery($sql,array($orderid));
 			if($rowCount > 0){
@@ -691,11 +691,11 @@ class OrderDetail{
 		$sql = "update orderDetail set waterBearerID=? where id=?";
 		try{
 			$res = DBActive::executeNoQuery($sql,array($waterBearerID,$id));
-			if($res){
+// 			if($res){
 				return true;
-			}else{
-				return false;
-			}
+// 			}else{
+// 				return false;
+// 			}
 		}catch(PDOException $e){
 			return false;
 		}

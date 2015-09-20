@@ -99,22 +99,16 @@ class OrderAllocateController{
 	 * 送水工抢单
 	 */
 	public function addToMyOrders(){
-// 		var_dump($_GET);exit();
-		
 		if(empty($_GET)){
 			echo '{"code":"400","msg":"请求错误","data":""}';
 		}else{
 			$res = OrderDetail::addToBearOrders($_GET['wbid'],$_GET['orderid']);
-			
-			var_dump($res);
 					
-					
-					
-// 			if($res){
-// 				echo '{"code":"200","msg":"抢单成功","data":""}';
-// 			}else{
-// 				echo '{"code":"300","msg":"抢单失败","data":""}';
-// 			}
+			if($res){
+				echo '{"code":"200","msg":"抢单成功","data":""}';
+			}else{
+				echo '{"code":"300","msg":"抢单失败","data":""}';
+			}
 		}
 	}
 	/**
