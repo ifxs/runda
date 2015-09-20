@@ -726,4 +726,32 @@ class OrderDetail{
 			return null;
 		}
 	}
+	
+	
+	
+	
+	
+	
+//=============================================================================
+//=====================2015年9月20日22:55:32=====================================
+//=====================凯凯特别要求添加的===========================================
+	/**
+	 * 
+	 */
+	public function getOrderDetailPhone($orderID){
+		// 		select barrelWaterGoods.waterCate,barrelWaterGoods.waterBrand,barrelWaterGoods.waterGoodsName,barrelWaterGoods.waterGoodsDescript,barrelWaterGoods.waterGoodsPrice,barrelWaterGoods.waterGoodsDefaultImage,barrelWaterGoods.waterGoodsInventory,orderDetail.waterBearerID,orderDetail.waterStoreID,orderDetail.recieverPersonName,orderDetail.recieverPersonPhone,orderDetail.recieverAddress,orderDetail.recieverTime,orderDetail.remark,orderDetail.totalPrice,orderDetail.settleMethod,orderDetail.orderCategory,orderDetail.orderStatue,orderDetail.logisticeInformation,orderDetail.orderCancelReason,orderDetail.orderFailReason,orderDetail.orderSubmitTime,orderDetail.orderDoneTime,orderContainGoods.waterGoodsID,orderContainGoods.waterGoodsCount,waterStore.waterStoreName,waterStore.waterStoreTellPhone from orderDetail join orderContainGoods on orderDetail.id=orderContainGoods.orderID left join waterStore ON orderDetail.waterStoreID=waterStoreID.id left join barrelWaterGoods ON orderDetail.waterBearerID=barrelWaterGoods.id;
+		// 		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderOwnerID=? order by orderSubmitTime desc";
+		$sql = "select t1.*,t2.waterStoreName,t2.waterStoreTellPhone,t3.*,t4.* from orderDetail as t1,waterstore as t2,barrelwatergoods as t3,ordercontaingoods as t4
+		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and t1.id=?";
+	
+	
+		try{
+			$result = DBActive::executeQuery($sql,array($orderID));
+			return $result;
+		}catch(PDOException $e){
+			return null;
+		}
+	}
+	
+	
 }

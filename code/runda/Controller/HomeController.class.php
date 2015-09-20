@@ -298,7 +298,7 @@ class HomeController{
 		}else{
 			$user = new User();
 			$result = $user ->updateUserInfo($_SESSION['id'], $_POST['realName'], $_POST['province'], $_POST['city'], $_POST['country'], $_POST['detailAddress']);
-			return $result;
+			echo $result;
 		}
 	}
 	/**

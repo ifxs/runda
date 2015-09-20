@@ -18,6 +18,7 @@
 		<?php
 			$imageSrc = strstr($waterStoreResult['waterStoreImage'],"/Content");
 		 	echo '<img src="'.$imageSrc.'" width="200px" height="200" />'; 
+		 	echo $waterStoreResult['waterStoreName'];
 		?>
 	<div class="name_box">
 	<?php

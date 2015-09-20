@@ -604,7 +604,7 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 		}
 	}
 	/**
-	 *获取所有订单 web版
+	 *获取所有订单 
 	 */
 	function getAllOrderPhone(){
 		//获取订单信息
@@ -628,7 +628,7 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 		}
 	}
 	/**
-	 *获取已完成订单 web版
+	 *获取已完成订单 
 	 */
 	function getDoneOrderPhone(){
 		//获取订单信息
@@ -833,8 +833,30 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 			if($res){
 				echo '{"code":"200","message":"评价成功","data":[]}';
 			}else{
-				echo '{"code":"400","message":"评价失败","data":[]}';
+				echo '{"code":"300","message":"评价失败","data":[]}';
 			}
 		}
 	}
+	
+	
+	
+	
+	
+//=============================================================================
+//=====================2015年9月20日22:55:32=====================================
+//=====================凯凯特别要求添加的===========================================
+	/**
+	 * 
+	 */
+	function getOrderDetailPhone(){
+		//获取订单信息
+		$order = new OrderDetail();
+		$orderResult = $order ->getOrderDetailPhone($_GET['orderid']);
+		if($orderResult){
+			echo Json::makeJson("200","获取成功",$orderResult);
+		}else{
+			echo '{"code":"400","message":"获取失败","data":[]}';
+		}
+	}
+	
 }
