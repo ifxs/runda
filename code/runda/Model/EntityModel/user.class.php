@@ -350,20 +350,10 @@ class User {
 //-------------------------------------------------------------------------
 //--------------更新用户信息-----------------------------------------------
 //-------------------------------------------------------------------------
-    public function updateUserInfo($userID, $userName, $province, $city, $country, $detailAddress){
-//     	$sql = "select count(*) number from user where userName=?;";
-//     	try{
-//     		$res = DBActive::executeQuery($sql,array($userName));
-//     		if($res[0]["number"] != 0){
-//     			return Json::makeJson("400","用户名已存在","");
-//     		}
-//     	}catch (Exception $e){
-//     		return Json::makeJson("400","系统错误","");
-//     	}
-    	
-    	$sql2 = "update user set realName=?,province=?,city=?,country=?,detailAddress=? where id=?;";
+    public function updateUserInfo($userID, $realName, $province, $city, $country, $detailAddress){
+    	$sql2 = "update user set realName='?',province='?',city='?',country='?',detailAddress='?' where id=?;";
     	try{
-    		$result = DBActive::executeNoQuery($sql2,array($userName, $province, $city, $country, $detailAddress,$userID));
+    		$result = DBActive::executeNoQuery($sql2,array($realName, $province, $city, $country, $detailAddress,$userID));
     		return Json::makeJson("200","更新成功","");
     	}catch(PDOException $e){
     		return Json::makeJson("400","系统错误","");

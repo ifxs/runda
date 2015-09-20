@@ -301,6 +301,27 @@ class WaterStoreController{
 		$waterStore = new WaterStore();
 		$orderResult = $waterStore ->getAllOrder($_SESSION['waterStoreID'],$currentPage,$singlePageRecordCount);
 	    
+		//引入订单包含桶装水模型文件
+		require(DOC_PATH_ROOT."/Model/EntityModel/ordercontaingoods.class.php");
+		
+// 		//获取订单所含的桶装水
+// 		$orderContainGoods = new OrderContainGoods();
+// 		$orderContainGoodsResult = array();
+// 		if($orderResult != null){
+// 			$orderCount = count($orderResult);
+// 			for($i =0 ;$i < $orderCount; $i++){
+// 				$orderContainGoodsResult[] = $orderContainGoods ->getGoodsByOrderID($orderResult[$i]['id']);
+// 			}
+// 		}
+		require DOC_PATH_ROOT.'/Model/EntityModel/orderstatue.class.php';
+		//获取订单状态
+		$orderStatueArrRaw = OrderStatue::getOrderStatue();
+		$orderStatueArr = array();
+		foreach ($orderStatueArrRaw as $key => $value) {
+			$orderStatueArr[] = $value['orderStatueName'];
+		}
+		
+		
 	    //分页条
 	    $pageBar = Pages::createPagesBar($currentPage,$pageCount,"/index.php?controller=WaterStore&method=getAllOrder");
 		include DOC_PATH_ROOT.'/View/WaterStore/getAllOrder.php';
