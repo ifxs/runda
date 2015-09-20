@@ -815,7 +815,7 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 			if($result){
 				echo '{"code":"200","message":"收货成功","data":[]}';
 			}else{
-				echo '{"code":"400","message":"收货失败","data":[]}';
+				echo '{"code":"300","message":"收货失败","data":[]}';
 			}	
 		}else{
 			echo '{"code":"400","message":"请求错误","data":[]}';
