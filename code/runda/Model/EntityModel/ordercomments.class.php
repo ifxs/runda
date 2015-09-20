@@ -14,7 +14,8 @@ class OrderComments{
 				return false;
 			}
 		}catch(PDOException $e){
-			return false;
+// 			return false;
+			return $e->getMessage();;
 		}
 	}
 }

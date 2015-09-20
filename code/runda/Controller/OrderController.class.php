@@ -830,11 +830,12 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 		}else{
 			require_once(DOC_PATH_ROOT."/Model/EntityModel/ordercomments.class.php");
 			$res = OrderComments::commentOrder($_POST['orderID'],$_SESSION['id'],$_POST['CommentContent']);
-			if($res){
-				echo '{"code":"200","message":"评价成功","data":[]}';
-			}else{
-				echo '{"code":"300","message":"评价失败","data":[]}';
-			}
+// 			if($res){
+// 				echo '{"code":"200","message":"评价成功","data":[]}';
+// 			}else{
+// 				echo '{"code":"300","message":"评价失败","data":[]}';
+// 			}
+var_dump($res);
 		}
 	}
 	
