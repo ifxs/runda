@@ -621,7 +621,7 @@ class OrderDetail{
 		$date = time();
 		//物流信息
 		$logInfo = date("Y-m-d H:i:s").' ---> 已收货<br />';
-		$sql = "update orderDetail set orderCategory=3,orderStatue=8,orderDoneTime=?,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}') where id=?";
+		$sql = "update orderDetail set orderCategory=3,orderStatue=7,orderDoneTime=?,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}') where id=?";
 		try{
 			$rowCount = DBActive::executeNoQuery($sql,array($date,$orderid));
 			if($rowCount > 0){

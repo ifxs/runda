@@ -770,7 +770,7 @@ $_POST['waterGoodsID'],$_POST['waterGoodsCount'],$_POST['waterGoodsPrice']);
 		//1 查询订单详情
 		$orderDetail = $order ->getOrderDetailByOrderID($orderID);
 		if($orderDetail){
-			echo Json::makeJson("200","查询订单成功",$orderDetail);
+			echo Json::makeJsonIncludeJson("200","查询订单成功",$orderDetail);
 		}else{
 			echo '{"code":"400","message":"没有查询到相关订单","data":[]}';
 		}
