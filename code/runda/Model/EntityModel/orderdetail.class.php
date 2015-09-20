@@ -101,7 +101,7 @@ class OrderDetail{
 	 */
 	public function cancelOrder($orderid){
 		$logInfo = date("Y-m-d H:i:s")." ---> 取消订单<br />";
-		$sql = "update orderDetail set orderCategory=2,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')  where id=?";
+		$sql = "update orderDetail set orderCategory=2,orderStatue=2,logisticeInformation=concat(orderDetail.logisticeInformation,'{$logInfo}')  where id=?";
 		try{
 			$rowCount = DBActive::executeNoQuery($sql,array($orderid));
 			if($rowCount > 0){
@@ -688,7 +688,7 @@ class OrderDetail{
 	 * 送水工抢单
 	 */
 	public static function addToBearOrders($waterBearerID,$id){
-		$sql = "update orderDetail set waterBearerID=? where id=?";
+		$sql = "update orderDetail set orderStatue=3,waterBearerID=? where id=?";
 		try{
 			$res = DBActive::executeNoQuery($sql,array($waterBearerID,$id));
 // 			if($res){
