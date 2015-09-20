@@ -4,7 +4,7 @@ class OrderComments{
 	 *添加订单评论
 	 */
 	public static function commentOrder($orderID,$userID,$CommentContent){
-		$CommentTime = date("Y-m-d H:i:s");
+		$CommentTime = time();
 		$sql = "insert into orderComments (orderID,userID,CommentContent,CommentTime) values(?,?,?,?)";
 		try{
 			$rowCount = DBActive::executeNoQuery($sql,array($orderID,$userID,$CommentContent,$CommentTime));
@@ -14,8 +14,8 @@ class OrderComments{
 				return false;
 			}
 		}catch(PDOException $e){
-// 			return false;
-			return $e->getMessage();;
+			return false;
+// 			return $e->getMessage();;
 		}
 	}
 }
