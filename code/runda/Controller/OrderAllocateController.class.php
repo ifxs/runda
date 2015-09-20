@@ -102,7 +102,7 @@ class OrderAllocateController{
 		if(empty($_GET)){
 			echo '{"code":"400","msg":"请求错误","data":""}';
 		}else{
-			$res = OrderDetail::addToBearOrders($_GET['waterBearerID'],$_GET['orderid']);
+			$res = OrderDetail::addToBearOrders($_GET['wbid'],$_GET['orderid']);
 			if($res){
 				echo '{"code":"200","msg":"抢单成功","data":""}';
 			}else{

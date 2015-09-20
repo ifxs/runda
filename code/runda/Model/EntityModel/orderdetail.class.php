@@ -117,7 +117,8 @@ class OrderDetail{
 	 *删除订单
 	 */
 	public function deleteOrder($orderid,$userid){
-		$sql = "delete from orderDetail where orderOwnerID=? and (orderCategory=1 or orderStatue=0) and id=?";
+// 		$sql = "delete from orderDetail where orderOwnerID=? and (orderCategory=1 or orderStatue=0) and id=?";
+		$sql = "delete from orderDetail where orderOwnerID=? and id=?";
 		try{
 			$rowCount = DBActive::executeNoQuery($sql,array($userid,$orderid));
 			if($rowCount > 0){
