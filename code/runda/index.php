@@ -67,7 +67,7 @@ if($controller == "RunDa"){
 					"placeOrderPhone","settleOrderPhone",
 					"getAllOrderPhone","getDoneOrderPhone","getUnfinishedOrderPhone","getNonPaymentOrderPhone",
 					"getCanceleddOrderPhone","getFaileddOrderPhone",
-					"viewOrderPhone"
+					"viewOrderPhone","done"
 			);
 			if(in_array($method,$returnJSONArray)){
 				echo JSON::makeJson("600","用户还没有登录");
