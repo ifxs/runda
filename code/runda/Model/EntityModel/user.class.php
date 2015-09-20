@@ -350,7 +350,7 @@ class User {
 //-------------------------------------------------------------------------
 //--------------更新用户信息-----------------------------------------------
 //-------------------------------------------------------------------------
-    public function updateUserInfo($userID, $realName, $province, $city, $country, $detailAddress){
+    public function updateUserInfo($userID, $userName, $province, $city, $country, $detailAddress){
 //     	$sql = "select count(*) number from user where userName=?;";
 //     	try{
 //     		$res = DBActive::executeQuery($sql,array($userName));

@@ -97,7 +97,7 @@ class OrderDetail{
 //---------------------------------------------------------------
 	/**
 	 *取消订单
-	 *    orderCancelReason orderCategory,orderStatue
+	 * orderCancelReason orderCategory,orderStatue
 	 */
 	public function cancelOrder($orderid){
 		$logInfo = date("Y-m-d H:i:s")." ---> 取消订单<br />";

@@ -24,15 +24,15 @@
 			<h4>送水工管理</h4><br />
 			<ul class="nav nav-pills nav-stacked">
   				<li role="presentation"><a href="index.php?controller=WaterStore&method=getAllWaterBearers" target="contentIframe">查看所有送水工</a></li>
-  				<li role="presentation"><a href="#">查看送水工位置</a></li>
-				<li role="presentation"><a href="index.php?controller=WaterStore&method=addWaterBearer" target="contentIframe">查看送水工业绩</a></li>
+<!--   				<li role="presentation"><a href="#">查看送水工位置</a></li> -->
+<!-- 				<li role="presentation"><a href="index.php?controller=WaterStore&method=addWaterBearer" target="contentIframe">查看送水工业绩</a></li> -->
 				<li role="presentation"><a href="index.php?controller=WaterStore&method=addWaterBearer" target="contentIframe">添加送水工</a></li>
 				<li role="presentation"><a href="index.php?controller=WaterStore&method=delWaterBearer" target="contentIframe">删除送水工</a></li>
 			</ul>
 			<hr />
 			<h4>水站业绩</h4><br />
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation"><a href="index.php?controller=WaterStore&method=achievementManage" target="contentIframe">水站业绩</a></li>
+<!-- 				<li role="presentation"><a href="index.php?controller=WaterStore&method=achievementManage" target="contentIframe">水站业绩</a></li> -->
 				<li role="presentation"><a href="index.php?controller=WaterStore&method=getAllOrder" target="contentIframe">所有订单</a></li>
 			</ul>
 			<hr />
