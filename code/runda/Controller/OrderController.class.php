@@ -486,7 +486,7 @@ class OrderController{
 // 		}
 // 	}
 	/**
-	 * 评价  界面
+	 * 评价  界面 处理
 	 */
 	public function doComment(){
 		if(empty($_POST)){
@@ -500,14 +500,14 @@ class OrderController{
 				$res = "收货失败!";
 			}
 		}else{
-			var_dump($_POST);
 			require_once(DOC_PATH_ROOT."/Model/EntityModel/ordercomments.class.php");
 			$res = OrderComments::commentOrder($_POST['orderid'],$_SESSION['id'],$_POST['CommentContent']);
 			if($res){
-				echo '{"code":"200","message":"评价成功","data":[]}';
+				$info= '评价成功,2秒后跳转';
 			}else{
-				echo '{"code":"300","message":"评价失败","data":[]}';
+				$info= '评价失败,请稍后再试';
 			}
+			include DOC_PATH_ROOT.'/View/Order/doneComment.php';
 		}
 	}
 //----------------------------------------------------------------
