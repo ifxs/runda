@@ -351,12 +351,13 @@ class User {
 //--------------更新用户信息-----------------------------------------------
 //-------------------------------------------------------------------------
     public function updateUserInfo($userID, $realName, $province, $city, $country, $detailAddress){
-    	$sql2 = "update user set realName='?',province='?',city='?',country='?',detailAddress='?' where id=?;";
+    	$sql2 = "update user set realName=?,province=?,city=?,country=?,detailAddress=? where id=?";
     	try{
     		$result = DBActive::executeNoQuery($sql2,array($realName, $province, $city, $country, $detailAddress,$userID));
     		return Json::makeJson("200","更新成功","");
     	}catch(PDOException $e){
     		return Json::makeJson("400","系统错误","");
+// return $e->getMessage(); 
     	}
     }
     
