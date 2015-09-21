@@ -4,7 +4,7 @@
 ?>
 <!-- 顶部结束 -->
 <!-- 主体 -->
-<div class="body">
+<div class="body" style="text-align: center;font-size:18px;height:300px;padding-top:102px;">
 	<?php
 		if($way == 'onlinePay'){
 			echo "支付成功,我们会在您预定的时间前后半小时内送达,请您悉知";

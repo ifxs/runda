@@ -1,0 +1,1 @@
+[2015-09-21 13:35:21] JPush.DEBUG: Send POST {"method":"POST","uri":"https://api.jpush.cn/v3/push","headers":{"User-Agent":"JPush-API-PHP-Client","Connection":"Keep-Alive","Charset":"UTF-8","Content-Type":"application/json"},"body":"{\"platform\":\"all\",\"audience\":\"all\",\"notification\":{\"alert\":\"\"},\"options\":{\"sendno\":78788,\"apns_production\":false}}"} []

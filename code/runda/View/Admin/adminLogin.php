@@ -63,7 +63,8 @@
 				</form>
 			</div>
 	</div>
-<?php
-	include DOC_PATH_ROOT.'/View/Admin/footer.php';
-?>
 <script src="/Content/javascript/js/admin/admin_login_ajax_valide_checkcode.js"></script>
+<script src="/Content/javascript/jquery/jquery.min.js"></script>
+<script src="/Content/javascript/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

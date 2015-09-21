@@ -27,7 +27,6 @@
 				  <ul class="dropdown-menu" role="menu">
 				    <li><a href="index.php?controller=Home&method=personPage">个人中心</a></li>
 				    <li><a href="index.php?controller=Home&method=manageMyShoppingCart"  target="_blank">查看购物车</a></li>
-				    <li><a href="#">测试A</a></li>
 				    <li><a href="index.php?controller=Home&method=quit">退出</a></li>
 				  </ul>
 			</div>';
