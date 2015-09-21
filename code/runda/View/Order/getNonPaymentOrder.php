@@ -66,7 +66,7 @@
                    <td>'.date("Y-m-d H:i:s",$orderResult[$t]['orderSubmitTime']).'</td>
                    <td>'.$orderResult[$t]['remark'].'</td>
                    <td>
-                   <a href="index.php?controller=Order&method=cancelOrderProc&orderid='.$orderResult[$t]['id'].'" target="_blank">取消</a>
+                   <a href="javascript:void(0)" onclick="cancelOrder('.$orderResult[$t]['id'].');">取消</a>
                    ||
                    <a href="javascript:void(0)" onclick="deleteOrder('.$orderResult[$t]['id'].');">删除</a>
                    <br />
@@ -92,4 +92,5 @@
 <?php
 	include DOC_PATH_ROOT.'/View/footer_inner.php';
 ?>
+<script src="/Content/javascript/js/order/cancel_order_ajax.js"></script>
 <script src="/Content/javascript/js/order/delete_order_ajax.js"></script>

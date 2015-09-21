@@ -99,7 +99,7 @@
 			echo '<br /><br /><a type="button" class="btn btn-danger btn-mid" href="index.php?controller=Order&method=orderSettle&orderid='.$orderDetail['id'].'">现在结算</a>';
 		}
 		if($orderDetail['orderStatue'] == 6){
-			echo '<br /><br /><a type="button" class="btn btn-danger btn-mid" href="index.php?controller=Order&method=orderSettle&orderid='.$orderDetail['id'].'">确认收货</a>';
+			echo '<br /><br /><a type="button" class="btn btn-danger btn-mid" href="index.php?controller=Order&method=doComment&orderid='.$orderDetail['id'].'">确认收货</a>';
 		}
 		echo '</div>';
 	}else{

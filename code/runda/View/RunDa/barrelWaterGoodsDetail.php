@@ -70,7 +70,7 @@
 			<br />
 			<p>
 	        	<button class="btn btn-danger" role="button" onclick="addCartFun(<?php echo $barrelWaterGoodsResult['id']; ?>);">加购物车</button>
-	        	<button class="btn btn-danger" role="button">加收藏&nbsp;&nbsp;<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button>
+<!-- 	        	<button class="btn btn-danger" role="button">加收藏&nbsp;&nbsp;<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button> -->
 	        	<!-- <button class="btn btn-danger" role="button">已收藏&nbsp;&nbsp;<span class="glyphicon glyphicon-heart" aria-hidden="true"></span></button> -->
         	</p>
 		</div>
@@ -84,7 +84,7 @@
 		  <ul class="nav nav-tabs" role="tablist">
 		    <li role="presentation" class="active"><a href="#waterGoodsDescript" aria-controls="waterGoodsDescript" role="tab" data-toggle="tab">桶装水介绍</a></li>
 		    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">桶装水评价(<?php echo count($barrelWaterGoodsCommentsResult); ?>)</a></li>
-		    <li role="presentation"><a href="#afterSaleService" aria-controls="afterSaleService" role="tab" data-toggle="tab">售货保障</a></li>
+<!-- 		    <li role="presentation"><a href="#afterSaleService" aria-controls="afterSaleService" role="tab" data-toggle="tab">售货保障</a></li> -->
 		  </ul>
 
 		  <!-- Tab panes -->
@@ -108,9 +108,9 @@
 		    	?>
 		    </div>
 			<!--售后 -->
-		    <div role="tabpanel" class="tab-pane" id="afterSaleService">
-				在线订购与您亲临水站选购的商品享受相同的质量保证。还为您提供具有竞争力的商品价格和运费政策，请您放心购买！ 
-		    </div>
+<!-- 		    <div role="tabpanel" class="tab-pane" id="afterSaleService"> -->
+<!-- 				在线订购与您亲临水站选购的商品享受相同的质量保证。还为您提供具有竞争力的商品价格和运费政策，请您放心购买！  -->
+<!-- 		    </div> -->
 		  </div>
 		</div>
 	</div>

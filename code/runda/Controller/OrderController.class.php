@@ -475,24 +475,39 @@ class OrderController{
         include DOC_PATH_ROOT.'/View/Order/getFaileddOrder.php';
 	}
 
-	/**
-	 * 收货
-	 */
-	public function xx(){
-		if(isset($_GET['orderid'])){
+// 	/**
+// 	 * 收货
+// 	 */
+// 	public function xx(){
+// 		if(isset($_GET['orderid'])){
 			
-		}else{
+// 		}else{
 			
-		}
-	}
+// 		}
+// 	}
 	/**
-	 * 评价
+	 * 评价  界面
 	 */
-	public function xxx(){
+	public function doComment(){
 		if(empty($_POST)){
-				
+			//先收货
+			$order = new OrderDetail();
+			$result = $order ->done($_GET['orderid']);
+			if($result){
+				$res = "收货成功!";
+				include DOC_PATH_ROOT.'/View/Order/doComment.php';
+			}else{
+				$res = "收货失败!";
+			}
 		}else{
-				
+			var_dump($_POST);
+			require_once(DOC_PATH_ROOT."/Model/EntityModel/ordercomments.class.php");
+			$res = OrderComments::commentOrder($_POST['orderid'],$_SESSION['id'],$_POST['CommentContent']);
+			if($res){
+				echo '{"code":"200","message":"评价成功","data":[]}';
+			}else{
+				echo '{"code":"300","message":"评价失败","data":[]}';
+			}
 		}
 	}
 //----------------------------------------------------------------

@@ -10,7 +10,7 @@ class OrderComments{
 		$sql2 = "update orderDetail set orderStatue=8 where id=?";
 		try{
 			$rowCount = DBActive::executeNoQuery($sql,array($orderID,$userID,$CommentContent,$CommentTime));
-			DBActive::executeNoQuery($sql,array($orderID));
+			DBActive::executeNoQuery($sql2,array($orderID));
 			if($rowCount > 0){
 					return true;
 			}else{

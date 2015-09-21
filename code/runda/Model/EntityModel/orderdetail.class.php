@@ -544,7 +544,7 @@ class OrderDetail{
 	public function getUnfinishedOrderPhone($userID){
 // 		$sql = "select id,recieverTime,remark,totalPrice,settleMethod,orderStatue,orderSubmitTime,orderDoneTime from orderDetail where orderCategory=0 and orderOwnerID=? order by orderSubmitTime desc;";
 		$sql = "select t1.*,t2.waterStoreName,t2.waterStoreTellPhone,t3.*,t4.* from orderDetail as t1,waterstore as t2,barrelwatergoods as t3,ordercontaingoods as t4
-		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderStatue<5 and orderOwnerID=? order by orderSubmitTime desc";
+		where t1.waterStoreID=t2.id and t1.id=t4.orderID and t3.id=t4.waterGoodsID and orderStatue<5 and orderCategory=0 and orderOwnerID=? order by orderSubmitTime desc";
 		
 		try{
 			$result = DBActive::executeQuery($sql,array($userID));

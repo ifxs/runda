@@ -1,25 +1,11 @@
-.head{
-	/*display: inline;*/
+.body{
+	padding-left:12px;
+	padding-top:12px;
 }
 .head .logo_box{
 	display: inline;
 	font-size: 28px;
 }
 .head .logo_box .name_box{
-	/*margin-left: 500px;*/
-	text-align: center;
-	font-size:28px;
-}
-.left_box{
-		float: left;
-		width: 80%;
-		border: 1px solid red;
-}
-.right_box{
-		float: right;
-		width: 16%;
-		border: 1px solid red;
-}
-.clear_float{
-	clear: both;
+	font-size:22px;
 }
